@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+    flask-api:
+        build: backend
+        ports:
+            - "5454:5454"
+
+    vue-app:
+        build: frontend
+        ports:
+            - "8080:3000"

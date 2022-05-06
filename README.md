@@ -32,7 +32,6 @@ $ sudo apt-install docker
 **Docker**
 
 ``` shell
-$ cd Website
 $ sudo docker-compose build
 $ sudo docker-compose up
 ```
@@ -40,7 +39,7 @@ $ sudo docker-compose up
 **Séparation des images**
 
 ``` shell
-$ cd Website/backend
+$ cd backend
 $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
@@ -48,7 +47,7 @@ $ python3 tazmouApp.py
 ```
 
 ``` shell
-$ cd Website/frontend
+$ cd frontend
 $ npm install package-lock.json
 $ npm run serve
 ```
