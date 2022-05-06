@@ -6,6 +6,8 @@
 *.iml
 out
 gen
+
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -145,4 +147,14 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Ignore database file(s)
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+*.sqlite3-stmt
+*.sqlite3-db
+*.sqlite3-shard-*
+*.db
 
