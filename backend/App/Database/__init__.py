@@ -81,6 +81,7 @@ def create_database() -> str:
             receiver_user_id INTEGER NOT NULL,
             star_rank INTEGER NOT NULL,
             message TEXT NOT NULL,
+            date TEXT NOT NULL,
             FOREIGN KEY (giver_user_id) REFERENCES Users(id),
             FOREIGN KEY (receiver_user_id) REFERENCES Users(id)
         );
