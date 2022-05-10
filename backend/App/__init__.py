@@ -28,6 +28,8 @@ def create_app() -> Flask:
     app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 
     # Import blueprints
+    from App.Blueprints.AuthBlueprint import auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
     # Handle JWT with the app to enable authentication
     JWTManager(app)

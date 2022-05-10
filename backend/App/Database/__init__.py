@@ -48,8 +48,8 @@ def create_database() -> str:
         DROP TABLE IF EXISTS Users;
         DROP TABLE IF EXISTS Stars;
         DROP TABLE IF EXISTS TNder;
-        DROP TABLE IF EXISTS Chalenges;
-        DROP TABLE IF EXISTS Callendar;
+        DROP TABLE IF EXISTS Challenges;
+        DROP TABLE IF EXISTS Calendar;
         DROP TABLE IF EXISTS DailyGame;
         DROP TABLE IF EXISTS Notifications;
         DROP TABLE IF EXISTS Suggestions;
@@ -58,19 +58,20 @@ def create_database() -> str:
         CREATE TABLE Users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT NOT NULL,
-            current_year INTEGER NOT NULL,
-            promotion_year INTEGER NOT NULL,
-            points INTEGER NOT NULL,
-            godfather_id INTEGER NOT NULL,
-            facebook TEXT NOT NULL,
-            snapchat TEXT NOT NULL,
-            instagram TEXT NOT NULL,
-            google TEXT NOT NULL,
-            hometown TEXT NOT NULL,
-            studies TEXT NOT NULL,
-            personal_message TEXT NOT NULL,
-            last_login TEXT NOT NULL,
-            color TEXT NOT NULL,
+            username TEXT NOT NULL,
+            current_year INTEGER,
+            promotion_year INTEGER,
+            points INTEGER,
+            godfather_id INTEGER,
+            facebook TEXT,
+            snapchat TEXT,
+            instagram TEXT,
+            google TEXT,
+            hometown TEXT,
+            studies TEXT,
+            personal_message TEXT,
+            last_login TEXT,
+            color TEXT,
             FOREIGN KEY (godfather_id) REFERENCES Users(id)
         );
         
