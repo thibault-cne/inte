@@ -12,6 +12,8 @@
 #  Last modification : 2022/5/6
 
 # Import needed packages
+from typing import Union
+
 from flask import Blueprint, request, jsonify, Response
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -33,14 +35,14 @@ CLIENT_ID = getenv('CLIENT_ID')
 
 
 @auth_blueprint.route('/auth-api/<string:method>', methods=['GET', 'POST'])
-def auth(method: str) -> Response:
+def auth(method: str) -> Union[Response, str]:
     if request.method == 'POST':
         if method == 'login':
             # Create the return payload
             return_payload = {'status': 'success'}
 
             # Get the token from the request
-            token = request.json['token']
+            token = request.json['credential']
             try:
                 # Specify the CLIENT_ID of the app that accesses the backend:
                 id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)

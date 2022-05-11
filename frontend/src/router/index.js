@@ -16,11 +16,28 @@ const routes = [
     meta: {
       title: "About",
     },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    meta: {
+      title: "Login",
+    },
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+  },
+  {
+    path: "/facebook-feed",
+    name: "facebook-feed",
+    meta: {
+      title: "Facebook Feed",
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "facebook-feed" */ "../views/FacebookFeed.vue"
+      ),
   },
 ];
 

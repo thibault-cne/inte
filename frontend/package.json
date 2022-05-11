@@ -15,7 +15,8 @@
     "vue3-google-auth": "^0.0.2",
     "vue3-google-oauth2": "^1.0.6",
     "vuex": "^4.0.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
