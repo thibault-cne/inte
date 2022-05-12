@@ -13,7 +13,7 @@ function refreshToken() {
         headers: header,
       })
       .then((response) => {
-        store.commit("setAccessToken", response.data.accessToken);
+        store.commit("setAccessToken", response.data.access_token);
         location.reload();
         resolve();
       })

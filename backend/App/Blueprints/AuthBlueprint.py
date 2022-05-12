@@ -19,8 +19,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from dotenv import load_dotenv
 from os import getenv
-from flask_jwt_extended import create_access_token, create_refresh_token
-
+from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 
 # Import personal packages
 from App.Database.AddFunctions.addUser import add_user
@@ -82,3 +81,13 @@ def auth(method: str) -> Union[Response, str]:
     if request.method == 'GET':
         if method == 'login':
             return 'login'
+
+
+# Route to refresh the token
+@auth_blueprint.route('/auth-api/refresh', methods=['GET'])
+@jwt_required(refresh=True)
+def refreshToken():
+    if request.method == 'GET':
+        current_user = get_jwt_identity()
+        new_token = create_access_token(identity=current_user)
+        return jsonify({"access_token": new_token})

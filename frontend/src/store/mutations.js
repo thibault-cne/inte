@@ -1,7 +1,7 @@
 const mutations = {
-  updateStorage(state, { access, refresh }) {
-    state.accessToken = access;
-    state.refreshToken = refresh;
+  updateStorage(state, credentials) {
+    state.accessToken = credentials.access_token;
+    state.refreshToken = credentials.refresh_token;
   },
   destroyToken(state) {
     state.accessToken = null;
