@@ -2,7 +2,7 @@
   <div class="login-comp">
     <div
       id="g_id_onload"
-      data-client_id="938768924694-4b483tmfbeogob3pmn4s5u5ujngqm43b.apps.googleusercontent.com"
+      :data-client_id="google_client_id"
       data-callback="loginCallback"
     ></div>
     <div class="g_id_signin" data-type="standard"></div>
@@ -13,6 +13,11 @@
 import { handleSignIn } from "@/apis/google-api";
 
 export default {
+  data() {
+    return {
+      google_client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
+    };
+  },
   name: "LoginView",
   mounted() {
     window.loginCallback = function (googleUser) {
