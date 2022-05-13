@@ -2,9 +2,9 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import { actions } from "./actions";
 import { mutations } from "./mutations";
-import { getters } from "@/store/getters";
+import { getters } from "@/store/authStore/getters";
 
-const store = createStore({
+const authStore = createStore({
   state: {
     accessToken: null,
     refreshToken: null,
@@ -15,4 +15,4 @@ const store = createStore({
   plugins: [createPersistedState()],
 });
 
-export { store };
+export { authStore };

@@ -1,4 +1,4 @@
-import { store } from "@/store";
+import { authStore } from "@/store/authStore";
 
 function createHeader(headerType) {
   let header;
@@ -10,8 +10,8 @@ function createHeader(headerType) {
   } else {
     contentType = "application/x-www-form-urlencoded";
   }
-  if (store.getters.loggedIn) {
-    const token = "Bearer ".concat(store.getters.accessToken);
+  if (authStore.getters.loggedIn) {
+    const token = "Bearer ".concat(authStore.getters.accessToken);
     header = {
       Authorization: token,
       "Content-Type": contentType,

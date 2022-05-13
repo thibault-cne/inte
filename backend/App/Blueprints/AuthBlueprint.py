@@ -13,7 +13,6 @@
 
 # Import needed packages
 from typing import Union
-
 from flask import Blueprint, request, jsonify, Response
 from google.oauth2 import id_token
 from google.auth.transport import requests
@@ -56,7 +55,6 @@ def auth(method: str) -> Union[Response, str]:
                 #     raise ValueError('Wrong hosted domain.')
 
                 # ID token is valid. Get the user's Google Account ID from the decoded token.
-                userid = id_info['sub']
                 username = id_info['given_name'] + ' ' + id_info['family_name']
                 email = id_info['email']
 

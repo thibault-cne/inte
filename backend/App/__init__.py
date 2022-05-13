@@ -3,8 +3,16 @@ from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
+from dotenv import load_dotenv
+from os import getenv
 
 # Import personal packages
+
+
+# Load the dotenv file
+load_dotenv()
+APP_SECRET_KEY = getenv('APP_SECRET_KEY')
+JWT_SECRET_KEY = getenv('JWT_SECRET_KEY')
 
 
 # Definition of the app
@@ -15,13 +23,10 @@ def create_app() -> Flask:
     """
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'jOQiU7q9I2l4eycgKM3hh6oTy7CEaX6j'
-
-    # Config upload folder
-    app.config['UPLOAD_FOLDER'] = "./Data/ProfilPictures/"
+    app.config['SECRET_KEY'] = APP_SECRET_KEY
 
     # JWT Configuration
-    app.config["JWT_SECRET_KEY"] = "VSfa4AP9UHqdM00NWXs0N3KgxoAeOZXK"
+    app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
     app.config["JWT_HEADER_TYPE"] = "Bearer"
     app.config["JWT_TOKEN_LOCATION"] = "headers"
     app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)

@@ -1,5 +1,5 @@
 import { getAPI } from "@/apis/axios-api";
-import { store } from "@/store";
+import { authStore } from "@/store/authStore";
 
 function refreshToken() {
   const token = "Bearer ".concat(store.getters.refreshToken);
@@ -13,14 +13,14 @@ function refreshToken() {
         headers: header,
       })
       .then((response) => {
-        store.commit("setAccessToken", response.data.access_token);
+        authStore.commit("setAccessToken", response.data.access_token);
         location.reload();
         resolve();
       })
       .catch((error) => {
         if (error.response) {
           if (error.response.status === 401) {
-            store.commit("destroyToken");
+            authStore.commit("destroyToken");
             location.reload();
           }
         }
