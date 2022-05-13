@@ -1,10 +1,25 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div>
+  <!-- <div v-if="loggedIn">
+    <NavBar />
+  </div> -->
   <router-view />
+ </div>
 </template>
+
+<script>
+import { authStore } from "./store/authStore";
+import NavBar from "./components/NavBar.vue";
+
+export default {
+    data() {
+        return {
+            loggedIn: authStore.getters.loggedIn,
+        };
+    },
+    components: { NavBar }
+}
+</script>
 
 <style lang="scss">
 #app {
