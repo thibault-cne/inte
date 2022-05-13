@@ -2,7 +2,7 @@ import { getAPI } from "@/apis/axios-api";
 import { authStore } from "@/store/authStore";
 
 function refreshToken() {
-  const token = "Bearer ".concat(store.getters.refreshToken);
+  const token = "Bearer ".concat(authStore.getters.refreshToken);
   const header = {
     Authorization: token,
     "Content-Type": "application/json",
