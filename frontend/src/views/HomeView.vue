@@ -1,17 +1,17 @@
 <template>
     <div class="grid-container">
-        <div class="info">info</div>
+        <div class="info"><InfoBar /></div>
         <div class="etoiles">etoiles</div>
         <div class="feed">feed</div>
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import InfoBar from "../components/InfoBar.vue";
 
 export default {
   name: "HomeView",
-  components: { },
+  components: { InfoBar },
 };
 </script>
 
