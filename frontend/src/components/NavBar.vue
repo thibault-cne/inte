@@ -1,7 +1,7 @@
 <template>
     <div>
         <input type="checkbox" id="toggle" class="visuallyHidden">
-        <label for="toggle" class="navbar">
+        <div class="navbar">
             <div class="navbarItem">
                 <div class="navbarLogo"></div>
                 <div class="navbarText">TEST TEXTE</div>
@@ -18,7 +18,8 @@
                 <div class="navbarLogo"></div>
                 <div class="navbarText">PAREIL MDR</div>
             </div>
-        </label>
+            <label for="toggle" class="toggleBtn"></label>
+        </div>
     </div>
 </template>
 
@@ -35,15 +36,24 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: flex-end;
     height: 100%;
     width: 5vw;
     background: rgb(244, 130, 244);
     transition: 200ms ease-out;
 }
 
-#toggle:checked + label {
+#toggle:checked ~ .navbar {
     width: 12vw;
+}
+
+.toggleBtn {
+    height: 2vw;
+    width: 2vw;
+    background: black;
+    margin-top: auto;
+    margin-bottom: 1vw;
+    margin-right: 1.5vw;
 }
 
 .visuallyHidden {
@@ -77,7 +87,7 @@ export default {
     transition-delay: 200ms;
 }
 
-#toggle:checked + label .navbarText {
+#toggle:checked ~ .navbar .navbarItem .navbarText {
     opacity: 1;
 }
 </style>
