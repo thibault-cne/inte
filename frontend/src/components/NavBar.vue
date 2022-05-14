@@ -18,7 +18,7 @@
                 <div class="navbarLogo"></div>
                 <div class="navbarText">PAREIL MDR</div>
             </div>
-            <label for="toggle" class="toggleBtn"></label>
+            <label for="toggle" class="toggleBtn">click</label>
         </div>
     </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     height: 100%;
     width: 5vw;
     background: rgb(244, 130, 244);
-    transition: 200ms ease-out;
+    transition: 200ms ease;
 }
 
 #toggle:checked ~ .navbar {
@@ -89,6 +89,7 @@ export default {
     margin-top: auto;
     margin-bottom: 1vw;
     margin-right: 1.5vw;
+    color: white;
 }
 
 </style>
