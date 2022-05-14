@@ -47,15 +47,6 @@ export default {
     width: 12vw;
 }
 
-.toggleBtn {
-    height: 2vw;
-    width: 2vw;
-    background: black;
-    margin-top: auto;
-    margin-bottom: 1vw;
-    margin-right: 1.5vw;
-}
-
 .visuallyHidden {
     position: absolute;
     left: -100vw;
@@ -84,10 +75,20 @@ export default {
 .navbarText {
     opacity: 0;
     margin-left: .5vw;
-    transition-delay: 200ms;
 }
 
 #toggle:checked ~ .navbar .navbarItem .navbarText {
     opacity: 1;
+    transition-delay: 200ms;
 }
+
+.toggleBtn {
+    height: 2vw;
+    width: 2vw;
+    background: black;
+    margin-top: auto;
+    margin-bottom: 1vw;
+    margin-right: 1.5vw;
+}
+
 </style>
