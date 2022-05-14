@@ -13,5 +13,6 @@
     width: 4vw;
     background: white;
     border-radius: 1vw;
+    /* box-shadow: none */
 }
 </style>

@@ -42,7 +42,7 @@ export default {
 // }
 
 .blocNavbar {
-  position: absolute;
+  position: fixed;
   top: 10vh;
   left: 0;
   height: 90vh;
@@ -68,7 +68,7 @@ export default {
 }
 
 .blocHeader {
-  position: absolute; 
+  position: fixed; 
   z-index: 10;
   top: 0;
   left: 0;

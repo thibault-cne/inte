@@ -24,6 +24,7 @@
     width: 40%;
     background : white;
     border-radius: 4px;
+    /* box-shadow: none */
 }
 
 .lotterie {
@@ -31,6 +32,7 @@
     width: 10%;
     background : white;
     border-radius: 4px;
+    /* box-shadow: none */
 }
 
 .calendrier {
@@ -38,5 +40,6 @@
     width: 30%;
     background : white;
     border-radius: 4px;
+    /* box-shadow: none */
 }
 </style>
