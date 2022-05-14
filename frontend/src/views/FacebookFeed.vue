@@ -4,7 +4,7 @@
 
 <script>
 import axios from "axios";
-import * as convert from "xml-js";
+import { parseXML } from "@/javascript/xmlToJson";
 
 export default {
   name: "FacebookFeed",
@@ -12,11 +12,10 @@ export default {
     axios
       .get("https://rss.app/feeds/9yteWA5mbhfzeosR.xml")
       .then((response) => {
-        let result2 = convert.xml2json(response.data, {
-          compact: false,
-          spaces: 4,
+        // parsing xml data
+        parseXML(response.data).then((data) => {
+          console.log(data);
         });
-        console.log(result2);
       })
       .catch((error) => {
         console.log(error);
