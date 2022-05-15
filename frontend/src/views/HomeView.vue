@@ -1,9 +1,9 @@
 <template>
-    <div class="grid-container">
-        <div class="info"><InfoBar /></div>
-        <div class="etoiles">etoiles</div>
-        <div class="feed">feed</div>
-    </div>
+  <div class="grid-container">
+    <div class="info"><InfoBar /></div>
+    <div class="etoiles">etoiles</div>
+    <div class="feed">feed</div>
+  </div>
 </template>
 
 <script>
@@ -25,17 +25,17 @@ export default {
 }
 
 .info {
-  grid-area : 1 / 1 / 2 / -1;
-  background: rgb(237, 200, 106)
+  grid-area: 1 / 1 / 2 / -1;
+  background: rgb(237, 200, 106);
 }
 
 .etoiles {
-  grid-area : 2 / 1 / -1 / 2;
-  background: rgb(237, 106, 106)
+  grid-area: 2 / 1 / -1 / 2;
+  background: rgb(237, 106, 106);
 }
 
 .feed {
-  grid-area : -2 / -2 / -1 / -1;
-  background: rgb(134, 106, 237)
+  grid-area: -2 / -2 / -1 / -1;
+  background: rgb(134, 106, 237);
 }
 </style>

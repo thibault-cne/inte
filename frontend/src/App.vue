@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <!-- <div v-if="loggedIn">
       <div class="blocNavbar"><NavBar /></div>
       <div class="blocHeader"><HeaderComp /></div>
@@ -15,7 +14,6 @@
     <div class="blocHeader"><HeaderComp /></div>
     <div class="blocPage"><router-view /></div>
     <!--  -->
-
   </div>
 </template>
 
@@ -25,17 +23,16 @@ import NavBar from "./components/NavBar.vue";
 import HeaderComp from "./components/HeaderComp.vue";
 
 export default {
-    data() {
-        return {
-            loggedIn: authStore.getters.loggedIn,
-        };
-    },
-    components: { NavBar, HeaderComp }
-}
+  data() {
+    return {
+      loggedIn: authStore.getters.loggedIn,
+    };
+  },
+  components: { NavBar, HeaderComp },
+};
 </script>
 
 <style lang="scss" scoped>
-
 // .tout {
 //   display: flex;
 //   flex-direction: row;
@@ -68,7 +65,7 @@ export default {
 }
 
 .blocHeader {
-  position: fixed; 
+  position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
