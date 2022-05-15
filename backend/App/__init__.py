@@ -36,6 +36,12 @@ def create_app() -> Flask:
     from App.Blueprints.AuthBlueprint import auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    from App.Blueprints.StarsBlueprint import stars_blueprint
+    app.register_blueprint(stars_blueprint)
+
+    from App.Blueprints.DailyLotteryBluerint import daily_lottery_blueprint
+    app.register_blueprint(daily_lottery_blueprint)
+
     # Handle JWT with the app to enable authentication
     JWTManager(app)
 
