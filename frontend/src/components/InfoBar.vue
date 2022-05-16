@@ -1,12 +1,17 @@
 <template>
   <div class="infoBar">
     <div class="recapProfil">recapProfil</div>
-    <div class="lotterie">lotterie</div>
+    <div class="lotterie"><LotteryComp /></div>
     <div class="calendrier">calendrier</div>
   </div>
 </template>
 
-<script></script>
+<script>
+import LotteryComp from "./LotteryComp.vue";
+export default {
+  components: { LotteryComp },
+};
+</script>
 
 <style scoped>
 .infoBar {
@@ -31,6 +36,8 @@
   width: 10%;
   background: white;
   border-radius: 4px;
+  flex-basis: 10%;
+  flex-shrink: 0;
   /* box-shadow: none */
 }
 
