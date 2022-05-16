@@ -15,19 +15,19 @@
 </template>
 
 <script>
-import {getRequest} from "../requests/getRequest";
+import { getRequest } from "../requests/getRequest";
 export default {
   data() {
     return {
-        lotteryDone: true,
-    }
+      lotteryDone: true,
+    };
   },
-  created() {
-    getRequest("checkDailyLottery", "json").then((res)=>{
-      this.lotteryDone = res.data
-    })
+  async created() {
+    await getRequest("check_daily_lottery", "json").then((res) => {
+      this.lotteryDone = res.data;
+    });
   },
-}
+};
 </script>
 
 <style>
@@ -42,13 +42,13 @@ export default {
 }
 
 .logo {
-  width : 70%;
+  width: 70%;
   max-height: 70%;
   background: lightskyblue;
 }
 
 .etat {
-  width : 100%;
+  width: 100%;
   height: 30%;
   background: darkcyan;
 }

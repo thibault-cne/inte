@@ -25,15 +25,14 @@ daily_lottery_blueprint = Blueprint('daily_lottery', __name__)
 
 
 @daily_lottery_blueprint.route('/check_daily_lottery', methods=['GET'])
-@jwt_required
-def check_daily_lottery():
+@jwt_required()
+def check_daily_lottery_route():
     """
     Check if the user has already played the daily lottery
     :return:
     """
     if request.method == 'GET':
         user_id = get_jwt_identity()
-
         # Check if the user has already played the daily lottery
         if check_daily_lottery(user_id):
             payload = {
