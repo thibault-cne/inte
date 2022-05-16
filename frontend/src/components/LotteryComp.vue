@@ -8,7 +8,7 @@
       </svg>
     </div>
     <div class="etat">
-      <div v-if="lotteryDone" class="compteur"></div>
+      <div v-if="lotteryDone" class="compteur">Tu as déjà joué aujourd'hui, reviens dans {{this.toDemainChrono}} !</div>
       <div v-else class="pret"></div>
     </div>
   </router-link>
@@ -20,6 +20,17 @@ export default {
   data() {
     return {
       lotteryDone: true,
+      toDemainChrono: "",
+      chrono: setInterval(() => {
+        let now = new Date().getTime();
+        let jour = 86400000
+        let aujourdhui = Math.floor(now/jour)*jour
+        let toDemain = (jour-(now-aujourdhui))-7200000
+        let toDemainH = Math.floor(toDemain/3600000)
+        let toDemainM = Math.floor(toDemain % 3600000 / 60000)
+        let toDemainS = Math.floor(toDemain % 3600000 % 60000 /1000)
+        this.toDemainChrono = `${toDemainH}h ${toDemainM}min ${toDemainS}s`
+      }, 1000),
     };
   },
   async created() {
@@ -28,6 +39,8 @@ export default {
     });
   },
 };
+
+
 </script>
 
 <style>
@@ -39,6 +52,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   background: green;
+  text-decoration: none;
 }
 
 .logo {
@@ -63,5 +77,7 @@ export default {
   width: 100%;
   height: 100%;
   background: lightcoral;
+  color : black;
 }
+
 </style>
