@@ -7,7 +7,7 @@
     </svg>
     <div class="etat">
       <div v-if="lotteryDone" class="compteur">{{ this.toDemainChrono }}</div>
-      <div v-else class="pret"></div>
+      <div v-else class="pret">Tente ta chance !</div>
     </div>
   </router-link>
 </template>
@@ -17,7 +17,7 @@ import { getRequest } from "@/requests/getRequest";
 export default {
   data() {
     return {
-      lotteryDone: false,
+      lotteryDone: true,
       toDemainChrono: "",
       chrono: setInterval(() => {
         let now = new Date().getTime();
@@ -65,6 +65,9 @@ export default {
 
 .pret {
   background: lightgreen;
+  color: black;
+  font-size: 1.6vw;
+  text-align: center;
 }
 
 .compteur {
