@@ -1,17 +1,18 @@
 <template>
   <div class="grid-container">
     <div class="info"><InfoBar /></div>
-    <div class="etoiles">etoiles</div>
+    <div class="etoiles"><StarFeed /></div>
     <div class="feed">feed</div>
   </div>
 </template>
 
 <script>
 import InfoBar from "../components/InfoBar.vue";
+import StarFeed from "@/components/StarFeed.vue";
 
 export default {
   name: "HomeView",
-  components: { InfoBar },
+  components: { InfoBar, StarFeed },
 };
 </script>
 
