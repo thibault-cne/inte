@@ -46,14 +46,12 @@ def add_star_to_user(user_id: int, giver_id: int, message: str, star_type: str) 
 
     # Add the star
     query = """
-        INSERT INTO stars (receiver_user_id, giver_user_id, message, star_rank, date) VALUES (?, ?, ?, ?, ?);
+        INSERT INTO stars (receiver_user_id, giver_user_id, message, star_rank, date, moderation_status)
+        VALUES (?, ?, ?, ?, ?, ?);
     """
-    args = (user_id, giver_id, message, star_type, date)
+    args = (user_id, giver_id, message, star_type, date, 0)
 
     # Execute the query
     cursor.execute(query, args)
     db.commit()
     close_database(db, cursor)
-
-    # Add the points to the user
-    add_points_to_user(user_id, STARS_POINTS[star_type])
