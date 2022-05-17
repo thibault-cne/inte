@@ -16,7 +16,6 @@ from datetime import datetime
 
 
 # Import personal packages
-from .addPointsToUser import add_points_to_user
 from .. import connect_to_database, close_database
 
 
