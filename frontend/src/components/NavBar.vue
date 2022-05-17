@@ -131,16 +131,13 @@ export default {
 }
 
 .svgIcon {
-  /* fill: rgb(243, 166, 243); */
-  background: #3d00e0;
-  /* stroke: black; */
-  stroke: #ee0290;
+  fill: rgb(243, 166, 243);
+  stroke: black;
   transition: 200ms ease;
 }
 
 .navbarItem:hover .navbarLogo .svgIcon {
-  /* fill: rgb(171, 115, 255); */
-  fill: #f186c0;
-  /* stroke: rgb(102, 0, 255); */
+  fill: rgb(171, 115, 255);
+  stroke: rgb(102, 0, 255);
 }
 </style>
