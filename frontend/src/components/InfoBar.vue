@@ -28,16 +28,15 @@ export default {
   width: 40%;
   background: white;
   border-radius: 4px;
+  margin-left: 3%;
+  margin-right: 5%;
   /* box-shadow: none */
 }
 
 .lotterie {
-  height: 60%;
-  width: 10%;
   background: white;
   border-radius: 4px;
-  flex-basis: 10%;
-  flex-shrink: 0;
+  flex-basis: 12%;
   /* box-shadow: none */
 }
 
@@ -46,6 +45,8 @@ export default {
   width: 30%;
   background: white;
   border-radius: 4px;
+  margin-left: 5%;
+  margin-right: 3%;
   /* box-shadow: none */
 }
 </style>
