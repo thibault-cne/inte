@@ -31,9 +31,9 @@ def add_user(email: str, username: str) -> int:
 
     # Query to add the user
     query = """
-        INSERT INTO Users (email, username) VALUES (?, ?);
+        INSERT INTO Users (email, username, points) VALUES (?, ?, ?);
     """
-    database_cursor.execute(query, (email, username))
+    database_cursor.execute(query, (email, username, 0))
     database.commit()
 
     # Close the database
