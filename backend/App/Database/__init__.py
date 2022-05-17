@@ -138,6 +138,232 @@ def create_database() -> str:
             description TEXT NOT NULL,
             FOREIGN KEY (user_id) REFERENCES Users(id)
         );
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,2,"ne doit pas apparaitre","aujourdhui",0);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,1,"doit apparaitre","aujourdhui",1);
+
+        INSERT INTO Stars (giver_user_id,receiver_user_id ,star_rank, message, date, moderation_status )
+        VALUES( 1,1,0,"ne doit pas apparaitre","aujourdhui",0);
+        
     """
 
     return creation_query
