@@ -6,14 +6,14 @@
       />
     </svg>
     <div class="etat">
-      <div v-if="lotteryDone" class="compteur">{{this.toDemainChrono}}</div>
+      <div v-if="lotteryDone" class="compteur">{{ this.toDemainChrono }}</div>
       <div v-else class="pret"></div>
     </div>
   </router-link>
 </template>
 
 <script>
-import { getRequest } from "../requests/getRequest";
+import { getRequest } from "@/requests/getRequest";
 export default {
   data() {
     return {
@@ -21,24 +21,22 @@ export default {
       toDemainChrono: "",
       chrono: setInterval(() => {
         let now = new Date().getTime();
-        let jour = 86400000
-        let aujourdhui = Math.floor(now/jour)*jour
-        let toDemain = (jour-(now-aujourdhui))-7200000
-        let toDemainH = Math.floor(toDemain/3600000)
-        let toDemainM = Math.floor(toDemain % 3600000 / 60000)
-        let toDemainS = Math.floor(toDemain % 3600000 % 60000 /1000)
-        this.toDemainChrono = `${toDemainH}h ${toDemainM}min ${toDemainS}s`
+        let jour = 86400000;
+        let aujourdhui = Math.floor(now / jour) * jour;
+        let toDemain = jour - (now - aujourdhui) - 7200000;
+        let toDemainH = Math.floor(toDemain / 3600000);
+        let toDemainM = Math.floor((toDemain % 3600000) / 60000);
+        let toDemainS = Math.floor(((toDemain % 3600000) % 60000) / 1000);
+        this.toDemainChrono = `${toDemainH}h ${toDemainM}min ${toDemainS}s`;
       }, 1000),
     };
   },
   async created() {
     await getRequest("check_daily_lottery", "json").then((res) => {
-      this.lotteryDone = res.data;
+      this.lotteryDone = res.data.data.has_played;
     });
   },
 };
-
-
 </script>
 
 <style scoped>
@@ -71,9 +69,8 @@ export default {
 
 .compteur {
   background: lightcoral;
-  color : black;
+  color: black;
   font-size: 2vw;
   text-align: center;
 }
-
 </style>
