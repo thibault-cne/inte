@@ -100,7 +100,7 @@ export default {
   opacity: 0;
   margin-left: 0.5vw;
   color: black;
-  font-size: 2vh;
+  font-size: 1.3vw;
 }
 
 #toggle:checked ~ .navbar .navbarItem .navbarText {
