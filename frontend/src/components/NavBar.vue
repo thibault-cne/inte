@@ -22,7 +22,7 @@
       <router-link to="/login" class="navbarItem">
         <div class="navbarLogo">
           <svg
-            viewBox="0 0 100 100"
+            viewBox="0 0 101 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="svgIcon"
@@ -47,7 +47,7 @@
       <router-link to="/classement" class="navbarItem">
         <div class="navbarLogo">
           <svg
-            viewBox="0 -2 100 100"
+            viewBox="0 -4 101 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             class="svgIcon"
@@ -106,7 +106,7 @@
         <div class="navbarLogo"></div>
         <div class="navbarText">cestjusteuntest</div>
       </router-link>
-      <label for="toggle" class="toggleBtn">click</label>
+      <!-- <label for="toggle" class="toggleBtn">click</label> -->
     </div>
   </div>
 </template>
@@ -130,9 +130,17 @@ export default {
   transition: 200ms ease;
 }
 
-#toggle:checked ~ .navbar {
+.navbar:hover {
   width: 12vw;
 }
+
+.navbar:hover .navbarItem .navbarText {
+  opacity: 1;
+  transition-delay: 150ms;
+}
+/* #toggle:checked ~ .navbar {
+  width: 12vw;
+} */
 
 .visuallyHidden {
   position: absolute;
@@ -166,9 +174,10 @@ export default {
   margin-left: 0.5vw;
   color: black;
   font-size: 1.1vw;
+  transition: 100ms ease;
 }
 
-#toggle:checked ~ .navbar .navbarItem .navbarText {
+/* #toggle:checked ~ .navbar .navbarItem .navbarText {
   opacity: 1;
   transition-delay: 200ms;
 }
@@ -181,7 +190,7 @@ export default {
   margin-bottom: 1vw;
   margin-right: 1.5vw;
   color: white;
-}
+} */
 
 .svgIcon {
   fill: rgb(243, 166, 243);
