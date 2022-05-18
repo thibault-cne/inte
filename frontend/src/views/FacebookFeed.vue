@@ -6,6 +6,7 @@
 // import axios from "axios";
 // import { parseXML } from "@/javascript/xmlToJson";
 import { getRequest } from "@/requests/getRequest";
+import { authStore } from "@/store/authStore";
 
 export default {
   name: "FacebookFeed",
@@ -30,6 +31,7 @@ export default {
     getRequest("/points-api/add", "json", params).then((response) => {
       console.log(response);
     });
+    authStore.commit("destroyToken");
   },
 };
 </script>

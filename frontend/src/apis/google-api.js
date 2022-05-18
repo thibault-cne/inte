@@ -7,9 +7,13 @@ export async function handleSignIn(googleUser) {
     const user_token = googleUser.credential;
 
     return new Promise((resolve, reject) => {
-      postRequest({ credential: user_token }, "auth-api/login", "json")
+      postRequest({ credential: user_token }, "api/v1/login/g-oauth", "data")
         .then((response) => {
-          authStore.commit("updateStorage", response.data.credentials);
+          let credentials = {
+            access_token: response.data.access_token,
+            refresh_token: response.data.refresh_token,
+          };
+          authStore.commit("updateStorage", credentials);
           resolve();
         })
         .catch((error) => {

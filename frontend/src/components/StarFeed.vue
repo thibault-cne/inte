@@ -10,8 +10,12 @@
       </thead>
       <tr v-for="star in allStars" :key="star.id">
         <td>{{ star.id }}</td>
-        <td>{{ star.receiver_user_id }}</td>
-        <td>{{ star.star_rank }}</td>
+        <td>
+          {{ star.receiver_user_id }}
+        </td>
+        <td>
+          {{ star.star_rank }}
+        </td>
         <td>{{ star.date }}</td>
         <td>{{ star.message }}</td>
       </tr>
