@@ -33,6 +33,8 @@ export default {
 .etoiles {
   grid-area: 2 / 1 / -1 / 2;
   background: rgb(237, 106, 106);
+  min-height: 54vh;
+  max-height: 54vh;
 }
 
 .feed {
