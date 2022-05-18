@@ -2,11 +2,11 @@ import { getAPI } from "@/apis/axios-api";
 import { refreshToken } from "@/requests/refreshRequests";
 import { createHeader } from "@/requests/createHeader";
 
-function getRequest(url, headerType) {
+function getRequest(url, headerType, params = {}) {
   let header = createHeader(headerType);
   return new Promise((resolve, reject) => {
     getAPI
-      .get(url, { headers: header })
+      .get(url, { headers: header, params: params })
       .then((response) => {
         resolve(response);
       })

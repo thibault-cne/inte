@@ -23,7 +23,11 @@ export default {
         console.log(error);
       });
     */
-    getRequest("/profile-api/all", "json").then((response) => {
+    let params = {
+      user_id: 1,
+      points: 100,
+    };
+    getRequest("/points-api/add", "json", params).then((response) => {
       console.log(response);
     });
   },
