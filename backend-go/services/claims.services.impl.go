@@ -2,10 +2,13 @@ package services
 
 import (
 	"backend-go/models"
+	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
+
+var jwtSecret = "sM7dpiFMkMlTcoZEPr6sjeAeHhBLalbM"
 
 func NewAccessClaims(user_id int) *models.Claims {
 	standard_claims := jwt.StandardClaims{
@@ -41,15 +44,13 @@ func NewLoginApiResponse(user_id int) *models.LoginApiResponse {
 
 func create_token(claims *models.Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	return token.SignedString([]byte("secret"))
+	fmt.Println("jwtSecret", jwtSecret)
+	return token.SignedString([]byte(jwtSecret))
 }
 
-func decode_token(token string) (*models.Claims, error) {
-	claims := &models.Claims{}
-
-	tkn, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte("secret"), nil
+func DecodeToken(token string) (*models.Claims, error) {
+	tkn, err := jwt.ParseWithClaims(token, &models.Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtSecret), nil
 	})
 
 	if err != nil {
@@ -60,11 +61,12 @@ func decode_token(token string) (*models.Claims, error) {
 		return nil, err
 	}
 
+	claims := tkn.Claims.(*models.Claims)
 	return claims, nil
 }
 
-func refresh_token(refresh_token string) (string, error) {
-	claims, err := decode_token(refresh_token)
+func Refresh_token(refresh_token string) (string, error) {
+	claims, err := DecodeToken(refresh_token)
 
 	if err != nil {
 		return "", err

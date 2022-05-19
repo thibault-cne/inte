@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type GoogleApiResponse struct {
 	Iss            string `json:"iss"`
 	Nbf            string `json:"nbf"`
@@ -24,4 +26,20 @@ type GoogleApiResponse struct {
 type LoginApiResponse struct {
 	Access_token  string `json:"access_token"`
 	Refresh_token string `json:"refresh_token"`
+}
+
+type ProfileDataResponse struct {
+	Username    string  `json:"username"`
+	Points      int     `json:"points"`
+	Users_stars []Stars `json:"users_stars"`
+}
+
+type StarsResponse struct {
+	Created_at        time.Time `json:"created_at"`
+	Id                int       `json:"id"`
+	Giver_name        string    `json:"giver_name"`
+	Receiver_name     string    `json:"receiver_name"`
+	Type              int       `json:"type"`
+	Message           string    `json:"message"`
+	Moderation_status bool      `json:"moderation_status"`
 }

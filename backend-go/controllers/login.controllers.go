@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -58,7 +59,23 @@ func create_response(email string, name string) (*models.LoginApiResponse, strin
 	}
 }
 
+func refresh_token(ctx *gin.Context) {
+	reqToken := ctx.Request.Header.Get("Authorization")
+	splitToken := strings.Split(reqToken, "Bearer ")
+	reqToken = splitToken[1]
+
+	new_access_token, err := services.Refresh_token(reqToken)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"access_token": new_access_token})
+}
+
 func Register_login_routes(rg *gin.RouterGroup) {
 	router_group := rg.Group("/login")
 	router_group.POST("/g-oauth", validate_Google_OAuth_token)
+	router_group.GET("/refresh-token", refresh_token)
 }

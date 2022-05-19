@@ -9,6 +9,7 @@ export async function handleSignIn(googleUser) {
     return new Promise((resolve, reject) => {
       postRequest({ credential: user_token }, "api/v1/login/g-oauth", "data")
         .then((response) => {
+          console.log(response.data.access_token);
           let credentials = {
             access_token: response.data.access_token,
             refresh_token: response.data.refresh_token,

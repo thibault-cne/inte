@@ -47,11 +47,11 @@ func init_database() {
 }
 
 func main() {
-	domain, port := load_env()
+	APP_DOMAIN, APP_PORT := load_env()
 	init_database()
 
-	fmt.Println("Starting server on domain " + domain)
-	fmt.Println("Starting server on port " + port)
+	fmt.Println("Starting server on domain " + APP_DOMAIN)
+	fmt.Println("Starting server on port " + APP_PORT)
 
 	router := gin.Default()
 	// Config CORS middleware
@@ -61,15 +61,15 @@ func main() {
 		AllowHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-		AllowOriginFunc: func(origin string) bool {
-			return origin == "http://localhost:8080"
-		},
-		MaxAge: 12 * time.Hour,
+		MaxAge:           12 * time.Hour,
 	}))
 	basepath := router.Group("/api/v1")
 
 	// Add all controllers
 	controllers.Register_login_routes(basepath)
+	controllers.Register_profile_routes(basepath)
+	controllers.Register_stars_routes(basepath)
+	controllers.Register_daily_game_routes(basepath)
 
-	router.Run(domain + ":" + port)
+	router.Run(APP_DOMAIN + ":" + APP_PORT)
 }
