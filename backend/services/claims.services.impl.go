@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 var jwtSecret = "sM7dpiFMkMlTcoZEPr6sjeAeHhBLalbM"
