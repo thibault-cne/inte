@@ -2,6 +2,7 @@ package services
 
 import (
 	"backend-go/models"
+	"fmt"
 	"time"
 
 	"gorm.io/driver/sqlite"
@@ -77,4 +78,51 @@ func GetUserData(claims *models.Claims) (*models.User, error) {
 	}
 
 	return &user, nil
+}
+
+func AddPoints(giver_id int, receiver_id int, points int) error {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return err
+	}
+
+	var user models.User
+
+	if err := db.Where("id = ?", receiver_id).First(&user).Error; err != nil {
+		return err
+	}
+
+	user.Points += points
+
+	db.Save(&user)
+
+	// Also add a notification to the receiver
+	giver, err := GetUser(giver_id)
+
+	if err != nil {
+		return err
+	}
+
+	message := fmt.Sprintf("%s vous à donné(e) %d points", giver.Name, points)
+	RegisterNewNotification(NewNotification(receiver_id, "points", message))
+
+	return nil
+}
+
+// Get all users from the database
+func GetAllUsers() ([]models.User, error) {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	var users []models.User
+
+	if err := db.Find(&users).Error; err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }
