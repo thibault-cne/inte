@@ -25,6 +25,10 @@ $ sudo apt update
 $ sudo apt-install docker
 ```
 
+## Installer golang
+
+Vous pouvez vous rendre sur cette page : [Page officielle golang](https://go.dev/doc/install)
+
 # Lancer les applications
 
 ## Partie website
@@ -40,10 +44,8 @@ $ sudo docker-compose up
 
 ``` shell
 $ cd backend
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-$ python3 tazmouApp.py
+$ go mod download
+$ go run .
 ```
 
 ``` shell
