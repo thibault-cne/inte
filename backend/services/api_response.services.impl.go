@@ -36,3 +36,28 @@ func NewStarsResponse(stars []models.Stars) []models.StarsResponse {
 
 	return stars_response
 }
+
+func NewAllUsersResponse(users []models.User) []models.AllUsersResponse {
+	users_response := make([]models.AllUsersResponse, len(users))
+
+	for i, user := range users {
+		users_response[i] = models.AllUsersResponse{
+			Name: user.Name,
+		}
+	}
+
+	return users_response
+}
+
+func NewAllUsersWithPointsResponse(users []models.User) []models.AllUserWithPointsResponse {
+	users_response := make([]models.AllUserWithPointsResponse, len(users))
+
+	for i, user := range users {
+		users_response[i] = models.AllUserWithPointsResponse{
+			Name:   user.Name,
+			Points: user.Points,
+		}
+	}
+
+	return users_response
+}

@@ -43,3 +43,12 @@ type StarsResponse struct {
 	Message           string    `json:"message"`
 	Moderation_status bool      `json:"moderation_status"`
 }
+
+type AllUsersResponse struct {
+	Name string `json:"name"`
+}
+
+type AllUserWithPointsResponse struct {
+	Name   string `json:"name"`
+	Points int    `json:"points"`
+}
