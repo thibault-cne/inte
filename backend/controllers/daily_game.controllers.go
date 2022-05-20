@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"backend-go/services"
+	"backend/services"
 	"net/http"
 	"strings"
 

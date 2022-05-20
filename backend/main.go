@@ -1,8 +1,8 @@
 package main
 
 import (
-	"backend-go/controllers"
-	"backend-go/models"
+	"backend/controllers"
+	"backend/models"
 	"fmt"
 	"os"
 	"time"

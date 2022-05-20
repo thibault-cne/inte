@@ -1,7 +1,7 @@
 package services
 
 import (
-	"backend-go/models"
+	"backend/models"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -56,4 +56,23 @@ func GetStars(user_id int) ([]models.Stars, error) {
 	db.Where("receiver_id = ?", user_id).Find(&stars)
 
 	return stars, err
+}
+
+// Function to moderate a star
+func ModerateStar(id int) error {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return err
+	}
+
+	var star models.Stars
+
+	db.First(&star, id)
+
+	star.Moderation_status = true
+
+	db.Save(&star)
+
+	return nil
 }

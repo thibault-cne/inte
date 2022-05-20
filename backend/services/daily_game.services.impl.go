@@ -1,7 +1,7 @@
 package services
 
 import (
-	"backend-go/models"
+	"backend/models"
 	"fmt"
 	"math/rand"
 	"time"

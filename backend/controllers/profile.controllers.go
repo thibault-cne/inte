@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"backend-go/services"
+	"backend/services"
 	"net/http"
 	"strconv"
 	"strings"
@@ -93,10 +93,34 @@ func get_all_users_with_points(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, services.NewAllUsersWithPointsResponse(users))
 }
 
+func get_all_users_notifications(ctx *gin.Context) {
+	reqToken := ctx.Request.Header.Get("Authorization")
+	splitToken := strings.Split(reqToken, "Bearer ")
+	reqToken = splitToken[1]
+
+	// Validate token
+	claims, err := services.DecodeToken(reqToken)
+
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		return
+	}
+
+	users, err := services.RetriveAllUserNotification(claims.User_id)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, users)
+}
+
 func Register_profile_routes(rg *gin.RouterGroup) {
 	router_group := rg.Group("/profile")
 	router_group.GET("/user/data", get_user_data)
 	router_group.POST("/points/add", add_points)
 	router_group.GET("/user/all", get_all_users)
 	router_group.GET("/user/all/points", get_all_users_with_points)
+	router_group.GET("/user/notifications", get_all_users_notifications)
 }

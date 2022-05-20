@@ -1,7 +1,7 @@
 package services
 
 import (
-	"backend-go/models"
+	"backend/models"
 )
 
 func NewProfileDataResponse(user *models.User) *models.ProfileDataResponse {

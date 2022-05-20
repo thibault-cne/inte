@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"backend-go/models"
-	"backend-go/services"
+	"backend/models"
+	"backend/services"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
