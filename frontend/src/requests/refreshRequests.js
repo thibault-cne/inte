@@ -9,7 +9,7 @@ function refreshToken() {
   };
   return new Promise((resolve, reject) => {
     getAPI
-      .get("/auth-api/refresh", {
+      .get("/login/refresh", {
         headers: header,
       })
       .then((response) => {

@@ -33,7 +33,7 @@ export default {
     };
   },
   async created() {
-    await getRequest("stars-info/all", "json").then((res) => {
+    await getRequest("/stars/all", "json").then((res) => {
       this.allStars = res.data;
     });
   },

@@ -36,8 +36,8 @@ export default {
     };
   },
   async created() {
-    await getRequest("check_daily_lottery", "json").then((res) => {
-      this.lotteryDone = res.data.data.has_played;
+    await getRequest("/daily-game/check", "data").then((res) => {
+      this.lotteryDone = res.data.status;
     });
   },
 };
