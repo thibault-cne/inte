@@ -12,4 +12,4 @@ RUN go build -o /docker-gs-ping -v
 
 EXPOSE 5454
 
-CMD [ "/docker-gs-ping" ]
+CMD exec ./main
