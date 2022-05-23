@@ -126,3 +126,53 @@ func GetAllUsers() ([]models.User, error) {
 
 	return users, nil
 }
+
+func ModifyProfileData(temp_user *models.User) error {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return err
+	}
+
+	// Modify the user in the database with the new data
+	// We don't want to modify the ID and the fields that are equals to "" (empty) in the temp_user
+
+	user, err := GetUser(temp_user.ID)
+
+	if err != nil {
+		return err
+	}
+
+	if temp_user.Personal_description != "" {
+		user.Personal_description = temp_user.Personal_description
+	}
+
+	if temp_user.Facebook_id != "" {
+		user.Facebook_id = temp_user.Facebook_id
+	}
+
+	if temp_user.Snapchat_id != "" {
+		user.Snapchat_id = temp_user.Snapchat_id
+	}
+
+	if temp_user.Instagram_id != "" {
+		user.Instagram_id = temp_user.Instagram_id
+	}
+
+	if temp_user.Google_id != "" {
+		user.Google_id = temp_user.Google_id
+	}
+
+	if temp_user.Hometown != "" {
+		user.Hometown = temp_user.Hometown
+	}
+
+	if temp_user.Studies != "" {
+		user.Studies = temp_user.Studies
+	}
+
+	// Save the user in the database
+	db.Save(&user)
+
+	return nil
+}

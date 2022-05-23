@@ -76,3 +76,17 @@ func ModerateStar(id int) error {
 
 	return nil
 }
+
+func CountStarsType(user_id int, type_ int) (int, error) {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return 0, err
+	}
+
+	var stars []models.Stars
+
+	db.Where("receiver_id = ? AND type = ?", user_id, type_).Find(&stars)
+
+	return len(stars), nil
+}
