@@ -1,30 +1,48 @@
 <template>
-  <div class="stars">
-    <div v-for="star in allStars" :key="star.id">
+    <!-- <div v-for="star in allStars" :key="star.id">
       <StarEntry
         :message="star.message"
         :date="star.date"
         :rank="star.star_rank"
         :receiver="star.receiver_user_id"
+      /> -->
+      <StarEntry
+        message="ceci est un message"
+        date=12345
+        rank="d'or"
+        receiver=1
       />
-    </div>
-    <!-- <table>
-        <thead>
-          <td>id</td>
-          <td>receveur</td>
-          <td>rank</td>
-          <td>date</td>
-          <td>message</td>
-        </thead>
-        <tr v-for="star in allStars" :key="star.id">
-          <td>{{ star.id }}</td>
-          <td>{{ star.receiver_user_id }}</td>
-          <td>{{ star.star_rank }}</td>
-          <td>{{ star.date }}</td>
-          <td>{{ star.message }}</td>
-        </tr>
-      </table> -->
-  </div>
+      <StarEntry
+        message="ceci est un messageaz aerfhbzefgv erfdgarefdhgva  azbtza v  yzt yza vay vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+        date=12124234
+        rank="en or"
+        receiver=1
+      />
+      <StarEntry
+        message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+        date=1423
+        rank="en or"
+        receiver=1
+      />
+      <StarEntry
+        message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+        date=1423
+        rank="en or"
+        receiver=1
+      />
+      <StarEntry
+        message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+        date=1423
+        rank="en or"
+        receiver=1
+      />
+      <StarEntry
+        message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+        date=1423
+        rank="en or"
+        receiver=1
+      />
+    <!-- </div> -->
 </template>
 
 <script>
@@ -46,16 +64,5 @@ export default {
 </script>
 
 <style scoped>
-.stars {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  background: rgb(240, 160, 160);
-  scrollbar-width: thin;
-  scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124);
-}
+
 </style>

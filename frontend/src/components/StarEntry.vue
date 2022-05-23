@@ -1,7 +1,10 @@
 <template>
   <div class="starCard">
-    {{ receiver }} a reçu une étoile {{ rank }} il y a {{ ilyaText }} :<br />
-    {{ message }}
+    <div class="starLogo"></div>
+    <div class="starText">
+      {{ receiver }} a reçu une étoile {{ rank }} il y a {{ ilyaText }} :<br />
+      {{ message }}
+    </div>
   </div>
 </template>
 
@@ -48,12 +51,27 @@ export default {
 
 <style scoped>
 .starCard {
-  /* padding: 10px; */
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  display: flex;
+  padding: 5px;
+  margin-left: .5vw;
+  margin-right: .5vw;
   border-radius: 2vh;
-  border: solid;
-  height: 20vh;
-  width: 50vw;
+  border: solid 2px;
+  height: 75%;
+  max-width: 30vw;
+  flex-shrink: 0;
+  flex-grow: 0;
+  color : black;
+}
+
+.starText {
+  font-size: 2.25vh;
+}
+
+.starLogo {
+  margin-right: 5px;
+  height: 100%;
+  aspect-ratio: 1/1;
+  background-color: rgb(186, 185, 185);
 }
 </style>

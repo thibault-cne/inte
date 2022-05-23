@@ -2,6 +2,7 @@
   <div class="grid-container">
     <div class="info"><InfoBar /></div>
     <div class="etoiles"><StarFeed /></div>
+    <div class="planning">planning</div>
     <div class="feed">feed</div>
   </div>
 </template>
@@ -21,7 +22,7 @@ export default {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-rows: 2fr 3fr;
+  grid-template-rows: 2fr 1fr 3fr;
   grid-template-columns: 3fr 2fr;
 }
 
@@ -31,10 +32,19 @@ export default {
 }
 
 .etoiles {
-  grid-area: 2 / 1 / -1 / 2;
+  grid-area: 2 / 1 / 3 / -1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124);
+}
+
+.planning {
+  grid-area: -2 / 1 / -1 / 2;
   background: rgb(237, 106, 106);
-  min-height: 54vh;
-  max-height: 54vh;
 }
 
 .feed {
