@@ -1,9 +1,14 @@
 <template>
   <div class="stars">
     <div v-for="star in allStars" :key="star.id">
-      <StarEntry :message="star.message" :date="star.date" :rank="star.star_rank" :receiver="star.receiver_user_id"/>
+      <StarEntry
+        :message="star.message"
+        :date="star.date"
+        :rank="star.star_rank"
+        :receiver="star.receiver_user_id"
+      />
     </div>
-      <!-- <table>
+    <!-- <table>
         <thead>
           <td>id</td>
           <td>receveur</td>
@@ -53,5 +58,4 @@ export default {
   scrollbar-width: thin;
   scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124);
 }
-
 </style>
