@@ -53,15 +53,15 @@ export default {
 .starCard {
   display: flex;
   padding: 5px;
-  margin-left: .5vw;
-  margin-right: .5vw;
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
   border-radius: 2vh;
   border: solid 2px;
   height: 75%;
   max-width: 30vw;
   flex-shrink: 0;
   flex-grow: 0;
-  color : black;
+  color: black;
 }
 
 .starText {
