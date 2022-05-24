@@ -158,6 +158,7 @@ func get_users_points_and_stars_stats(ctx *gin.Context) {
 }
 
 func modify_profile_data(ctx *gin.Context) {
+
 	reqToken := ctx.Request.Header.Get("Authorization")
 	splitToken := strings.Split(reqToken, "Bearer ")
 	reqToken = splitToken[1]
@@ -188,7 +189,7 @@ func modify_profile_data(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
 func Register_profile_routes(rg *gin.RouterGroup) {

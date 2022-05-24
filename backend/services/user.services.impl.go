@@ -144,35 +144,32 @@ func ModifyProfileData(temp_user *models.User) error {
 	}
 
 	if temp_user.Personal_description != "" {
-		user.Personal_description = temp_user.Personal_description
+		db.Model(&user).Update("personal_description", temp_user.Personal_description)
 	}
 
 	if temp_user.Facebook_id != "" {
-		user.Facebook_id = temp_user.Facebook_id
+		db.Model(&user).Update("facebook_id", temp_user.Facebook_id)
 	}
 
 	if temp_user.Snapchat_id != "" {
-		user.Snapchat_id = temp_user.Snapchat_id
+		db.Model(&user).Update("snapchat_id", temp_user.Snapchat_id)
 	}
 
 	if temp_user.Instagram_id != "" {
-		user.Instagram_id = temp_user.Instagram_id
+		db.Model(&user).Update("instagram_id", temp_user.Instagram_id)
 	}
 
 	if temp_user.Google_id != "" {
-		user.Google_id = temp_user.Google_id
+		db.Model(&user).Update("google_id", temp_user.Google_id)
 	}
 
 	if temp_user.Hometown != "" {
-		user.Hometown = temp_user.Hometown
+		db.Model(&user).Update("hometown", temp_user.Hometown)
 	}
 
 	if temp_user.Studies != "" {
-		user.Studies = temp_user.Studies
+		db.Model(&user).Update("studies", temp_user.Studies)
 	}
-
-	// Save the user in the database
-	db.Save(&user)
 
 	return nil
 }

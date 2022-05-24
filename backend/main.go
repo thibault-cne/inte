@@ -14,21 +14,14 @@ import (
 	"gorm.io/gorm"
 )
 
-func load_env() (string, string) {
+func LoadEnv() {
 	err := godotenv.Load()
 	if err != nil {
 		fmt.Println("Error loading .env file")
 	}
-
-	domain := os.Getenv("APP_DOMAIN")
-	port := os.Getenv("APP_PORT")
-
-	return domain, port
 }
 
 func init_database() {
-	fmt.Println("Initializing database")
-
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -47,11 +40,10 @@ func init_database() {
 }
 
 func main() {
-	APP_DOMAIN, APP_PORT := load_env()
+	LoadEnv()
+	APP_DOMAIN := os.Getenv("APP_DOMAIN")
+	APP_PORT := os.Getenv("APP_PORT")
 	init_database()
-
-	fmt.Println("Starting server on domain " + APP_DOMAIN)
-	fmt.Println("Starting server on port " + APP_PORT)
 
 	router := gin.Default()
 	// Config CORS middleware

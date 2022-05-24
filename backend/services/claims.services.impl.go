@@ -3,12 +3,19 @@ package services
 import (
 	"backend/models"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/joho/godotenv"
 )
 
-var jwtSecret = "sM7dpiFMkMlTcoZEPr6sjeAeHhBLalbM"
+func LoadEnv() {
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+}
 
 func NewAccessClaims(user_id int) *models.Claims {
 	standard_claims := jwt.StandardClaims{
@@ -44,13 +51,19 @@ func NewLoginApiResponse(user_id int) *models.LoginApiResponse {
 
 func create_token(claims *models.Claims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	fmt.Println("jwtSecret", jwtSecret)
-	return token.SignedString([]byte(jwtSecret))
+
+	LoadEnv()
+	JWT_SECRET := os.Getenv("JWT_SECRET")
+
+	return token.SignedString([]byte(JWT_SECRET))
 }
 
 func DecodeToken(token string) (*models.Claims, error) {
+	LoadEnv()
+	JWT_SECRET := os.Getenv("JWT_SECRET")
+
 	tkn, err := jwt.ParseWithClaims(token, &models.Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(jwtSecret), nil
+		return []byte(JWT_SECRET), nil
 	})
 
 	if err != nil {
