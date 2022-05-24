@@ -1,6 +1,5 @@
 <template>
   <div class="infoBar">
-    <div class="recapProfil">recapProfil</div>
     <div class="lotterie"><LotteryComp /></div>
     <div class="calendrier">calendrier</div>
   </div>
@@ -17,7 +16,7 @@ export default {
 .infoBar {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   width: 100%;

@@ -56,8 +56,8 @@ export default {
 }
 
 .logo {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   background: lightskyblue;
   fill: rgb(243, 166, 243);
   stroke: black;
