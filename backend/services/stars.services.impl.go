@@ -9,11 +9,12 @@ import (
 
 func NewStars(giver_id int, receiver_id int, type_ int, message string) models.Stars {
 	return models.Stars{
-		Giver_id:          giver_id,
-		Receiver_id:       receiver_id,
-		Type:              type_,
-		Message:           message,
-		Moderation_status: false,
+		Giver_id:                  giver_id,
+		Receiver_id:               receiver_id,
+		Type:                      type_,
+		Message:                   message,
+		Moderation_pending_status: 0,
+		Moderation_status:         false,
 	}
 }
 
@@ -70,7 +71,11 @@ func ModerateStar(id int) error {
 
 	db.First(&star, id)
 
-	star.Moderation_status = true
+	if star.Moderation_pending_status >= 2 {
+		star.Moderation_status = true
+	} else {
+		star.Moderation_pending_status += 1
+	}
 
 	db.Save(&star)
 
