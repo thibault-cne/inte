@@ -173,3 +173,23 @@ func ModifyProfileData(temp_user *models.User) error {
 
 	return nil
 }
+
+func ModifyProfilePicture(user_id int, picture_url string) error {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return err
+	}
+
+	user, err := GetUser(user_id)
+
+	if err != nil {
+		return err
+	}
+
+	user.Profile_picture = picture_url
+
+	db.Save(&user)
+
+	return nil
+}

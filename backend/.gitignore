@@ -20,6 +20,13 @@ go.work
 # Database files
 *.db
 
+# Images and other data
+static/images
+*.png
+*.jpg
+*.jpeg
+*.gif
+
 # Environment files
 *.env
 
