@@ -4,6 +4,7 @@ import (
 	"backend/models"
 	"backend/services"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -244,7 +245,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	// Create a new file
-	newFile, err := os.Create("static/images/profile_pictures/" + strconv.Itoa(claims.User_id) + fileExtension)
+	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + strconv.Itoa(claims.User_id) + fileExtension)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -268,7 +269,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	// Modify the profile picture path in the database
-	err = services.ModifyProfilePicture(claims.User_id, "profile_picture_"+strconv.Itoa(claims.User_id)+fileExtension)
+	err = services.ModifyProfilePicture(claims.User_id, fileExtension)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -276,6 +277,40 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
+// Function to get the user profile picture from the database and send it to the frontend
+func provide_user_picture(ctx *gin.Context) {
+	reqToken := ctx.Request.Header.Get("Authorization")
+	splitToken := strings.Split(reqToken, "Bearer ")
+	reqToken = splitToken[1]
+
+	// Validate token
+	claims, err := services.DecodeToken(reqToken)
+
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		return
+	}
+
+	// Get the file extension
+	filePath, err := services.GetProfilePicturePath(claims.User_id)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
+		return
+	}
+
+	// Get the file content
+	fileContent, err := ioutil.ReadFile("static/images/profile_pictures/" + filePath)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error fo read file"})
+		return
+	}
+
+	// Send the file content to the frontend
+	ctx.Data(http.StatusOK, "image/jpeg", fileContent)
 }
 
 func Register_profile_routes(rg *gin.RouterGroup) {
@@ -288,4 +323,5 @@ func Register_profile_routes(rg *gin.RouterGroup) {
 	router_group.GET("/user/stats", get_users_points_and_stars_stats)
 	router_group.POST("/user/modify", modify_profile_data)
 	router_group.POST("/user/modify/picture", modify_profile_picture)
+	router_group.GET("/user/data/picture", provide_user_picture)
 }

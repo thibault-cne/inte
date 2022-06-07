@@ -3,6 +3,7 @@ package services
 import (
 	"backend/models"
 	"fmt"
+	"strconv"
 	"time"
 
 	"gorm.io/driver/sqlite"
@@ -174,7 +175,7 @@ func ModifyProfileData(temp_user *models.User) error {
 	return nil
 }
 
-func ModifyProfilePicture(user_id int, picture_url string) error {
+func ModifyProfilePicture(user_id int, picture_extension string) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -187,9 +188,19 @@ func ModifyProfilePicture(user_id int, picture_url string) error {
 		return err
 	}
 
-	user.Profile_picture = picture_url
+	user.Profile_picture = "profile_picture_" + strconv.Itoa(user_id) + picture_extension
 
 	db.Save(&user)
 
 	return nil
+}
+
+func GetProfilePicturePath(user_id int) (string, error) {
+	user, err := GetUser(user_id)
+
+	if err != nil {
+		return "", err
+	}
+
+	return user.Profile_picture, nil
 }
