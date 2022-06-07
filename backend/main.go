@@ -58,10 +58,7 @@ func main() {
 	basepath := router.Group("/api/v1")
 
 	// Add all controllers
-	controllers.Register_login_routes(basepath)
-	controllers.Register_profile_routes(basepath)
-	controllers.Register_stars_routes(basepath)
-	controllers.Register_daily_game_routes(basepath)
+	controllers.Register_controllers(basepath)
 
 	router.Run(APP_DOMAIN + ":" + APP_PORT)
 }
