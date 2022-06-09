@@ -13,7 +13,7 @@
     receiver="1"
   />
   <StarEntry
-    message="ceci est un messageaz aerfhbzefgv erfdgarefdhgva  azbtza v  yzt yza vay vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+    message="ceci est un messageaz aerfhbzefgv erfdgarefdhgvvay vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
     date="12124234"
     rank="en or"
     receiver="1"

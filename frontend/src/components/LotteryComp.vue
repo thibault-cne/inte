@@ -85,6 +85,6 @@ export default {
 
 .compteur {
   background: lightcoral;
-  font-size: 2vw;
+  font-size: 1.9vw;
 }
 </style>
