@@ -2,7 +2,6 @@ package main
 
 import (
 	"backend/controllers"
-	"backend/models"
 	"fmt"
 	"os"
 	"time"
@@ -10,8 +9,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func LoadEnv() {
@@ -21,29 +18,17 @@ func LoadEnv() {
 	}
 }
 
-func init_database() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic("failed to connect database")
-	}
-
-	// Migrate the schema
-	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Stars{})
-	db.AutoMigrate(&models.DailyGame{})
-	db.AutoMigrate(&models.Notifications{})
-	db.AutoMigrate(&models.Calendar{})
-	db.AutoMigrate(&models.Challenge{})
-	db.AutoMigrate(&models.Suggestion{})
-	db.AutoMigrate(&models.Tnder{})
-}
-
 func main() {
 	LoadEnv()
 	APP_DOMAIN := os.Getenv("APP_DOMAIN")
 	APP_PORT := os.Getenv("APP_PORT")
+	POPULATE_TEST_DATABASE := os.Getenv("POPULATE_TEST_DATABASE")
+
 	init_database()
+
+	if POPULATE_TEST_DATABASE == "true" {
+		populate_test_database()
+	}
 
 	router := gin.Default()
 	// Config CORS middleware

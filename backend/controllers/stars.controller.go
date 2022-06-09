@@ -105,7 +105,7 @@ func moderate_star(ctx *gin.Context) {
 		return
 	}
 
-	err = services.ModerateStar(star_id)
+	err = services.ModerateStar(star_id, claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

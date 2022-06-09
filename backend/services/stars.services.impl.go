@@ -60,7 +60,7 @@ func GetStars(user_id int) ([]models.Stars, error) {
 }
 
 // Function to moderate a star
-func ModerateStar(id int) error {
+func ModerateStar(id int, user_id int) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -71,10 +71,29 @@ func ModerateStar(id int) error {
 
 	db.First(&star, id)
 
-	if star.Moderation_pending_status >= 2 {
+	if star.Moderation_pending_status != 0 && star.Moderation_pending_status != user_id {
 		star.Moderation_status = true
+
+		giver, err := GetUser(star.Giver_id)
+
+		if err != nil {
+			return err
+		}
+
+		message := ""
+
+		if star.Type == 0 {
+			message = "bronze"
+		} else if star.Type == 1 {
+			message = "silver"
+		} else if star.Type == 2 {
+			message = "gold"
+		}
+
+		notification := NewNotification(star.Receiver_id, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
+		RegisterNewNotification(notification)
 	} else {
-		star.Moderation_pending_status += 1
+		star.Moderation_pending_status = user_id
 	}
 
 	db.Save(&star)
