@@ -17,6 +17,7 @@ func RegisterSuggestions(suggestion *models.Suggestion) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
 	db.Create(suggestion)
 
 	return suggestion.ID, nil

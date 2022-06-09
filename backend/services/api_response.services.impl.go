@@ -26,6 +26,7 @@ func NewStarsResponse(stars []models.Stars) []models.StarsResponse {
 		receiver, _ := GetUser(star.Receiver_id)
 
 		stars_response[i] = models.StarsResponse{
+			Created_at:        star.CreatedAt.Unix(),
 			Id:                star.ID,
 			Giver_name:        giver.Name,
 			Receiver_name:     receiver.Name,

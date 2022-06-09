@@ -30,6 +30,7 @@ func AddUser(user *models.User) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
 	db.Create(user)
 
 	return user.ID, nil
