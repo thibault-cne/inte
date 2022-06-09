@@ -1,30 +1,8 @@
-package main
+package db
 
 import (
-	"backend/models"
 	"backend/services"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
-
-func init_database() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	// Migrate the schema
-	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Stars{})
-	db.AutoMigrate(&models.DailyGame{})
-	db.AutoMigrate(&models.Notifications{})
-	db.AutoMigrate(&models.Calendar{})
-	db.AutoMigrate(&models.Challenge{})
-	db.AutoMigrate(&models.Suggestion{})
-	db.AutoMigrate(&models.Tnder{})
-}
 
 func populate_test_database() {
 	// Add 3 stars to user with id 1

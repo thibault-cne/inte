@@ -32,4 +32,4 @@ static/images
 
 # Compiled file
 *.o
-main
+go-backend-server
