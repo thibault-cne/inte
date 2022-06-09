@@ -27,7 +27,7 @@ func GetAllStars() ([]models.Stars, error) {
 
 	var stars []models.Stars
 
-	db.Find(&stars)
+	db.Where("moderation_status = true").Find(&stars)
 
 	return stars, nil
 }
@@ -54,7 +54,7 @@ func GetStars(user_id int) ([]models.Stars, error) {
 
 	var stars []models.Stars
 
-	db.Where("receiver_id = ?", user_id).Find(&stars)
+	db.Where("receiver_id = ?, moderation_status = true", user_id).Find(&stars)
 
 	return stars, err
 }
