@@ -1,15 +1,18 @@
 # Projet d'un nouveau site web pour l'intégration
 A project for a new site for the integration club of TELECOM Nancy
 
+# Table of Content
 
-# Guide d'installation
+1. [Installation guide](#installation-guide-)
+
+## Installation guide
 
 ``` shell
 $ git clone https://github.com/thibault-cne/projet_nouveau_site_integration
 $ cd project2-E19
 ```
 
-## Installer Docker
+### Install Docker
 
 **MACOS**
 
@@ -25,13 +28,13 @@ $ sudo apt update
 $ sudo apt-install docker
 ```
 
-## Installer golang
+### Install golang
 
-Vous pouvez vous rendre sur cette page : [Page officielle golang](https://go.dev/doc/install)
+You can install golang on the official page : [official golang page](https://go.dev/doc/install)
 
-# Lancer les applications
+## Start the application
 
-## Partie website
+### Partie website
 
 **Docker**
 

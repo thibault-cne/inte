@@ -7,6 +7,5 @@
 out
 gen
 
-backend/env
-
-frontend/env
+# VSCode project files
+.vscode
