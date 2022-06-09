@@ -18,33 +18,27 @@ export default {
   },
   data() {
     return {
-      ilyaText: "2 semaines",
+      ilyaText: "tkt",
     };
   },
   created() {
-    // let ilya = new Date().getTime();
-    // ilya = ilya - this.date;
-    // ilya = Math.floor(ilya/3600000)
-    // switch (ilya) {
-    //     case 0:
-    //         this.ilyaText = "moins d'1h"
-    //         break;
-    //     case 1-23:
-    //         this.ilyaText = `${ilya}h`
-    //         break;
-    //     case 24-167:
-    //         ilya = Math.floor(ilya/24)
-    //         this.ilyaText = `${ilya}j`
-    //         break;
-    //     case 168-719:
-    //         ilya = Math.floor((ilya/24)/7)
-    //         this.ilyaText = 1 ? `${ilya} semaine` : `${ilya} semaines`
-    //         break;
-    //     default:
-    //         ilya = Math.floor(((ilya/24)/7)/4)
-    //         this.ilyaText = `${ilya}mois`
-    //         break;
-    // }
+    let ilya = new Date().getTime();
+    ilya = ilya - this.date
+    ilya = Math.floor(ilya/3600000)
+    if (ilya==0) {
+      this.ilyaText = "moins d'1h"
+    } else if (ilya<=23) {
+      this.ilyaText = `${ilya}h`
+    } else if (ilya<=167) {
+      ilya = Math.floor(ilya/24)
+      this.ilyaText = `${ilya}j`
+    } else if (ilya<=719) {
+      ilya = Math.floor((ilya/24)/7)
+      this.ilyaText = (ilya==1) ? `${ilya} semaine` : `${ilya} semaines`
+    } else {
+      ilya = Math.floor(((ilya/24)/7)/4)
+      this.ilyaText = `${ilya} mois`
+    }
   },
 };
 </script>
