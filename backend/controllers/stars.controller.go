@@ -65,6 +65,11 @@ func add_stars(ctx *gin.Context) {
 	err = services.AddStars(services.NewStars(claims.User_id, user_id, star_type, message))
 
 	if err != nil {
+		if err.Error() == "message size" {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": "message size"})
+			return
+		}
+
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}

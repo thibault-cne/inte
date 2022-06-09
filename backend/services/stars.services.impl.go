@@ -2,6 +2,7 @@ package services
 
 import (
 	"backend/models"
+	"errors"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -36,6 +37,11 @@ func AddStars(star models.Stars) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
+		return err
+	}
+
+	if len(star.Message) > 100 || len(star.Message) == 0 {
+		err = errors.New("message size")
 		return err
 	}
 
