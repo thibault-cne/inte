@@ -29,6 +29,7 @@ static/images
 
 # Environment files
 *.env
+*.yaml
 
 # Compiled file
 *.o

@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"backend/models"
-	"backend/services"
+	claims_services "backend/services/claims.services"
+	users_services "backend/services/users.services"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -42,20 +43,20 @@ func validate_Google_OAuth_token(ctx *gin.Context) {
 }
 
 func create_response(email string, name string) (*models.LoginApiResponse, string, error) {
-	user, err := services.GetUserByEmail(email)
+	user, err := users_services.GetUserByEmail(email)
 
 	if err != nil {
-		user_id, err := services.AddUser(services.NewUser(email, name))
+		user_id, err := users_services.AddUser(users_services.NewUser(email, name))
 
 		if err != nil {
 			return nil, "Internal server error", err
 		}
 
-		return services.NewLoginApiResponse(user_id), "", nil
+		return claims_services.NewLoginApiResponse(user_id), "", nil
 	} else {
 		user_id := user.ID
 
-		return services.NewLoginApiResponse(user_id), "", nil
+		return claims_services.NewLoginApiResponse(user_id), "", nil
 	}
 }
 
@@ -64,7 +65,7 @@ func refresh_token(ctx *gin.Context) {
 	splitToken := strings.Split(reqToken, "Bearer ")
 	reqToken = splitToken[1]
 
-	new_access_token, err := services.Refresh_token(reqToken)
+	new_access_token, err := claims_services.Refresh_token(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

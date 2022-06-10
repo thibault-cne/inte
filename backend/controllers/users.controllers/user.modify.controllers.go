@@ -2,24 +2,20 @@ package userscontrollers
 
 import (
 	"backend/models"
-	"backend/services"
+	claims_services "backend/services/claims.services"
+	users_services "backend/services/users.services"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func modify_profile_data(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -37,7 +33,7 @@ func modify_profile_data(ctx *gin.Context) {
 	temp_user.Hometown = ctx.PostForm("hometown")
 	temp_user.Studies = ctx.PostForm("studies")
 
-	err = services.ModifyProfileData(temp_user)
+	err = users_services.ModifyProfileData(temp_user)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -51,11 +47,7 @@ func modify_profile_data(ctx *gin.Context) {
 // Save the picture in the server and then save the path in the database
 func modify_profile_picture(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -121,7 +113,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	// Modify the profile picture path in the database
-	err = services.ModifyProfilePicture(claims.User_id, fileExtension)
+	err = users_services.ModifyProfilePicture(claims.User_id, fileExtension)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

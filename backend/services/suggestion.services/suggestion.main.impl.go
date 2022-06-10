@@ -1,4 +1,4 @@
-package services
+package suggestionservices
 
 import (
 	"backend/models"
@@ -11,7 +11,7 @@ func NewSuggestions(title string, description string, user_id int) *models.Sugge
 	return &models.Suggestion{Title: title, Content: description, Giver_id: user_id}
 }
 
-func RegisterSuggestions(suggestion *models.Suggestion) (int, error) {
+func AddSuggestions(suggestion *models.Suggestion) (int, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -21,18 +21,4 @@ func RegisterSuggestions(suggestion *models.Suggestion) (int, error) {
 	db.Create(suggestion)
 
 	return suggestion.ID, nil
-}
-
-func RetrieveAllSuggestions() ([]models.Suggestion, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var suggestions []models.Suggestion
-
-	db.Find(&suggestions)
-
-	return suggestions, nil
 }

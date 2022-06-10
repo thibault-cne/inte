@@ -1,86 +1,14 @@
-package services
+package usersservices
 
 import (
 	"backend/models"
+	notifications_services "backend/services/notification.services"
 	"fmt"
 	"strconv"
-	"time"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
-
-func NewUser(email string, name string) *models.User {
-	t := time.Now()
-
-	year := 0
-
-	if t.Month() < 9 {
-		year = t.Year() - 1 + 3
-	} else {
-		year = t.Year() + 3
-	}
-
-	return &models.User{Name: name, Email: email, Current_year: 1, Promotion_year: year, Points: 0, User_type: "user"}
-}
-
-func AddUser(user *models.User) (int, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return 0, err
-	}
-
-	db.Create(user)
-
-	return user.ID, nil
-}
-
-func GetUser(id int) (*models.User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var user models.User
-
-	db.First(&user, id)
-
-	return &user, nil
-}
-
-func GetUserByEmail(email string) (*models.User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var user models.User
-
-	if err := db.Where("email = ?", email).First(&user).Error; err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
-
-func GetUserData(claims *models.Claims) (*models.User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var user models.User
-
-	if err := db.Where("id = ?", claims.User_id).First(&user).Error; err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
 
 func AddPoints(giver_id int, receiver_id int, points int) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
@@ -107,26 +35,9 @@ func AddPoints(giver_id int, receiver_id int, points int) error {
 	}
 
 	message := fmt.Sprintf("%s vous à donné(e) %d points", giver.Name, points)
-	RegisterNewNotification(NewNotification(receiver_id, "points", message))
+	notifications_services.AddNewNotification(notifications_services.NewNotification(receiver_id, "points", message))
 
 	return nil
-}
-
-// Get all users from the database
-func GetAllUsers() ([]models.User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var users []models.User
-
-	if err := db.Find(&users).Error; err != nil {
-		return nil, err
-	}
-
-	return users, nil
 }
 
 func ModifyProfileData(temp_user *models.User) error {
@@ -204,4 +115,24 @@ func GetProfilePicturePath(user_id int) (string, error) {
 	}
 
 	return user.Profile_picture, nil
+}
+
+func CheckAdmin(user_id int) (bool, error) {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return false, err
+	}
+
+	var user models.User
+
+	if err := db.Where("id = ?", user_id).First(&user).Error; err != nil {
+		return false, err
+	}
+
+	if user.User_type == "admin" {
+		return true, nil
+	} else {
+		return false, nil
+	}
 }

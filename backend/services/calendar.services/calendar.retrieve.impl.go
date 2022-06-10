@@ -1,4 +1,4 @@
-package services
+package calendarservices
 
 import (
 	"backend/models"

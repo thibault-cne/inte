@@ -1,21 +1,17 @@
 package userscontrollers
 
 import (
-	"backend/services"
+	claims_services "backend/services/claims.services"
+	users_services "backend/services/users.services"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func add_points(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -36,7 +32,7 @@ func add_points(ctx *gin.Context) {
 		return
 	}
 
-	err = services.AddPoints(claims.User_id, user_id, points)
+	err = users_services.AddPoints(claims.User_id, user_id, points)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

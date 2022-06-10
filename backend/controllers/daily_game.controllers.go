@@ -1,27 +1,23 @@
 package controllers
 
 import (
-	"backend/services"
+	claims_services "backend/services/claims.services"
+	daily_game_services "backend/services/daily_game.services"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func check_daily_game(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 		return
 	}
 
-	status, err := services.CheckDailyGame(claims.User_id)
+	status, err := daily_game_services.CheckDailyGame(claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -33,18 +29,14 @@ func check_daily_game(ctx *gin.Context) {
 
 func play_daily_game(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 		return
 	}
 
-	result, err := services.PlayDailyGame(claims.User_id)
+	result, err := daily_game_services.PlayDailyGame(claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

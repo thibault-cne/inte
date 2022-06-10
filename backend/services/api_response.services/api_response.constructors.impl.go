@@ -1,11 +1,13 @@
-package services
+package apiresponseservices
 
 import (
 	"backend/models"
+	stars_services "backend/services/stars.services"
+	users_services "backend/services/users.services"
 )
 
 func NewProfileDataResponse(user *models.User) *models.ProfileDataResponse {
-	stars, err := GetStars(user.ID)
+	stars, err := stars_services.GetStars(user.ID)
 
 	if err != nil {
 		panic(err)
@@ -22,8 +24,8 @@ func NewStarsResponse(stars []models.Stars) []models.StarsResponse {
 	stars_response := make([]models.StarsResponse, len(stars))
 
 	for i, star := range stars {
-		giver, _ := GetUser(star.Giver_id)
-		receiver, _ := GetUser(star.Receiver_id)
+		giver, _ := users_services.GetUser(star.Giver_id)
+		receiver, _ := users_services.GetUser(star.Receiver_id)
 
 		stars_response[i] = models.StarsResponse{
 			Created_at:        star.CreatedAt.Unix(),

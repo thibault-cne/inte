@@ -1,32 +1,30 @@
 package controllers
 
 import (
-	"backend/services"
+	api_services "backend/services/api_response.services"
+	claims_services "backend/services/claims.services"
+	stars_services "backend/services/stars.services"
+	users_services "backend/services/users.services"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func get_stars(ctx *gin.Context) {
-	stars, err := services.GetAllStars()
+	stars, err := stars_services.GetAllStars()
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, services.NewStarsResponse(stars))
+	ctx.JSON(http.StatusOK, api_services.NewStarsResponse(stars))
 }
 
 func add_stars(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -34,7 +32,7 @@ func add_stars(ctx *gin.Context) {
 	}
 
 	// Verify if user is in year > 2
-	user, err := services.GetUser(claims.User_id)
+	user, err := users_services.GetUser(claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -62,7 +60,7 @@ func add_stars(ctx *gin.Context) {
 
 	message := ctx.PostForm("message")
 
-	err = services.AddStars(services.NewStars(claims.User_id, user_id, star_type, message))
+	err = stars_services.AddStars(stars_services.NewStars(claims.User_id, user_id, star_type, message))
 
 	if err != nil {
 		if err.Error() == "message size" {
@@ -79,11 +77,7 @@ func add_stars(ctx *gin.Context) {
 
 func moderate_star(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -91,7 +85,7 @@ func moderate_star(ctx *gin.Context) {
 	}
 
 	// Verify if user is admin
-	user, err := services.GetUser(claims.User_id)
+	user, err := users_services.GetUser(claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -110,7 +104,7 @@ func moderate_star(ctx *gin.Context) {
 		return
 	}
 
-	err = services.ModerateStar(star_id, claims.User_id)
+	err = stars_services.ModerateStar(star_id, claims.User_id)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

@@ -3,6 +3,7 @@ package server
 import (
 	"backend/config"
 	"backend/controllers"
+	"net/http"
 	"os"
 	"time"
 
@@ -32,5 +33,15 @@ func InitServer() {
 	// Add all controllers
 	controllers.Register_controllers(basepath)
 
-	router.Run(APP_DOMAIN + ":" + APP_PORT)
+	s := &http.Server{
+		Addr:           APP_DOMAIN + ":" + APP_PORT,
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		IdleTimeout:    10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	// Start server
+	s.ListenAndServe()
 }

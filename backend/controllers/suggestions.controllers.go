@@ -1,20 +1,16 @@
 package controllers
 
 import (
-	"backend/services"
+	claims_services "backend/services/claims.services"
+	suggestion_services "backend/services/suggestion.services"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func add_suggestion(ctx *gin.Context) {
 	reqToken := ctx.Request.Header.Get("Authorization")
-	splitToken := strings.Split(reqToken, "Bearer ")
-	reqToken = splitToken[1]
-
-	// Validate token
-	claims, err := services.DecodeToken(reqToken)
+	claims, err := claims_services.RetrieveUserClaims(reqToken)
 
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
@@ -24,13 +20,13 @@ func add_suggestion(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	description := ctx.PostForm("description")
 
-	services.RegisterSuggestions(services.NewSuggestions(title, description, claims.User_id))
+	suggestion_services.AddSuggestions(suggestion_services.NewSuggestions(title, description, claims.User_id))
 
 	ctx.JSON(http.StatusOK, gin.H{"message": "Suggestion added"})
 }
 
 func retrieve_all_suggestions(ctx *gin.Context) {
-	suggestions, err := services.RetrieveAllSuggestions()
+	suggestions, err := suggestion_services.RetrieveAllSuggestions()
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

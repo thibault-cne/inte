@@ -1,7 +1,7 @@
 package main
 
 import (
-	"backend/services"
+	users_services "backend/services/users.services"
 	"testing"
 
 	"gorm.io/driver/sqlite"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewUser(t *testing.T) {
-	user := services.NewUser("test@test.com", "test")
+	user := users_services.NewUser("test@test.com", "test")
 
 	if user.Name != "test" {
 		t.Error("Expected name to be 'test' but got ", user.Name)
@@ -38,7 +38,7 @@ func TestNewUser(t *testing.T) {
 }
 
 func TestAddUser(t *testing.T) {
-	user := services.NewUser("test@test.com", "test")
+	user := users_services.NewUser("test@test.com", "test")
 
 	db, err := gorm.Open(sqlite.Open("test_database.db"), &gorm.Config{})
 
