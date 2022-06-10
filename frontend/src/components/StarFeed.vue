@@ -1,11 +1,13 @@
 <template>
   <div class="starContainer">
-      <StarEntry v-for="star in allStars" :key="star.id"
-        :message="star.message"
-        :date="star.created_at"
-        :rank="star.type"
-        :receiver="star.receiver_name"
-      />
+    <StarEntry
+      v-for="star in allStars"
+      :key="star.id"
+      :message="star.message"
+      :date="star.created_at"
+      :rank="star.type"
+      :receiver="star.receiver_name"
+    />
   </div>
   <!-- <StarEntry
     message="ceci est un message"
