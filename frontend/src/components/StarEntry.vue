@@ -2,7 +2,8 @@
   <div class="starCard">
     <div class="starLogo"></div>
     <div class="starText">
-      {{ receiver }} a reçu une étoile {{ rank }} il y a {{ ilyaText }} :<br />
+      {{ receiver }} <br>
+      a reçu une étoile {{ rankText }} il y a {{ ilyaText }} :<br>
       {{ message }}
     </div>
   </div>
@@ -13,18 +14,19 @@ export default {
   props: {
     message: String,
     receiver: Number,
-    rank: String,
+    rank: Number,
     date: Number,
   },
   data() {
     return {
       ilyaText: "tkt",
+      rankText: "ça bug"
     };
   },
   created() {
-    let ilya = new Date().getTime();
+    let ilya = Date.now()/1000;
     ilya = ilya - this.date
-    ilya = Math.floor(ilya/3600000)
+    ilya = Math.floor(ilya/3600)
     if (ilya==0) {
       this.ilyaText = "moins d'1h"
     } else if (ilya<=23) {
@@ -39,6 +41,15 @@ export default {
       ilya = Math.floor(((ilya/24)/7)/4)
       this.ilyaText = `${ilya} mois`
     }
+    if (this.rank==0) {
+      this.rankText = "de bronze"
+    }
+    if (this.rank==1) {
+      this.rankText = "d'argent"
+    }
+    if (this.rank==2) {
+      this.rankText = "d'or"
+    }
   },
 };
 </script>
@@ -52,6 +63,7 @@ export default {
   border-radius: 2vh;
   border: solid 2px;
   height: 75%;
+  min-width: 24.5vw;
   max-width: 30vw;
   flex-shrink: 0;
   flex-grow: 0;

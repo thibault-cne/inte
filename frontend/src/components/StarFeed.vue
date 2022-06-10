@@ -1,47 +1,48 @@
 <template>
-  <!-- <div v-for="star in allStars" :key="star.id">
-      <StarEntry
+  <div class="starContainer">
+      <StarEntry v-for="star in allStars" :key="star.id"
         :message="star.message"
-        :date="star.date"
-        :rank="star.star_rank"
-        :receiver="star.receiver_user_id"
-      /> -->
-  <StarEntry
+        :date="star.created_at"
+        :rank="star.type"
+        :receiver="star.receiver_name"
+      />
+  </div>
+  <!-- <StarEntry
     message="ceci est un message"
-    date="12345"
+    date="12345000000000000000"
     rank="d'or"
-    receiver="1"
+    receiver="Louis-Vincent CAPELLI"
   />
   <StarEntry
-    message="ceci est un messageaz aerfhbzefgv erfdgarefdhgvvay vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="12124234"
+    message="ceci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+    date="121296684234"
     rank="en or"
-    receiver="1"
+    receiver="Louis-Vincent CAPELLI"
+  />
+  <StarEntry
+    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+    date="1623000000"
+    rank="d'or"
+    receiver="Louis-Vincent CAPELLI"
   />
   <StarEntry
     message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
     date="1423"
-    rank="en or"
-    receiver="1"
+    rank="d'or"
+    receiver="Louis-Vincent CAPELLI"
   />
   <StarEntry
     message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
     date="1423"
-    rank="en or"
-    receiver="1"
+    rank="d'or"
+    receiver="Louis-Vincent CAPELLI"
   />
   <StarEntry
-    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+    message="eci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v aaztazâ az azetrae taztataz a ta tragazrha e azet"
     date="1423"
-    rank="en or"
-    receiver="1"
-  />
-  <StarEntry
-    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="1423"
-    rank="en or"
-    receiver="1"
-  />
+    rank="d'or"
+    receiver="Louis-Vincent CAPELLI"
+  /> -->
   <!-- </div> -->
 </template>
 
@@ -63,4 +64,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.starContainer {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+</style>

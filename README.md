@@ -3,7 +3,7 @@ A project for a new site for the integration club of TELECOM Nancy
 
 # Table of Content
 
-1. [Installation guide](#installation-guide-)
+1. [Installation guide](#installation-guide)
 
 ## Installation guide
 
