@@ -1,3 +1,6 @@
+![Commit activity](https://img.shields.io/github/commit-activity/w/thibault-cne/projet_nouveau_site_integration)
+![License](https://img.shields.io/github/license/thibault-cne/projet_nouveau_site_integration)
+![Go Version](https://img.shields.io/github/go-mod/go-version/thibault-cne/projet_nouveau_site_integration/master?filename=backend%2Fgo.mod)
 # Projet d'un nouveau site web pour l'intégration
 A project for a new site for the integration club of TELECOM Nancy
 
