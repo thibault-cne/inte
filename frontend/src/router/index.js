@@ -30,6 +30,15 @@ const routes = [
         /* webpackChunkName: "facebook-feed" */ "../views/FacebookFeed.vue"
       ),
   },
+  {
+    path: "/admin",
+    name: "admin",
+    meta: {
+      title: "Admin",
+    },
+    component: () =>
+      import(/* webpackChunkName: "admin" */ "../views/AdminView.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import InfoBar from "../components/InfoBar.vue";
+import InfoBar from "@/components/InfoBar.vue";
 import StarFeed from "@/components/StarFeed.vue";
 
 export default {
