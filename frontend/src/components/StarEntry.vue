@@ -60,7 +60,7 @@ export default {
   padding: 5px;
   margin-left: 0.5vw;
   margin-right: 0.5vw;
-  border-radius: 2vh;
+  border-radius: 0.5vh;
   border: solid 2px;
   height: 75%;
   min-width: 24.5vw;
@@ -71,7 +71,7 @@ export default {
 }
 
 .starText {
-  font-size: 2.25vh;
+  font-size: 2.1vh;
 }
 
 .starLogo {

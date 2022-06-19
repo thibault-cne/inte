@@ -1,51 +1,47 @@
 <template>
   <div class="infoBar">
     <div class="lotterie"><LotteryComp /></div>
+    <div class="recapProfil"><RecapPointsStars /></div>
     <div class="calendrier">calendrier</div>
   </div>
 </template>
 
 <script>
 import LotteryComp from "./LotteryComp.vue";
+import RecapPointsStars from "./RecapPointsStars.vue";
 export default {
-  components: { LotteryComp },
+  components: { LotteryComp, RecapPointsStars },
 };
 </script>
 
 <style scoped>
 .infoBar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "lotterie recapProfil calendrier";
+  grid-template-columns: 1fr 1fr 1fr;
   height: 100%;
   width: 100%;
 }
 
 .recapProfil {
-  height: 80%;
-  width: 40%;
-  background: white;
-  border-radius: 4px;
-  margin-left: 3%;
-  margin-right: 5%;
+  grid-area: recapProfil;
+  height: 100%;
+  width: 100%;
+  align-self: flex-start;
   /* box-shadow: none */
 }
 
 .lotterie {
-  background: white;
-  border-radius: 4px;
-  flex-basis: 12%;
+  grid-area: lotterie;
+  height: 100%;
+  width: 100%;
   /* box-shadow: none */
 }
 
 .calendrier {
-  height: 80%;
-  width: 30%;
-  background: white;
-  border-radius: 4px;
-  margin-left: 5%;
-  margin-right: 3%;
+  grid-area: calendrier;
+  height: 100%;
+  width: 100%;
   /* box-shadow: none */
 }
 </style>

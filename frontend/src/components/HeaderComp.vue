@@ -21,7 +21,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background: rgb(130, 193, 244);
+  background: rgb(0, 0, 0);
 }
 
 .gauche {
@@ -50,7 +50,7 @@
   height: 80%;
   width: 30%;
   background: white;
-  border-radius: 4px;
+  border-radius: 0.5vh;
 }
 
 .rechercheUser {
@@ -58,7 +58,7 @@
   height: 50%;
   width: 20%;
   background: white;
-  border-radius: 4px;
+  border-radius: 0.5vh;
 }
 
 .notifs {
@@ -66,7 +66,7 @@
   height: 40%;
   width: 3%;
   background: white;
-  border-radius: 4px;
+  border-radius: 0.5vh;
 }
 
 .accesProfil {
@@ -74,6 +74,6 @@
   height: 70%;
   width: 15%;
   background: white;
-  border-radius: 4px;
+  border-radius: 0.5vh;
 }
 </style>

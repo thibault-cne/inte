@@ -28,7 +28,7 @@ export default {
 
 .info {
   grid-area: 1 / 1 / 2 / -1;
-  background: rgb(237, 200, 106);
+  /* background: rgb(237, 200, 106); */
 }
 
 .etoiles {
@@ -39,16 +39,16 @@ export default {
   align-items: center;
   overflow-x: scroll;
   scrollbar-width: thin;
-  scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124);
+  /* scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124); */
 }
 
 .planning {
   grid-area: -2 / 1 / -1 / 2;
-  background: rgb(237, 106, 106);
+  /* background: rgb(237, 106, 106); */
 }
 
 .feed {
   grid-area: -2 / -2 / -1 / -1;
-  background: rgb(134, 106, 237);
+  /* background: rgb(134, 106, 237); */
 }
 </style>
