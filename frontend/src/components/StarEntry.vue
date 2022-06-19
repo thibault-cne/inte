@@ -111,7 +111,7 @@ export default {
 }
 
 .starText {
-  border: 1px solid black;
+  border: 2px solid black;
 
   border-radius: 0.5vh;
   width: 100%;
