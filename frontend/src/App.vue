@@ -37,6 +37,9 @@ export default {
   --bronze-star-color: #967444;
   --silver-star-color: #c6c6c6;
   --gold-star-color: #ffcf00;
+  --main-font: "Roboto", sans-serif;
+  font-family: var(--main-font);
+  font-weight: 400;
 }
 
 .blocNavbar {

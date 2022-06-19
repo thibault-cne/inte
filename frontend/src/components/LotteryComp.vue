@@ -89,6 +89,7 @@ export default {
   /* background: rgb(139, 0, 42); */
   text-align: center;
   color: black;
+  user-select: none;
 }
 
 .pret {

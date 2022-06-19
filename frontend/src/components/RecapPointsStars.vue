@@ -141,5 +141,6 @@ export default {
   /* background-color: #dadada; */
   border-radius: 5px;
   font-size: 150%;
+  user-select: none;
 }
 </style>

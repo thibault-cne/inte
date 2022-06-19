@@ -176,8 +176,9 @@ export default {
   opacity: 0;
   margin-left: 0.5vw;
   color: black;
-  font-size: 1.1vw;
+  font-size: 1vw;
   transition: 100ms ease;
+  user-select: none;
 }
 
 /* #toggle:checked ~ .navbar .navbarItem .navbarText {

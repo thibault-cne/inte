@@ -42,7 +42,7 @@
       </svg>
     </div>
     <div class="starText">
-      {{ receiver }} <br />
+      <b>{{ receiver }}</b> <br />
       a reçu une étoile {{ rankText }} il y a {{ ilyaText }} :<br />
       {{ message }}
     </div>
@@ -105,7 +105,7 @@ ntm */
   border-radius: 0.5vh;
   border: solid 2px;
   height: 75%;
-  min-width: 24.5vw;
+  min-width: 25vw;
   max-width: 30vw;
   flex-grow: 0;
   flex-shrink: 0;
@@ -118,7 +118,8 @@ ntm */
   border-radius: 0.5vh;
   width: 100%;
   padding: 0.5%;
-  font-size: 1vw;
+  font-size: 0.9vw;
+  background: rgb(247, 246, 246);
 }
 
 .starLogo {
