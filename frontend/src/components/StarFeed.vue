@@ -8,44 +8,43 @@
       :rank="star.type"
       :receiver="star.receiver_name"
     />
+    <!-- <StarEntry
+      message="ceci est un message"
+      date="12345000000000000000"
+      rank="d'or"
+      receiver="Louis-Vincent CAPELLI"
+    />
+    <StarEntry
+      message="ceci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+      date="121296684234"
+      rank="en or"
+      receiver="Louis-Vincent CAPELLI"
+    />
+    <StarEntry
+      message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+      date="1623000000"
+      rank="d'or"
+      receiver="Louis-Vincent CAPELLI"
+    />
+    <StarEntry
+      message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+      date="1423"
+      rank="d'or"
+      receiver="Louis-Vincent CAPELLI"
+    />
+    <StarEntry
+      message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
+      date="1423"
+      rank="d'or"
+      receiver="Louis-Vincent CAPELLI"
+    />
+    <StarEntry
+      message="eci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v aaztazâ az azetrae taztataz a ta tragazrha e azet"
+      date="1423"
+      rank="d'or"
+      receiver="Louis-Vincent CAPELLI"
+    /> -->
   </div>
-  <!-- <StarEntry
-    message="ceci est un message"
-    date="12345000000000000000"
-    rank="d'or"
-    receiver="Louis-Vincent CAPELLI"
-  />
-  <StarEntry
-    message="ceci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="121296684234"
-    rank="en or"
-    receiver="Louis-Vincent CAPELLI"
-  />
-  <StarEntry
-    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="1623000000"
-    rank="d'or"
-    receiver="Louis-Vincent CAPELLI"
-  />
-  <StarEntry
-    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="1423"
-    rank="d'or"
-    receiver="Louis-Vincent CAPELLI"
-  />
-  <StarEntry
-    message="ceci est unzbtza v  yzt yza vay v  azh vy v vazv v azvetv aiyzvet vazty vazy vazt"
-    date="1423"
-    rank="d'or"
-    receiver="Louis-Vincent CAPELLI"
-  />
-  <StarEntry
-    message="eci est un messageaz aerfhbzefgv  vaze azet atztaztazt  azh vy v vazv v aaztazâ az azetrae taztataz a ta tragazrha e azet"
-    date="1423"
-    rank="d'or"
-    receiver="Louis-Vincent CAPELLI"
-  /> -->
-  <!-- </div> -->
 </template>
 
 <script>
@@ -70,6 +69,7 @@ export default {
 .starContainer {
   display: flex;
   height: 100%;
+  flex-shrink: 0;
   align-items: center;
   background: lightgrey;
 }

@@ -95,6 +95,8 @@ export default {
 </script>
 
 <style scoped>
+/* Les cards sont trop grandes dans Mozilla jusqu'à ce que j'ouvre l'inspecteur
+ntm */
 .starCard {
   display: flex;
   padding: 5px;
@@ -105,8 +107,8 @@ export default {
   height: 75%;
   min-width: 24.5vw;
   max-width: 30vw;
-  flex-shrink: 0;
   flex-grow: 0;
+  flex-shrink: 0;
   color: black;
   background: white;
 }
