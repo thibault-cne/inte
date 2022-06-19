@@ -20,8 +20,6 @@
       </svg>
     </div>
     <div class="card-body">
-      <div>Ajout d'utilisateur</div>
-      <div>Ajout d'un fichier d'utilisateurs</div>
       <div>Liste des utilisateurs</div>
     </div>
   </div>
@@ -69,6 +67,6 @@ export default {};
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 </style>

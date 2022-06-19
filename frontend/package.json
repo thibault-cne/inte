@@ -13,6 +13,7 @@
     "core-js": "^3.8.3",
     "enzyme-to-json": "^3.6.2",
     "fs": "^0.0.1-security",
+    "lodash.partition": "^4.6.0",
     "timers": "^0.1.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",

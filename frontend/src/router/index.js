@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "@/views/HomeView.vue";
 
 const routes = [
   {
@@ -17,7 +17,7 @@ const routes = [
       title: "Login",
     },
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+      import(/* webpackChunkName: "login" */ "@/views/LoginView.vue"),
   },
   {
     path: "/facebook-feed",
@@ -27,7 +27,7 @@ const routes = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "facebook-feed" */ "../views/FacebookFeed.vue"
+        /* webpackChunkName: "facebook-feed" */ "@/views/FacebookFeed.vue"
       ),
   },
   {
@@ -37,7 +37,18 @@ const routes = [
       title: "Admin",
     },
     component: () =>
-      import(/* webpackChunkName: "admin" */ "../views/AdminView.vue"),
+      import(/* webpackChunkName: "admin" */ "@/views/AdminView.vue"),
+  },
+  {
+    path: "/admin/user-list",
+    name: "admin-user-list",
+    meta: {
+      title: "Admin - Users list",
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "admin-user-list" */ "@/views/UserListView.vue"
+      ),
   },
 ];
 
