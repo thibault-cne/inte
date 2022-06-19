@@ -9,11 +9,10 @@
           />
         </svg>
       </div>
-      <div class="recapNumber">69</div>
+      <div class="recapNumber">{{ points }}</div>
     </div>
     <div class="recapCard">
       <div class="recapLogo">
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
         <svg width="57px" height="57px" viewBox="0 0 512 512">
           <polygon
             fill="#1D1D1B"
@@ -28,11 +27,10 @@
           />
         </svg>
       </div>
-      <div class="recapNumber">1</div>
+      <div class="recapNumber">{{ stars2 }}</div>
     </div>
     <div class="recapCard">
       <div class="recapLogo">
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
         <svg width="57px" height="57px" viewBox="0 0 512 512">
           <polygon
             fill="#1D1D1B"
@@ -47,11 +45,10 @@
           />
         </svg>
       </div>
-      <div class="recapNumber">0</div>
+      <div class="recapNumber">{{ stars1 }}</div>
     </div>
     <div class="recapCard">
       <div class="recapLogo">
-        <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
         <svg width="57px" height="57px" viewBox="0 0 512 512">
           <polygon
             fill="#1D1D1B"
@@ -66,14 +63,31 @@
           />
         </svg>
       </div>
-      <div class="recapNumber">2</div>
+      <div class="recapNumber">{{ stars0 }}</div>
     </div>
   </div>
 </template>
 
 <script>
+import { getRequest } from "../requests/getRequest";
 export default {
   name: "RecapPointsStars",
+  data() {
+    return {
+      points: 69,
+      stars0: 69,
+      stars1: 69,
+      stars2: 69,
+    };
+  },
+  async created() {
+    await getRequest("/user/get/stats", "data").then((res) => {
+      this.points = res.data.points;
+      this.stars0 = res.data.bronze_stars;
+      this.stars1 = res.data.silver_stars;
+      this.stars2 = res.data.gold_stars;
+    });
+  },
 };
 </script>
 
@@ -119,8 +133,8 @@ export default {
 }
 
 .recapCard:nth-of-type(4) > .recapLogo > svg > polygon {
-  fill: #786202;
-  stroke: #786202;
+  fill: #967444;
+  stroke: #967444;
 }
 
 .recapNumber {
