@@ -32,11 +32,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-// .tout {
-//   display: flex;
-//   flex-direction: row;
-// }
+<style lang="scss">
+:root {
+  --bronze-star-color: #967444;
+  --silver-star-color: #c6c6c6;
+  --gold-star-color: #ffcf00;
+}
 
 .blocNavbar {
   position: fixed;
@@ -45,6 +46,15 @@ export default {
   height: 90vh;
   width: 5vw;
   z-index: 1;
+}
+
+.blocHeader {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  height: 10vh;
+  width: 100vw;
 }
 
 .blocPage {
@@ -62,14 +72,5 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-}
-
-.blocHeader {
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  height: 10vh;
-  width: 100vw;
 }
 </style>

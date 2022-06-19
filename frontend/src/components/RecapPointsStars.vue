@@ -91,7 +91,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .recapContainer {
   height: 30%;
   width: 90%;
@@ -123,18 +123,18 @@ export default {
 }
 
 .recapCard:nth-of-type(2) > .recapLogo > svg > polygon {
-  fill: #ffcf00;
-  stroke: #ffcf00;
+  fill: var(--gold-star-color);
+  stroke: var(--gold-star-color);
 }
 
 .recapCard:nth-of-type(3) > .recapLogo > svg > polygon {
-  fill: #c6c6c6;
-  stroke: #c6c6c6;
+  fill: var(--silver-star-color);
+  stroke: var(--silver-star-color);
 }
 
 .recapCard:nth-of-type(4) > .recapLogo > svg > polygon {
-  fill: #967444;
-  stroke: #967444;
+  fill: var(--bronze-star-color);
+  stroke: var(--bronze-star-color);
 }
 
 .recapNumber {
