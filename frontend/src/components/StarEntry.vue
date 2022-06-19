@@ -1,6 +1,46 @@
 <template>
   <div class="starCard">
-    <div class="starLogo"></div>
+    <div class="starLogo">
+      <svg v-if="rank == 0" width="90" height="90" viewBox="-50 -50 562 562">
+        <polygon
+          fill="#967444"
+          stroke="#967444"
+          stroke-width="37.6152"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-miterlimit="10"
+          points="
+	259.216,29.942 330.27,173.919 489.16,197.007 374.185,309.08 401.33,467.31 259.216,392.612 117.104,467.31 144.25,309.08 
+	29.274,197.007 188.165,173.919 "
+        />
+      </svg>
+      <svg v-if="rank == 1" width="90" height="90" viewBox="-50 -50 562 562">
+        <polygon
+          fill="#c6c6c6"
+          stroke="#c6c6c6"
+          stroke-width="37.6152"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-miterlimit="10"
+          points="
+	259.216,29.942 330.27,173.919 489.16,197.007 374.185,309.08 401.33,467.31 259.216,392.612 117.104,467.31 144.25,309.08 
+	29.274,197.007 188.165,173.919 "
+        />
+      </svg>
+      <svg v-if="rank == 2" width="90" height="90" viewBox="-50 -50 562 562">
+        <polygon
+          fill="#ffcf00"
+          stroke="#ffcf00"
+          stroke-width="37.6152"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-miterlimit="10"
+          points="
+	259.216,29.942 330.27,173.919 489.16,197.007 374.185,309.08 401.33,467.31 259.216,392.612 117.104,467.31 144.25,309.08 
+	29.274,197.007 188.165,173.919 "
+        />
+      </svg>
+    </div>
     <div class="starText">
       {{ receiver }} <br />
       a reçu une étoile {{ rankText }} il y a {{ ilyaText }} :<br />
@@ -71,13 +111,15 @@ export default {
 }
 
 .starText {
-  font-size: 2.1vh;
+  /* border: 1px solid black; */
+  font-size: 1vw;
 }
 
 .starLogo {
   margin-right: 5px;
   height: 100%;
   aspect-ratio: 1/1;
-  background-color: rgb(186, 185, 185);
+  /* border: solid 2px; */
+  /* background-color: rgb(186, 185, 185); */
 }
 </style>
