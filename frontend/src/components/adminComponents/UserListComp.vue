@@ -9,22 +9,18 @@
     </thead>
     <tbody>
       <tr v-for="user in users" :key="user.id">
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.currentYear }}</td>
-        <td>{{ user.promotionYear }}</td>
-        <td>{{ user.god_father_id }}</td>
+        <UserRowCompVue :user="user" />
       </tr>
     </tbody>
   </table>
 </template>
 <script>
 import _ from "lodash";
-// import UserRowCompVue from "@/components/adminComponents/UserRowComp.vue";
+import UserRowCompVue from "@/components/adminComponents/UserRowComp.vue";
 
 export default {
   name: "UserListView",
-  // components: { UserRowCompVue },
+  components: { UserRowCompVue },
   data() {
     return {
       ascending: [false, false, false, false, false],
