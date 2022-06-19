@@ -63,12 +63,13 @@ export default {
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  /* background: lightblue; */
+  border-radius: 10px;
+  background: lightgrey;
 }
 
 .logo {
   width: 100%;
-  height: 75%;
+  height: 85%;
   /* background: lightskyblue; */
   /* fill: rgb(243, 166, 243); */
   fill: rgb(255, 255, 255);
@@ -84,7 +85,7 @@ export default {
 
 .etat {
   width: 100%;
-  height: 25%;
+  height: 15%;
   /* background: rgb(139, 0, 42); */
   text-align: center;
   color: black;

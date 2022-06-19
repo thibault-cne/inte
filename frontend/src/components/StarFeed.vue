@@ -71,5 +71,6 @@ export default {
   display: flex;
   height: 100%;
   align-items: center;
+  background: lightgrey;
 }
 </style>

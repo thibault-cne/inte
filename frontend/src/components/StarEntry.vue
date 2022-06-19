@@ -1,7 +1,7 @@
 <template>
   <div class="starCard">
     <div class="starLogo">
-      <svg v-if="rank == 0" width="90" height="90" viewBox="-50 -50 562 562">
+      <svg v-if="rank == 0" viewBox="0 0 512 512">
         <polygon
           fill="#967444"
           stroke="#967444"
@@ -14,7 +14,7 @@
 	29.274,197.007 188.165,173.919 "
         />
       </svg>
-      <svg v-if="rank == 1" width="90" height="90" viewBox="-50 -50 562 562">
+      <svg v-if="rank == 1" viewBox="0 0 512 512">
         <polygon
           fill="#c6c6c6"
           stroke="#c6c6c6"
@@ -27,7 +27,7 @@
 	29.274,197.007 188.165,173.919 "
         />
       </svg>
-      <svg v-if="rank == 2" width="90" height="90" viewBox="-50 -50 562 562">
+      <svg v-if="rank == 2" viewBox="0 0 512 512">
         <polygon
           fill="#ffcf00"
           stroke="#ffcf00"
@@ -108,11 +108,11 @@ export default {
   flex-shrink: 0;
   flex-grow: 0;
   color: black;
+  background: white;
 }
 
 .starText {
   border: 2px solid black;
-
   border-radius: 0.5vh;
   width: 100%;
   padding: 0.5%;
