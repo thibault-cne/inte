@@ -12,7 +12,7 @@ A project for a new site for the integration club of TELECOM Nancy
 
 ``` shell
 $ git clone https://github.com/thibault-cne/projet_nouveau_site_integration
-$ cd project2-E19
+$ cd projet_nouveau_site_integration
 ```
 
 ### Install Docker
