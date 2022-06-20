@@ -74,7 +74,7 @@ export default {
   /* fill: rgb(243, 166, 243); */
   fill: rgb(255, 255, 255);
   stroke: black;
-  stroke-width: 10px;
+  stroke-width: 5px;
   transition: 200ms ease;
 }
 

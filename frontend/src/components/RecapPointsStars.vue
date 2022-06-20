@@ -93,7 +93,7 @@ export default {
 
 <style scoped>
 .recapContainer {
-  height: 30%;
+  height: 90%;
   width: 90%;
   border-radius: 0 0 10px 10px;
   display: flex;

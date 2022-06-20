@@ -99,9 +99,9 @@
         </div>
         <div class="navbarText">classement</div>
       </router-link>
-      <router-link to="/facebook-feed" class="navbarItem">
-        <div class="navbarLogo"></div>
-        <div class="navbarText">facebook-feed</div>
+      <router-link to="/admin" class="navbarItem">
+        <div class="navbarLogo">admin</div>
+        <div class="navbarText">admin</div>
       </router-link>
       <router-link to="/cestjusteuntest" class="navbarItem">
         <div class="navbarLogo"></div>

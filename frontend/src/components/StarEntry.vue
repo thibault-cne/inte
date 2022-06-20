@@ -103,7 +103,7 @@ ntm */
   margin-left: 0.5vw;
   margin-right: 0.5vw;
   border-radius: 0.5vh;
-  border: solid 2px;
+  /* border: solid 2px; */
   height: 75%;
   min-width: 25vw;
   max-width: 30vw;
@@ -114,7 +114,7 @@ ntm */
 }
 
 .starText {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 0.5vh;
   width: 100%;
   padding: 0.5%;

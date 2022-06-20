@@ -17,8 +17,11 @@ export default {
 <style scoped>
 .infoBar {
   display: grid;
-  grid-template-areas: "lotterie recapProfil calendrier";
+  grid-template-areas:
+    "lotterie recapProfil calendrier"
+    "lotterie infos calendrier";
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
   height: 100%;
   width: 100%;
 }
