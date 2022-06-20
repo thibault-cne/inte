@@ -20,7 +20,7 @@
       </svg>
     </div>
     <div class="card-body">
-      <GestionRowComp route="admin/user-list" texte="Liste des utilisateurs" />
+      <GestionRowComp route="/admin/user-list" texte="Liste des utilisateurs" />
     </div>
   </div>
 </template>
