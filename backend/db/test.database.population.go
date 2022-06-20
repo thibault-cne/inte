@@ -11,10 +11,16 @@ func populate_test_database() {
 	star1 := stars_services.NewStars(1, 1, 1, "Test star 1")
 	star2 := stars_services.NewStars(1, 1, 2, "Test star 2")
 	star3 := stars_services.NewStars(1, 1, 0, "Test star 3")
+	star4 := stars_services.NewStars(1, 1, 0, "Test star 4")
+	star5 := stars_services.NewStars(1, 1, 1, "Test star 5")
+	star6 := stars_services.NewStars(1, 1, 2, "Test star 6")
 
 	stars_services.AddStars(star1)
 	stars_services.AddStars(star2)
 	stars_services.AddStars(star3)
+	stars_services.AddStars(star4)
+	stars_services.AddStars(star5)
+	stars_services.AddStars(star6)
 
 	// We moderate the stars to validate them
 	stars_services.ModerateStar(1, 1)
