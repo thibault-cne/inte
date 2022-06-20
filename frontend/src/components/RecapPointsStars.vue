@@ -101,6 +101,7 @@ export default {
   align-items: center;
   border: 2px solid #1d1d1b;
   border-top: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   /* background: lightgrey; */
 }
 
