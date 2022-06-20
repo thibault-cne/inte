@@ -37,7 +37,7 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
   scrollbar-width: thin;
   /* scrollbar-color: rgb(173, 38, 38) rgb(227, 124, 124); */
 }

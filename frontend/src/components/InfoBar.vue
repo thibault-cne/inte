@@ -2,6 +2,7 @@
   <div class="infoBar">
     <div class="lotterie"><LotteryComp /></div>
     <div class="recapProfil"><RecapPointsStars /></div>
+    <div class="news"><NewsComp /></div>
     <div class="calendrier">calendrier</div>
   </div>
 </template>
@@ -9,8 +10,9 @@
 <script>
 import LotteryComp from "./LotteryComp.vue";
 import RecapPointsStars from "./RecapPointsStars.vue";
+import NewsComp from "./NewsComp.vue";
 export default {
-  components: { LotteryComp, RecapPointsStars },
+  components: { LotteryComp, RecapPointsStars, NewsComp },
 };
 </script>
 
@@ -19,7 +21,7 @@ export default {
   display: grid;
   grid-template-areas:
     "lotterie recapProfil calendrier"
-    "lotterie infos calendrier";
+    "lotterie news calendrier";
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 2fr;
   height: 100%;
@@ -34,6 +36,11 @@ export default {
   /* box-shadow: none */
 }
 
+.news {
+  grid-area: news;
+  height: 100%;
+  width: 100%;
+}
 .lotterie {
   grid-area: lotterie;
   height: 100%;
