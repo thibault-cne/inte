@@ -200,6 +200,7 @@ export default {
   /* fill: rgb(243, 166, 243); */
   fill: white;
   stroke: black;
+  stroke-width: 2;
   transition: 200ms ease;
 }
 
