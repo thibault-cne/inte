@@ -95,6 +95,7 @@ export default {
 .recapContainer {
   height: 90%;
   width: 90%;
+  margin-left: 5%;
   border-radius: 0 0 10px 10px;
   display: flex;
   justify-content: center;
