@@ -15,12 +15,20 @@
       </svg>
     </div>
     <div class="card-body">
-      <div class="card-item">Modération des étoiles</div>
+      <GestionRowComp
+        route="faudra mettre la bonne route quoi"
+        texte="Modération des étoiles"
+      />
     </div>
   </div>
 </template>
 <script>
-export default {};
+import GestionRowComp from "./GestionRowComp.vue";
+export default {
+  components: {
+    GestionRowComp,
+  },
+};
 </script>
 <style scoped lang="scss">
 .card {
@@ -57,7 +65,7 @@ export default {};
 }
 
 .card-body {
-  width: 80%;
+  width: 90%;
   height: 30%;
   margin-top: 20px;
   display: flex;

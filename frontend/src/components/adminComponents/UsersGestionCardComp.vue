@@ -20,12 +20,17 @@
       </svg>
     </div>
     <div class="card-body">
-      <div>Liste des utilisateurs</div>
+      <GestionRowComp route="admin/user-list" texte="Liste des utilisateurs" />
     </div>
   </div>
 </template>
 <script>
-export default {};
+import GestionRowComp from "./GestionRowComp.vue";
+export default {
+  components: {
+    GestionRowComp,
+  },
+};
 </script>
 <style scoped lang="scss">
 .card {
@@ -62,7 +67,7 @@ export default {};
 }
 
 .card-body {
-  width: 80%;
+  width: 90%;
   height: 30%;
   margin-top: 20px;
   display: flex;
