@@ -60,7 +60,7 @@ func CountStarsType(user_id int, type_ int) (int, error) {
 
 	var stars []models.Stars
 
-	db.Where("receiver_id = ? AND type = ?", user_id, type_).Find(&stars)
+	db.Where("receiver_id = ? AND type = ? AND moderation_status = 1", user_id, type_).Find(&stars)
 
 	return len(stars), nil
 }
