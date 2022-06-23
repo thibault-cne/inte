@@ -13,4 +13,5 @@ func Register_controllers(rg *gin.RouterGroup) {
 	Register_login_routes(rg)
 	Register_stars_routes(rg)
 	Register_suggestions_routes(rg)
+	RegisterPlanningRoutes(rg)
 }
