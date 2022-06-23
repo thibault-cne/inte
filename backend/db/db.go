@@ -30,6 +30,7 @@ func InitDatabase() {
 	db.AutoMigrate(&models.Challenge{})
 	db.AutoMigrate(&models.Suggestion{})
 	db.AutoMigrate(&models.Tnder{})
+	db.AutoMigrate(&models.Planning{})
 
 	if POPULATE_TEST_DATABASE == "true" {
 		populate_test_database()
