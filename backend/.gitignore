@@ -21,7 +21,6 @@ go.work
 *.db
 
 # Images and other data
-static/images
 *.png
 *.jpg
 *.jpeg
