@@ -2,7 +2,6 @@ package userscontrollers
 
 import (
 	"backend/models"
-	claims_services "backend/services/claims.services"
 	users_services "backend/services/users.services"
 	"io"
 	"net/http"
@@ -14,16 +13,11 @@ import (
 )
 
 func modify_profile_data(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	temp_user := &models.User{}
-	temp_user.ID = claims.User_id
+	temp_user.ID = userId
 
 	temp_user.Personal_description = ctx.PostForm("description")
 	temp_user.Snapchat_id = ctx.PostForm("snapchat")
@@ -33,7 +27,7 @@ func modify_profile_data(ctx *gin.Context) {
 	temp_user.Hometown = ctx.PostForm("hometown")
 	temp_user.Studies = ctx.PostForm("studies")
 
-	err = users_services.ModifyProfileData(temp_user)
+	err := users_services.ModifyProfileData(temp_user)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -46,13 +40,8 @@ func modify_profile_data(ctx *gin.Context) {
 // Function to get the user profile picture from the frontend
 // Save the picture in the server and then save the path in the database
 func modify_profile_picture(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	// Get the file from the frontend
 	file, err := ctx.FormFile("file")
@@ -89,7 +78,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	// Create a new file
-	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + strconv.Itoa(claims.User_id) + fileExtension)
+	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + strconv.Itoa(userId) + fileExtension)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -113,7 +102,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	}
 
 	// Modify the profile picture path in the database
-	err = users_services.ModifyProfilePicture(claims.User_id, fileExtension)
+	err = users_services.ModifyProfilePicture(userId, fileExtension)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

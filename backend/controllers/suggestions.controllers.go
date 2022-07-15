@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	claims_services "backend/services/claims.services"
 	suggestion_services "backend/services/suggestion.services"
 	"net/http"
 
@@ -9,18 +8,13 @@ import (
 )
 
 func add_suggestion(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	title := ctx.PostForm("title")
 	description := ctx.PostForm("description")
 
-	suggestion_services.AddSuggestions(suggestion_services.NewSuggestions(title, description, claims.User_id))
+	suggestion_services.AddSuggestions(suggestion_services.NewSuggestions(title, description, userId))
 
 	ctx.JSON(http.StatusOK, gin.H{"message": "Suggestion added"})
 }
@@ -36,8 +30,13 @@ func retrieve_all_suggestions(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, suggestions)
 }
 
-func Register_suggestions_routes(rg *gin.RouterGroup) {
+func registerSuggestionsRoutes(rg *gin.RouterGroup) {
 	router_group := rg.Group("/suggestions")
 	router_group.POST("/add", add_suggestion)
+	router_group.GET("/all", retrieve_all_suggestions)
+}
+
+func registerAdminSuggestionRoutes(rg *gin.RouterGroup) {
+	router_group := rg.Group("/suggestions")
 	router_group.GET("/all", retrieve_all_suggestions)
 }

@@ -2,7 +2,6 @@ package userscontrollers
 
 import (
 	api_services "backend/services/api_response.services"
-	claims_services "backend/services/claims.services"
 	notifications_services "backend/services/notification.services"
 	stars_services "backend/services/stars.services"
 	users_services "backend/services/users.services"
@@ -13,15 +12,10 @@ import (
 )
 
 func get_user_data(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
-
-	User, err := users_services.GetUserData(claims)
+	User, err := users_services.GetUserData(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error, user not found"})
@@ -34,15 +28,10 @@ func get_user_data(ctx *gin.Context) {
 }
 
 func get_all_users_notifications(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
-
-	users, err := notifications_services.RetriveAllUserNotification(claims.User_id)
+	users, err := notifications_services.RetriveAllUserNotification(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -53,33 +42,28 @@ func get_all_users_notifications(ctx *gin.Context) {
 }
 
 func get_users_points_and_stars_stats(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
-
-	users, err := users_services.GetUser(claims.User_id)
+	users, err := users_services.GetUser(userId)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
 
-	gold_stars_number, err := stars_services.CountStarsType(claims.User_id, 0)
+	gold_stars_number, err := stars_services.CountStarsType(userId, 0)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
 
-	silver_stars_number, err := stars_services.CountStarsType(claims.User_id, 1)
+	silver_stars_number, err := stars_services.CountStarsType(userId, 1)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
 	}
 
-	bronze_stars_number, err := stars_services.CountStarsType(claims.User_id, 2)
+	bronze_stars_number, err := stars_services.CountStarsType(userId, 2)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 		return
@@ -90,16 +74,11 @@ func get_users_points_and_stars_stats(ctx *gin.Context) {
 
 // Function to get the user profile picture from the database and send it to the frontend
 func provide_user_picture(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("is_logged_in")
+	userId := userIdInterface.(int)
 
 	// Get the file extension
-	filePath, err := users_services.GetProfilePicturePath(claims.User_id)
+	filePath, err := users_services.GetProfilePicturePath(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

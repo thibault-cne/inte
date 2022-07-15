@@ -75,7 +75,7 @@ func refresh_token(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"access_token": new_access_token})
 }
 
-func Register_login_routes(rg *gin.RouterGroup) {
+func registerLoginRoutes(rg *gin.RouterGroup) {
 	router_group := rg.Group("/login")
 	router_group.POST("/g-oauth", validate_Google_OAuth_token)
 	router_group.GET("/refresh-token", refresh_token)

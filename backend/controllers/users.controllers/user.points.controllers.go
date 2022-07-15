@@ -1,7 +1,6 @@
 package userscontrollers
 
 import (
-	claims_services "backend/services/claims.services"
 	users_services "backend/services/users.services"
 	"net/http"
 	"strconv"
@@ -10,13 +9,8 @@ import (
 )
 
 func add_points(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	user_id, err := strconv.Atoi(ctx.PostForm("user_id"))
 
@@ -32,7 +26,7 @@ func add_points(ctx *gin.Context) {
 		return
 	}
 
-	err = users_services.AddPoints(claims.User_id, user_id, points)
+	err = users_services.AddPoints(userId, user_id, points)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

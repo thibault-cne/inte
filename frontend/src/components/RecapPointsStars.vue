@@ -263,7 +263,7 @@ export default {
     };
   },
   async created() {
-    await getRequest("/profile/user/get/stats", "data").then((res) => {
+    await getRequest("/users/user/get/stats", "data").then((res) => {
       this.points = res.data.points;
       this.stars0 = res.data.bronze_stars;
       this.stars1 = res.data.silver_stars;

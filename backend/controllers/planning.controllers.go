@@ -168,9 +168,13 @@ func modifyPlanning(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
-func RegisterPlanningRoutes(rg *gin.RouterGroup) {
+func registerPlanningRoutes(rg *gin.RouterGroup) {
+	route_group := rg.Group("/planning")
+	route_group.GET("/current", retriveCurrentPlanning)
+}
+
+func registerAdminPlanningRoutes(rg *gin.RouterGroup) {
 	route_group := rg.Group("/planning")
 	route_group.POST("/add", addPlanning)
-	route_group.GET("/current", retriveCurrentPlanning)
 	route_group.POST("/modify", modifyPlanning)
 }

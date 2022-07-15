@@ -2,7 +2,6 @@ package controllers
 
 import (
 	api_services "backend/services/api_response.services"
-	claims_services "backend/services/claims.services"
 	stars_services "backend/services/stars.services"
 	users_services "backend/services/users.services"
 	"net/http"
@@ -23,16 +22,11 @@ func get_stars(ctx *gin.Context) {
 }
 
 func add_stars(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	// Verify if user is in year > 2
-	user, err := users_services.GetUser(claims.User_id)
+	user, err := users_services.GetUser(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -60,7 +54,7 @@ func add_stars(ctx *gin.Context) {
 
 	message := ctx.PostForm("message")
 
-	err = stars_services.AddStars(stars_services.NewStars(claims.User_id, user_id, star_type, message))
+	err = stars_services.AddStars(stars_services.NewStars(userId, user_id, star_type, message))
 
 	if err != nil {
 		if err.Error() == "message size" {
@@ -76,16 +70,11 @@ func add_stars(ctx *gin.Context) {
 }
 
 func moderate_star(ctx *gin.Context) {
-	reqToken := ctx.Request.Header.Get("Authorization")
-	claims, err := claims_services.RetrieveUserClaims(reqToken)
-
-	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
-		return
-	}
+	userIdInterface, _ := ctx.Get("user_id")
+	userId := userIdInterface.(int)
 
 	// Verify if user is admin
-	user, err := users_services.GetUser(claims.User_id)
+	user, err := users_services.GetUser(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -104,7 +93,7 @@ func moderate_star(ctx *gin.Context) {
 		return
 	}
 
-	err = stars_services.ModerateStar(star_id, claims.User_id)
+	err = stars_services.ModerateStar(star_id, userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -114,9 +103,15 @@ func moderate_star(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
 
-func Register_stars_routes(rg *gin.RouterGroup) {
+func registerStarsRoutes(rg *gin.RouterGroup) {
 	router_group := rg.Group("/stars")
 	router_group.GET("/all", get_stars)
+	router_group.POST("/add", add_stars)
+	router_group.POST("/moderate", moderate_star)
+}
+
+func registerAdminStarsRoutes(rg *gin.RouterGroup) {
+	router_group := rg.Group("/stars")
 	router_group.POST("/add", add_stars)
 	router_group.POST("/moderate", moderate_star)
 }
