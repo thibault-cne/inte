@@ -37,8 +37,6 @@ You can install golang on the official page : [official golang page](https://go.
 
 ## Start the application
 
-### Partie website
-
 **Docker**
 
 ``` shell
@@ -46,12 +44,12 @@ $ sudo docker-compose build
 $ sudo docker-compose up
 ```
 
-**Séparation des images**
+**Separation of backend and frontend**
 
 ``` shell
 $ cd backend
 $ go mod download
-$ go run .
+$ go run main.go
 ```
 
 ``` shell
