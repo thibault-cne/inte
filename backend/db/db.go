@@ -3,6 +3,7 @@ package db
 import (
 	"backend/config"
 	"backend/models"
+	planningservices "backend/services/planning.services"
 	"os"
 
 	"gorm.io/driver/sqlite"
@@ -30,9 +31,9 @@ func InitDatabase() {
 	db.AutoMigrate(&models.Challenge{})
 	db.AutoMigrate(&models.Suggestion{})
 	db.AutoMigrate(&models.Tnder{})
-	db.AutoMigrate(&models.Planning{})
+	db.AutoMigrate(&planningservices.Planning{})
 
 	if POPULATE_TEST_DATABASE == "true" {
-		populate_test_database()
+		populateTestDatabase()
 	}
 }

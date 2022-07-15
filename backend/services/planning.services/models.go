@@ -1,4 +1,4 @@
-package models
+package planningservices
 
 import "gorm.io/gorm"
 
