@@ -31,17 +31,22 @@ func ModerateStar(id int, user_id int) error {
 		}
 
 		message := ""
+		points := 0
 
 		if star.Type == 0 {
 			message = "bronze"
+			points = 3
 		} else if star.Type == 1 {
 			message = "silver"
+			points = 5
 		} else if star.Type == 2 {
 			message = "gold"
+			points = 7
 		}
 
 		notification := notifications_services.NewNotification(star.Receiver_id, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
 		notifications_services.AddNewNotification(notification)
+		users_services.AddPoints(star.Giver_id, star.Receiver_id, points)
 	} else {
 		star.Moderation_pending_status = user_id
 	}
