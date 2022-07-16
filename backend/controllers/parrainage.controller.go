@@ -74,6 +74,22 @@ func retrievePendingWishes(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "pendingWishes": parrainageservices.RetrievePendingWishes()})
 }
 
+// This functions grants wishes for the parrainage process.
+// Use a POST request with the following fields :
+// `godFatherName` and `stepSonName`
+func grantUserWish(ctx *gin.Context) {
+	godFatherName := ctx.PostForm("godFatherName")
+	stepSonName := ctx.PostForm("stepSonName")
+
+	if !usersservices.CheckUserByName(godFatherName) && !usersservices.CheckUserByName(stepSonName) {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong users name"})
+	}
+
+	parrainageservices.GrantWishByNames(godFatherName, stepSonName)
+
+	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
+}
+
 func registerParrainageRoutes(rg *gin.RouterGroup) {
 	parrainageProcess := &parrainageservices.ParrainageProcess{IsProcessOpen: false, CurrentRound: 1, IsRoundOpen: true}
 
@@ -92,4 +108,5 @@ func registerParrainageRoutes(rg *gin.RouterGroup) {
 	// Admin Routes
 	adminRouterGroup.GET("/toggleProcess", toggleParrainageProcess(parrainageProcess))
 	adminRouterGroup.GET("/pendingWishes", ensureParrainageProcessIsOn(parrainageProcess), retrievePendingWishes)
+	adminRouterGroup.POST("/grantUserWish", ensureParrainageProcessIsOn(parrainageProcess), grantUserWish)
 }

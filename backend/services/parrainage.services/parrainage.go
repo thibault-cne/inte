@@ -2,6 +2,7 @@ package parrainageservices
 
 import (
 	"backend/models"
+	usersservices "backend/services/users.services"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -84,6 +85,15 @@ func (parrainage *Parrainage) grantWhish(wishUserId int) {
 
 	db.Save(&newAdoption)
 	db.Save(&parrainage)
+}
+
+func GrantWishByNames(godFatherName string, stepSonName string) {
+	godFather := usersservices.GetUserByName(godFatherName)
+	stepSon := usersservices.GetUserByName(stepSonName)
+
+	parr := RetrieveCurrentParrainage(godFather.ID)
+
+	parr.grantWhish(stepSon.ID)
 }
 
 func (parrainage *Parrainage) cleanParrainageRound() {
