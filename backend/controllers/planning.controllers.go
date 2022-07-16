@@ -73,7 +73,7 @@ func addPlanning(ctx *gin.Context) {
 	err = planningservices.AddPlaning(planningservices.NewPlaning(pictureName, beginingDate, endDate))
 
 	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error while adding the planning"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error while adding the planning"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
@@ -103,7 +103,7 @@ func modifyPlanning(ctx *gin.Context) {
 	endDate := ctx.PostForm("endDate")
 
 	if id == "" {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "You should bind an id to modify the planning"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "You should bind an id to modify the planning"})
 	}
 
 	planning := planningservices.RetrievePlanningById(id)
@@ -145,7 +145,7 @@ func modifyPlanning(ctx *gin.Context) {
 	}
 
 	if err.Error() != "request Content-Type isn't multipart/form-data" {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Wrong file type"})
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong file type"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
