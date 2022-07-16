@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	claims_services "backend/services/claims.services"
+	parrainageservices "backend/services/parrainage.services"
 	usersservices "backend/services/users.services"
 
 	"github.com/gin-gonic/gin"
@@ -43,6 +44,27 @@ func ensureUserIsAdmin() gin.HandlerFunc {
 
 		if !userIsAdmin {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You are not administrator."})
+		}
+	}
+}
+
+func ensureParrainageProcessIsOn(parrainageProcess *parrainageservices.ParrainageProcess) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		if !parrainageProcess.IsProcessOpen {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Parrainage process is closed."})
+		}
+	}
+}
+
+func ensureUserNotInYearOne() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		userIdInterface, _ := ctx.Get("user_id")
+		userId := userIdInterface.(int)
+
+		user, _ := usersservices.GetUser(userId)
+
+		if user.Current_year == 1 {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You are not allowed to access parrainage process."})
 		}
 	}
 }
