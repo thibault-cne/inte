@@ -17,17 +17,33 @@ func EndParrainageRound() {
 		panic(err)
 	}
 
-	result := db.Find(&parrainages)
+	loopState := true
 
-	if result.Error != nil {
-		panic(result.Error)
-	}
+	for loopState {
+		loopState = false
 
-	for _, parr := range parrainages {
-		for i := 1; i < 6; i++ {
-			parr.CalculateWishes(i)
+		result := db.Find(&parrainages)
+
+		if result.Error != nil {
+			panic(result.Error)
+		}
+
+		for _, parr := range parrainages {
+			if parr.IsGranted {
+				continue
+			}
+
+			for i := 1; i < 6; i++ {
+				parr.CalculateWishes(i)
+
+				if parr.IsGranted {
+					loopState = true
+					break
+				}
+			}
 		}
 	}
+
 }
 
 func (parr *Parrainage) CalculateWishes(roundNumber int) {
@@ -41,7 +57,8 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 
 	switch roundNumber {
 	case 1:
-		matchedResult := db.Where("first_wish = ?", parr.FirstWish).
+		matchedResult := db.Where("is_granted = ?", false).
+			Where("first_wish = ?", parr.FirstWish).
 			Or("second_wish = ?", parr.FirstWish).
 			Or("third_wish = ?", parr.FirstWish).
 			Or("fourth_wish = ?", parr.FirstWish).
@@ -49,10 +66,11 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 			Find(&matchedWishes)
 
 		if matchedResult.RowsAffected == 1 {
-			parr.GrantWhish(parr.FirstWish)
+			parr.grantWhish(parr.FirstWish)
 		}
 	case 2:
-		matchedResult := db.Where("first_wish = ?", parr.SecondWish).
+		matchedResult := db.Where("is_granted = ?", false).
+			Where("first_wish = ?", parr.SecondWish).
 			Or("second_wish = ?", parr.SecondWish).
 			Or("third_wish = ?", parr.SecondWish).
 			Or("fourth_wish = ?", parr.SecondWish).
@@ -60,10 +78,11 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 			Find(&matchedWishes)
 
 		if matchedResult.RowsAffected == 1 {
-			parr.GrantWhish(parr.SecondWish)
+			parr.grantWhish(parr.SecondWish)
 		}
 	case 3:
-		matchedResult := db.Where("first_wish = ?", parr.ThirdWish).
+		matchedResult := db.Where("is_granted = ?", false).
+			Where("first_wish = ?", parr.ThirdWish).
 			Or("second_wish = ?", parr.ThirdWish).
 			Or("third_wish = ?", parr.ThirdWish).
 			Or("fourth_wish = ?", parr.ThirdWish).
@@ -71,10 +90,11 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 			Find(&matchedWishes)
 
 		if matchedResult.RowsAffected == 1 {
-			parr.GrantWhish(parr.ThirdWish)
+			parr.grantWhish(parr.ThirdWish)
 		}
 	case 4:
-		matchedResult := db.Where("first_wish = ?", parr.FourthWish).
+		matchedResult := db.Where("is_granted = ?", false).
+			Where("first_wish = ?", parr.FourthWish).
 			Or("second_wish = ?", parr.FourthWish).
 			Or("third_wish = ?", parr.FourthWish).
 			Or("fourth_wish = ?", parr.FourthWish).
@@ -82,10 +102,11 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 			Find(&matchedWishes)
 
 		if matchedResult.RowsAffected == 1 {
-			parr.GrantWhish(parr.FourthWish)
+			parr.grantWhish(parr.FourthWish)
 		}
 	case 5:
-		matchedResult := db.Where("first_wish = ?", parr.FifthWish).
+		matchedResult := db.Where("is_granted = ?", false).
+			Where("first_wish = ?", parr.FifthWish).
 			Or("second_wish = ?", parr.FifthWish).
 			Or("third_wish = ?", parr.FifthWish).
 			Or("fourth_wish = ?", parr.FifthWish).
@@ -93,7 +114,7 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 			Find(&matchedWishes)
 
 		if matchedResult.RowsAffected == 1 {
-			parr.GrantWhish(parr.FifthWish)
+			parr.grantWhish(parr.FifthWish)
 		}
 	}
 }

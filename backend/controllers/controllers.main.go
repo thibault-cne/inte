@@ -17,7 +17,7 @@ func Register_controllers(rg *gin.RouterGroup) {
 	registerLoginRoutes(rg)
 
 	// Register parrainage routes
-	registerParraingeRoutes(rg)
+	registerParrainageRoutes(rg)
 }
 
 func registerUsersLoggedInRoutes(rg *gin.RouterGroup) {

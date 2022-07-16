@@ -4,31 +4,45 @@ import (
 	parrainageservices "backend/services/parrainage.services"
 	usersservices "backend/services/users.services"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+// This functions sets up wishes for the parrainage process.
+// Use a POST request with one or all the following fields :
+// `firstWish` `secondWish` `thirdWish` `fourthWish` `fifthWish`
+// Please notice that the fields correspond to the order of the wishes
 func setUserWish(ctx *gin.Context) {
 	userIdInterface, _ := ctx.Get("user_id")
 	userId := userIdInterface.(int)
 
 	currentParr := parrainageservices.RetrieveCurrentParrainage(userId)
 
-	whishUserName := ctx.PostForm("wishUsername")
-	wishOrder := ctx.PostForm("wishOrder")
+	firstWish := ctx.PostForm("firstWish")
+	secondWish := ctx.PostForm("secondWish")
+	thirdWish := ctx.PostForm("thirdWish")
+	fourthWish := ctx.PostForm("fourthWish")
+	fifthWish := ctx.PostForm("fifthWish")
 
-	wishOrderInt, err := strconv.Atoi(wishOrder)
-
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Wish order must be an integer."})
+	if firstWish != "" && usersservices.CheckUserByName(firstWish) {
+		currentParr.AddWhish(firstWish, 1)
 	}
 
-	if !usersservices.CheckUserByName(whishUserName) {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "User don't exists."})
+	if secondWish != "" && usersservices.CheckUserByName(secondWish) {
+		currentParr.AddWhish(secondWish, 2)
 	}
 
-	currentParr.AddWhish(whishUserName, wishOrderInt)
+	if thirdWish != "" && usersservices.CheckUserByName(thirdWish) {
+		currentParr.AddWhish(thirdWish, 3)
+	}
+
+	if fourthWish != "" && usersservices.CheckUserByName(fourthWish) {
+		currentParr.AddWhish(fourthWish, 4)
+	}
+
+	if fifthWish != "" && usersservices.CheckUserByName(fifthWish) {
+		currentParr.AddWhish(fifthWish, 5)
+	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
@@ -56,7 +70,7 @@ func endCurrentParrainageRound(parrProcess *parrainageservices.ParrainageProcess
 	}
 }
 
-func registerParraingeRoutes(rg *gin.RouterGroup) {
+func registerParrainageRoutes(rg *gin.RouterGroup) {
 	parrainageProcess := &parrainageservices.ParrainageProcess{IsProcessOpen: false, CurrentRound: 1, IsRoundOpen: true}
 
 	routerGroup := rg.Group("/parrainage", setUserStatus(), ensureLoggedIn(), ensureUserNotInYearOne())

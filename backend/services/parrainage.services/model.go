@@ -4,12 +4,13 @@ import "gorm.io/gorm"
 
 type Parrainage struct {
 	gorm.Model
-	GodFatherId int `json:"godFatherId"`
-	FirstWish   int `json:"firstWish"`
-	SecondWish  int `json:"secondWish"`
-	ThirdWish   int `json:"thirdWish"`
-	FourthWish  int `json:"fourthWish"`
-	FifthWish   int `json:"fifthWish"`
+	GodFatherId int  `json:"godFatherId"`
+	FirstWish   int  `json:"firstWish"`
+	SecondWish  int  `json:"secondWish"`
+	ThirdWish   int  `json:"thirdWish"`
+	FourthWish  int  `json:"fourthWish"`
+	FifthWish   int  `json:"fifthWish"`
+	IsGranted   bool `json:"isGranted"`
 }
 
 type Adoption struct {

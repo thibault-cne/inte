@@ -15,6 +15,7 @@ func createParrainage(godFatherId int) *Parrainage {
 		ThirdWish:   0,
 		FourthWish:  0,
 		FifthWish:   0,
+		IsGranted:   false,
 	}
 }
 
@@ -78,10 +79,12 @@ func (parrainage *Parrainage) AddWhish(whishUserName string, wishOrder int) {
 	db.Save(parrainage)
 }
 
-func (parrainage *Parrainage) GrantWhish(wishUserId int) {
-	if wishUserId == 0 {
+func (parrainage *Parrainage) grantWhish(wishUserId int) {
+	if wishUserId == 0 || parrainage.IsGranted {
 		return
 	}
+
+	parrainage.IsGranted = true
 
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
@@ -92,6 +95,7 @@ func (parrainage *Parrainage) GrantWhish(wishUserId int) {
 	newAdoption := Adoption{GodFatherId: parrainage.GodFatherId, StepSonId: wishUserId}
 
 	db.Save(&newAdoption)
+	db.Save(&parrainage)
 }
 
 func (parrainage *Parrainage) cleanParrainageRound() {
@@ -100,6 +104,7 @@ func (parrainage *Parrainage) cleanParrainageRound() {
 	parrainage.ThirdWish = 0
 	parrainage.FourthWish = 0
 	parrainage.FifthWish = 0
+	parrainage.IsGranted = false
 
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
