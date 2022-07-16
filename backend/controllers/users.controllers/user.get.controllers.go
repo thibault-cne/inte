@@ -15,7 +15,7 @@ func get_user_data(ctx *gin.Context) {
 	userIdInterface, _ := ctx.Get("user_id")
 	userId := userIdInterface.(int)
 
-	User, err := users_services.GetUserData(userId)
+	User, err := users_services.GetUser(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error, user not found"})

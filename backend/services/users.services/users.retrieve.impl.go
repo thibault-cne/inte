@@ -37,22 +37,6 @@ func GetUserByEmail(email string) (*models.User, error) {
 	return &user, nil
 }
 
-func GetUserData(userId int) (*models.User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
-	var user models.User
-
-	if err := db.Where("id = ?", userId).First(&user).Error; err != nil {
-		return nil, err
-	}
-
-	return &user, nil
-}
-
 // Get all users from the database
 func GetAllUsers() ([]models.User, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
