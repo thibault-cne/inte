@@ -70,14 +70,26 @@ func endCurrentParrainageRound(parrProcess *parrainageservices.ParrainageProcess
 	}
 }
 
+func retrievePendingWishes(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "pendingWishes": parrainageservices.RetrievePendingWishes()})
+}
+
 func registerParrainageRoutes(rg *gin.RouterGroup) {
 	parrainageProcess := &parrainageservices.ParrainageProcess{IsProcessOpen: false, CurrentRound: 1, IsRoundOpen: true}
 
-	routerGroup := rg.Group("/parrainage", setUserStatus(), ensureLoggedIn(), ensureUserNotInYearOne())
+	usersRouterGroup := rg.Group("/users", setUserStatus(), ensureLoggedIn())
+	usersRouterGroup = usersRouterGroup.Group("/parrainage", ensureUserNotInYearOne(), ensureParrainageProcessIsOn(parrainageProcess))
+
+	adminRouterGroup := rg.Group("/admin", setUserStatus(), ensureLoggedIn(), ensureUserIsAdmin())
+	adminRouterGroup = adminRouterGroup.Group("/parrainage")
 
 	// Set parrainage routes
-	routerGroup.POST("/setWish", ensureParrainageProcessIsOn(parrainageProcess), setUserWish)
-	routerGroup.GET("/toggleProcess", ensureUserIsAdmin(), toggleParrainageProcess(parrainageProcess))
-	routerGroup.GET("/retrieveUsers", ensureParrainageProcessIsOn(parrainageProcess), retrieveAllUnadoptedUsers)
-	routerGroup.GET("/endCurrentRound", ensureParrainageProcessIsOn(parrainageProcess), endCurrentParrainageRound(parrainageProcess))
+	// Users Routes
+	usersRouterGroup.POST("/setWish", setUserWish)
+	usersRouterGroup.GET("/retrieveUsers", retrieveAllUnadoptedUsers)
+	usersRouterGroup.GET("/endCurrentRound", endCurrentParrainageRound(parrainageProcess))
+
+	// Admin Routes
+	adminRouterGroup.GET("/toggleProcess", toggleParrainageProcess(parrainageProcess))
+	adminRouterGroup.GET("/pendingWishes", ensureParrainageProcessIsOn(parrainageProcess), retrievePendingWishes)
 }

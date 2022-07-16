@@ -32,7 +32,7 @@ func registerUsersLoggedInRoutes(rg *gin.RouterGroup) {
 }
 
 func registerAdminRoutes(rg *gin.RouterGroup) {
-	routerGroup := rg.Group("/admin", ensureUserIsAdmin())
+	routerGroup := rg.Group("/admin", setUserStatus(), ensureLoggedIn(), ensureUserIsAdmin())
 
 	registerAdminCalendarRoutes(routerGroup)
 	registerAdminPlanningRoutes(routerGroup)

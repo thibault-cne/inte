@@ -24,3 +24,8 @@ type ParrainageProcess struct {
 	IsRoundOpen   bool `json:"isRoundOpen"`
 	CurrentRound  int  `json:"currentRound"`
 }
+
+type PendingParrainage struct {
+	GodFatherName   string   `json:"godFatherName"`
+	UserWishesNames []string `json:"userWishesNames"`
+}
