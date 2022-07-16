@@ -13,6 +13,7 @@ export async function handleSignIn(googleUser) {
             access_token: response.data.access_token,
             refresh_token: response.data.refresh_token,
           };
+          console.log(credentials);
           authStore.commit("updateStorage", credentials);
           resolve();
         })

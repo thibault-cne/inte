@@ -23,8 +23,7 @@ func retrieve_all_suggestions(ctx *gin.Context) {
 	suggestions, err := suggestion_services.RetrieveAllSuggestions()
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, suggestions)

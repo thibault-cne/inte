@@ -3,6 +3,7 @@ package db
 import (
 	"backend/config"
 	"backend/models"
+	parrainageservices "backend/services/parrainage.services"
 	planningservices "backend/services/planning.services"
 	"os"
 
@@ -32,6 +33,8 @@ func InitDatabase() {
 	db.AutoMigrate(&models.Suggestion{})
 	db.AutoMigrate(&models.Tnder{})
 	db.AutoMigrate(&planningservices.Planning{})
+	db.AutoMigrate(&parrainageservices.Parrainage{})
+	db.AutoMigrate(&parrainageservices.Adoption{})
 
 	if POPULATE_TEST_DATABASE == "true" {
 		populateTestDatabase()

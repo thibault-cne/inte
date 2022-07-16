@@ -18,8 +18,7 @@ func validate_Google_OAuth_token(ctx *gin.Context) {
 
 	resp, err := http.Get("https://oauth2.googleapis.com/tokeninfo?id_token=" + access_token)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error validating token"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Error validating token"})
 	}
 
 	defer resp.Body.Close()
@@ -35,8 +34,7 @@ func validate_Google_OAuth_token(ctx *gin.Context) {
 	login_api_response, err_message, err := create_response(google_api_response.Email, google_api_response.Name)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err_message})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err_message})
 	}
 
 	ctx.JSON(http.StatusOK, login_api_response)
@@ -68,8 +66,7 @@ func refresh_token(ctx *gin.Context) {
 	new_access_token, err := claims_services.Refresh_token(reqToken)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"access_token": new_access_token})

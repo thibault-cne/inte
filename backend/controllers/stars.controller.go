@@ -14,8 +14,7 @@ func get_stars(ctx *gin.Context) {
 	stars, err := stars_services.GetAllStars()
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, api_services.NewStarsResponse(stars))
@@ -29,27 +28,23 @@ func add_stars(ctx *gin.Context) {
 	user, err := users_services.GetUser(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	if user.Current_year == 1 {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User must be in year 2 to add stars"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "User must be in year 2 to add stars"})
 	}
 
 	user_id, err := strconv.Atoi(ctx.PostForm("user_id"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
 	}
 
 	star_type, err := strconv.Atoi(ctx.PostForm("star_type"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid star_type"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid star_type"})
 	}
 
 	message := ctx.PostForm("message")
@@ -58,12 +53,10 @@ func add_stars(ctx *gin.Context) {
 
 	if err != nil {
 		if err.Error() == "message size" {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": "message size"})
-			return
+			ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "message size"})
 		}
 
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
@@ -77,27 +70,23 @@ func moderate_star(ctx *gin.Context) {
 	user, err := users_services.GetUser(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	if user.User_type != "admin" {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "User is not admin"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "User is not admin"})
 	}
 
 	star_id, err := strconv.Atoi(ctx.PostForm("star_id"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid star_id"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid star_id"})
 	}
 
 	err = stars_services.ModerateStar(star_id, userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "ok"})

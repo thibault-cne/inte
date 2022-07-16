@@ -136,3 +136,17 @@ func CheckAdmin(user_id int) (bool, error) {
 		return false, nil
 	}
 }
+
+func CheckUserByName(userName string) bool {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+
+	if err != nil {
+		return false
+	}
+
+	var user models.User
+
+	result := db.Where("name = ?", userName).Find(&user)
+
+	return result.RowsAffected == 1
+}

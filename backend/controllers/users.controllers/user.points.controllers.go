@@ -15,22 +15,19 @@ func add_points(ctx *gin.Context) {
 	user_id, err := strconv.Atoi(ctx.PostForm("user_id"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
 	}
 
 	points, err := strconv.Atoi(ctx.PostForm("points"))
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid points"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid points"})
 	}
 
 	err = users_services.AddPoints(userId, user_id, points)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "ok"})

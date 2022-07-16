@@ -30,8 +30,7 @@ func modify_profile_data(ctx *gin.Context) {
 	err := users_services.ModifyProfileData(temp_user)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
@@ -47,8 +46,7 @@ func modify_profile_picture(ctx *gin.Context) {
 	file, err := ctx.FormFile("file")
 
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid file"})
 	}
 
 	// Get the file extension
@@ -56,8 +54,7 @@ func modify_profile_picture(ctx *gin.Context) {
 
 	// Check if the file extension is valid
 	if !(fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png") {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid file extension"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid file extension"})
 	}
 
 	// Get the file size
@@ -65,48 +62,42 @@ func modify_profile_picture(ctx *gin.Context) {
 
 	// Check if the file size is valid
 	if fileSize > 5000000 {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "File too big"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "File too big"})
 	}
 
 	// Get the file content
 	fileContent, err := file.Open()
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	// Create a new file
 	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + strconv.Itoa(userId) + fileExtension)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	// Copy the file content to the new file
 	_, err = io.Copy(newFile, fileContent)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	// Close the file
 	err = newFile.Close()
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	// Modify the profile picture path in the database
 	err = users_services.ModifyProfilePicture(userId, fileExtension)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})

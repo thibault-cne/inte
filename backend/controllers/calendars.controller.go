@@ -21,8 +21,7 @@ func check_calendars(ctx *gin.Context) {
 	calendars, err := calendar_services.GetAllCalendars(day)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "data": calendars})
@@ -34,15 +33,13 @@ func add_calendar(ctx *gin.Context) {
 	err := ctx.BindJSON(&calendar)
 
 	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Internal server error"})
 	}
 
 	err = calendar_services.AddCalendar(calendar)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})

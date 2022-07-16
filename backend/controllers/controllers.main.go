@@ -7,12 +7,17 @@ import (
 )
 
 func Register_controllers(rg *gin.RouterGroup) {
-	// Register users and admin routes
+	// Register users routes
 	registerUsersLoggedInRoutes(rg)
+
+	// Register admin routes
 	registerAdminRoutes(rg)
 
 	// Register oauth routes
 	registerLoginRoutes(rg)
+
+	// Register parrainage routes
+	registerParraingeRoutes(rg)
 }
 
 func registerUsersLoggedInRoutes(rg *gin.RouterGroup) {

@@ -14,8 +14,7 @@ func check_daily_game(ctx *gin.Context) {
 	status, err := daily_game_services.CheckDailyGame(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": status})
@@ -28,8 +27,7 @@ func play_daily_game(ctx *gin.Context) {
 	result, err := daily_game_services.PlayDailyGame(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success", "result": result})

@@ -47,26 +47,22 @@ func get_users_points_and_stars_stats(ctx *gin.Context) {
 
 	users, err := users_services.GetUser(userId)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	gold_stars_number, err := stars_services.CountStarsType(userId, 0)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	silver_stars_number, err := stars_services.CountStarsType(userId, 1)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	bronze_stars_number, err := stars_services.CountStarsType(userId, 2)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{"points": users.Points, "gold_stars": gold_stars_number, "silver_stars": silver_stars_number, "bronze_stars": bronze_stars_number})
@@ -81,16 +77,14 @@ func provide_user_picture(ctx *gin.Context) {
 	filePath, err := users_services.GetProfilePicturePath(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
 	// Get the file content
 	fileContent, err := ioutil.ReadFile("static/images/profile_pictures/" + filePath)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error fo read file"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error fo read file"})
 	}
 
 	// Send the file content to the frontend
