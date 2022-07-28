@@ -38,4 +38,5 @@ func registerAdminRoutes(rg *gin.RouterGroup) {
 	registerAdminPlanningRoutes(routerGroup)
 	registerAdminStarsRoutes(routerGroup)
 	registerAdminSuggestionRoutes(routerGroup)
+	registerAdminLogsRoutes(routerGroup)
 }
