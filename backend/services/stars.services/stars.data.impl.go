@@ -21,6 +21,10 @@ func ModerateStar(id int, user_id int) error {
 
 	db.First(&star, id)
 
+	if star.Moderation_status {
+		return nil
+	}
+
 	if star.Moderation_pending_status != 0 && star.Moderation_pending_status != user_id {
 		star.Moderation_status = true
 
