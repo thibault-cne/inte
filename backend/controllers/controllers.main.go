@@ -29,6 +29,7 @@ func registerUsersLoggedInRoutes(rg *gin.RouterGroup) {
 	registerDailyGameRoutes(routerGroup)
 	registerStarsRoutes(routerGroup)
 	registerSuggestionsRoutes(routerGroup)
+	registerUsersNewsRouter(routerGroup)
 }
 
 func registerAdminRoutes(rg *gin.RouterGroup) {
@@ -39,4 +40,5 @@ func registerAdminRoutes(rg *gin.RouterGroup) {
 	registerAdminStarsRoutes(routerGroup)
 	registerAdminSuggestionRoutes(routerGroup)
 	registerAdminLogsRoutes(routerGroup)
+	registerAdminNewsRoutes(routerGroup)
 }

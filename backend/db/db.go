@@ -3,6 +3,7 @@ package db
 import (
 	"backend/config"
 	"backend/models"
+	newsinteservices "backend/services/newsInte.services"
 	parrainageservices "backend/services/parrainage.services"
 	planningservices "backend/services/planning.services"
 	"os"
@@ -28,6 +29,7 @@ func InitDatabase() {
 		db.Migrator().DropTable("stars")
 		db.Migrator().DropTable("plannings")
 		db.Migrator().DropTable("suggestions")
+		db.Migrator().DropTable("news_inte")
 
 		// Migrate the schema
 		db.AutoMigrate(&models.User{})
@@ -41,6 +43,7 @@ func InitDatabase() {
 		db.AutoMigrate(&planningservices.Planning{})
 		db.AutoMigrate(&parrainageservices.Parrainage{})
 		db.AutoMigrate(&parrainageservices.Adoption{})
+		db.AutoMigrate(&newsinteservices.NewsInte{})
 
 		populateTestDatabase()
 
@@ -57,5 +60,6 @@ func InitDatabase() {
 		db.AutoMigrate(&planningservices.Planning{})
 		db.AutoMigrate(&parrainageservices.Parrainage{})
 		db.AutoMigrate(&parrainageservices.Adoption{})
+		db.AutoMigrate(&newsinteservices.NewsInte{})
 	}
 }

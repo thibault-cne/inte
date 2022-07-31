@@ -2,6 +2,7 @@ package db
 
 import (
 	"backend/models"
+	newsinteservices "backend/services/newsInte.services"
 	planningservices "backend/services/planning.services"
 	starsservices "backend/services/stars.services"
 	suggestionservices "backend/services/suggestion.services"
@@ -191,4 +192,21 @@ func populateTestDatabase() {
 	planningservices.AddPlaning(planning1)
 	planningservices.AddPlaning(planning2)
 	planningservices.AddPlaning(planning3)
+
+	// Add news
+	news1 := newsinteservices.NewNewsInte("Il fait chaud hein !!")
+	news2 := newsinteservices.NewNewsInte("BigBaz le trou du cul ;)")
+	news3 := newsinteservices.NewNewsInte("L'empereur grec")
+	news4 := newsinteservices.NewNewsInte("Merci Michèle pour les absences.")
+	news5 := newsinteservices.NewNewsInte("Next projet.")
+	news6 := newsinteservices.NewNewsInte("Instagrammeur cielllll")
+	news7 := newsinteservices.NewNewsInte("Tah le projet de fou")
+
+	newsinteservices.AddNewsInte(news1)
+	newsinteservices.AddNewsInte(news2)
+	newsinteservices.AddNewsInte(news3)
+	newsinteservices.AddNewsInte(news4)
+	newsinteservices.AddNewsInte(news5)
+	newsinteservices.AddNewsInte(news6)
+	newsinteservices.AddNewsInte(news7)
 }
