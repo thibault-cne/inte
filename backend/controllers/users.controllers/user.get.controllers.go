@@ -18,13 +18,16 @@ func get_user_data(ctx *gin.Context) {
 	User, err := users_services.GetUser(userId)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error, user not found"})
-		return
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error, user not found"})
 	}
 
 	response := api_services.NewProfileDataResponse(User)
 
 	ctx.JSON(http.StatusOK, response)
+}
+
+func getAllUsersData(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, users_services.RetrieveAllUsersData())
 }
 
 func get_all_users_notifications(ctx *gin.Context) {
@@ -97,4 +100,5 @@ func Register_user_controllers_get(rg *gin.RouterGroup) {
 	router_group.GET("/notifications", get_all_users_notifications)
 	router_group.GET("/stats", get_users_points_and_stars_stats)
 	router_group.GET("/picture", provide_user_picture)
+	router_group.GET("/all", getAllUsersData)
 }

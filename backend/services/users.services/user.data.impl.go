@@ -150,3 +150,26 @@ func CheckUserByName(userName string) bool {
 
 	return result.RowsAffected == 1
 }
+
+func RetrieveAllUsersData() []map[string]interface{} {
+	var (
+		usersData []map[string]interface{}
+		users     []models.User
+	)
+
+	users, err := GetAllUsers()
+
+	if err != nil {
+		panic(err)
+	}
+
+	for _, user := range users {
+		usersData = append(usersData, map[string]interface{}{
+			"userName": user.Name,
+			"year":     user.Current_year,
+			"color":    user.Color,
+		})
+	}
+
+	return usersData
+}
