@@ -16,6 +16,7 @@ func NewProfileDataResponse(user *models.User) *models.ProfileDataResponse {
 	return &models.ProfileDataResponse{
 		Username:    user.Name,
 		Points:      user.Points,
+		Color:       user.Color,
 		Users_stars: stars,
 	}
 }

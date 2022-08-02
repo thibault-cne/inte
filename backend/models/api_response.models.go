@@ -29,6 +29,7 @@ type LoginApiResponse struct {
 type ProfileDataResponse struct {
 	Username    string  `json:"username"`
 	Points      int     `json:"points"`
+	Color       string  `json:"color"`
 	Users_stars []Stars `json:"users_stars"`
 }
 
