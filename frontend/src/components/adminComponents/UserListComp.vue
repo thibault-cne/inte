@@ -3,7 +3,7 @@
     <v-table item-key="Name">
       <thead>
         <tr>
-          <th v-for="h in this.headers" :key="h" @click="sortTable(u)">
+          <th v-for="h in this.headers" :key="h" @click="sortTable(h)">
             {{ h }}
           </th>
         </tr>
