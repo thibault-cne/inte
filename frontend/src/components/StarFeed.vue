@@ -58,7 +58,7 @@ export default {
     };
   },
   async created() {
-    await getRequest("/stars/all", "json").then((res) => {
+    await getRequest("/users/stars/all", "json").then((res) => {
       this.allStars = res.data;
     });
   },

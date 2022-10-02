@@ -1,26 +1,28 @@
-<template lang="">
-  <table>
-    <thead>
-      <tr>
-        <th v-for="head in headers" :key="head" @click="sortTable(head)">
-          {{ head }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="user in users" :key="user.id">
-        <UserRowCompVue :user="user" />
-      </tr>
-    </tbody>
-  </table>
+<template>
+  <v-card>
+    <v-table item-key="Name">
+      <thead>
+        <tr>
+          <th v-for="h in this.headers" :key="h" @click="sortTable(u)">
+            {{ h }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="u in this.users" :key="u.id">
+          <UserRowComp :user="u" />
+        </tr>
+      </tbody>
+    </v-table>
+  </v-card>
 </template>
 <script>
 import _ from "lodash";
-import UserRowCompVue from "@/components/adminComponents/UserRowComp.vue";
+import UserRowComp from "@/components/adminComponents/UserRowComp.vue";
 
 export default {
   name: "UserListView",
-  components: { UserRowCompVue },
+  components: { UserRowComp },
   data() {
     return {
       ascending: [false, false, false, false, false],
@@ -37,6 +39,7 @@ export default {
         "Current year",
         "Promotion year",
         "God father id",
+        "Actions",
       ],
       users: [
         {
