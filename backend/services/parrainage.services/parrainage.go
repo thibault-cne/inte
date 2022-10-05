@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func RetrieveCurrentParrainage(userId int) *Parrainage {
+func RetrieveCurrentParrainage(userId string) *Parrainage {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -68,8 +68,8 @@ func (parrainage *Parrainage) AddWhish(whishUserName string, wishOrder int) {
 	db.Save(parrainage)
 }
 
-func (parrainage *Parrainage) grantWhish(wishUserId int) {
-	if wishUserId == 0 || parrainage.IsGranted {
+func (parrainage *Parrainage) grantWhish(wishUserId string) {
+	if wishUserId == "" || parrainage.IsGranted {
 		return
 	}
 
@@ -97,11 +97,11 @@ func GrantWishByNames(godFatherName string, stepSonName string) {
 }
 
 func (parrainage *Parrainage) cleanParrainageRound() {
-	parrainage.FirstWish = 0
-	parrainage.SecondWish = 0
-	parrainage.ThirdWish = 0
-	parrainage.FourthWish = 0
-	parrainage.FifthWish = 0
+	parrainage.FirstWish = ""
+	parrainage.SecondWish = ""
+	parrainage.ThirdWish = ""
+	parrainage.FourthWish = ""
+	parrainage.FifthWish = ""
 	parrainage.IsGranted = false
 
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})

@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func GetUser(id int) (*models.User, error) {
+func GetUser(id string) (*models.User, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {

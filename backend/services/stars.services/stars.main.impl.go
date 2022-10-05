@@ -8,14 +8,13 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewStars(giver_id int, receiver_id int, type_ int, message string) models.Stars {
+func NewStars(giver_id string, receiver_id string, type_ int, message string) models.Stars {
 	return models.Stars{
-		Giver_id:                  giver_id,
-		Receiver_id:               receiver_id,
-		Type:                      type_,
-		Message:                   message,
-		Moderation_pending_status: 0,
-		Moderation_status:         false,
+		Giver_id:          giver_id,
+		Receiver_id:       receiver_id,
+		Type:              type_,
+		Message:           message,
+		Moderation_status: false,
 	}
 }
 

@@ -10,7 +10,7 @@ import (
 )
 
 // Function to moderate a star
-func ModerateStar(id int, user_id int) error {
+func ModerateStar(id int, user_id string) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -25,7 +25,7 @@ func ModerateStar(id int, user_id int) error {
 		return nil
 	}
 
-	if star.Moderation_pending_status != 0 && star.Moderation_pending_status != user_id {
+	if star.Moderation_pending_status != "" && star.Moderation_pending_status != user_id {
 		star.Moderation_status = true
 
 		giver, err := users_services.GetUser(star.Giver_id)

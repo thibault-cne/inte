@@ -1,13 +1,8 @@
 package parrainageservices
 
-func createParrainage(godFatherId int) *Parrainage {
+func createParrainage(godFatherId string) *Parrainage {
 	return &Parrainage{
 		GodFatherId: godFatherId,
-		FirstWish:   0,
-		SecondWish:  0,
-		ThirdWish:   0,
-		FourthWish:  0,
-		FifthWish:   0,
 		IsGranted:   false,
 	}
 }

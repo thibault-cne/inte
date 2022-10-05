@@ -22,11 +22,11 @@ func NewUser(email string, name string) *models.User {
 	return &models.User{Name: name, Email: email, Current_year: 1, Promotion_year: year, Points: 0, User_type: "user"}
 }
 
-func AddUser(user *models.User) (int, error) {
+func AddUser(user *models.User) (string, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 
 	db.Create(user)

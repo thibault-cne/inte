@@ -4,13 +4,12 @@ import (
 	"backend/models"
 	notifications_services "backend/services/notification.services"
 	"fmt"
-	"strconv"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func AddPoints(giver_id int, receiver_id int, points int) error {
+func AddPoints(giver_id string, receiver_id string, points int) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -87,7 +86,7 @@ func ModifyProfileData(temp_user *models.User) error {
 	return nil
 }
 
-func ModifyProfilePicture(user_id int, picture_extension string) error {
+func ModifyProfilePicture(user_id string, picture_extension string) error {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
@@ -100,14 +99,14 @@ func ModifyProfilePicture(user_id int, picture_extension string) error {
 		return err
 	}
 
-	user.Profile_picture = "profile_picture_" + strconv.Itoa(user_id) + picture_extension
+	user.Profile_picture = "profile_picture_" + user_id + picture_extension
 
 	db.Save(&user)
 
 	return nil
 }
 
-func GetProfilePicturePath(user_id int) (string, error) {
+func GetProfilePicturePath(user_id string) (string, error) {
 	user, err := GetUser(user_id)
 
 	if err != nil {

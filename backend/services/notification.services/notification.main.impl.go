@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewNotification(user_id int, type_ string, message string) models.Notifications {
+func NewNotification(user_id string, type_ string, message string) models.Notifications {
 	return models.Notifications{
 		User_id: user_id,
 		Type:    type_,

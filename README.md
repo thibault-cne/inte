@@ -60,6 +60,15 @@ npm install package-lock.json
 npm run serve
 ```
 
+## Client OAuth
+
+- Open the Google Developers Console and make sure that you are logged into your telecomnancy.net account.
+- Use the arrow next to the Google APIs logo to open the project list and create a new project.
+- Open the "OAuth consent screen" page and configure its appearance : it is the authentication page shown to users.
+- Open the "credentials" tab and click "create credentials", choosing the "OAuth client ID" option and setting the application type as "Web application".
+- Leave the "Authorised JavaScript origins" text box empty, and inside "Authorised redirect URIs" enter the URL that the web service will be accessible with (https://custom-subdomain.telecomnancy.net/path/to/redirect)
+- Once your OAuth credentials are created, use the download icon to download the JSON file containing the credentials and move it into a file named client_secrets.json in the root of the project.
+
 ## Licence
 
 This project is licensed under the MIT license. Please read the LICENSE file.

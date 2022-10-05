@@ -64,27 +64,27 @@ func RetrievePendingWishes() []PendingParrainage {
 
 		pendingWish := createPendingParrainage(user.Name)
 
-		if parr.FirstWish != 0 {
+		if parr.FirstWish != "" {
 			user, _ = usersservices.GetUser(parr.FirstWish)
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}
 
-		if parr.SecondWish != 0 {
+		if parr.SecondWish != "" {
 			user, _ = usersservices.GetUser(parr.SecondWish)
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}
 
-		if parr.ThirdWish != 0 {
+		if parr.ThirdWish != "" {
 			user, _ = usersservices.GetUser(parr.ThirdWish)
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}
 
-		if parr.FourthWish != 0 {
+		if parr.FourthWish != "" {
 			user, _ = usersservices.GetUser(parr.FourthWish)
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}
 
-		if parr.FifthWish != 0 {
+		if parr.FifthWish != "" {
 			user, _ = usersservices.GetUser(parr.FifthWish)
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}

@@ -22,7 +22,7 @@ func GetAllStars() ([]models.Stars, error) {
 }
 
 // Get all stars of a user
-func GetStars(user_id int) ([]models.Stars, error) {
+func GetStars(user_id string) ([]models.Stars, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
