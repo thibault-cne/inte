@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/gothic"
+	"github.com/yyewolf/goth"
+	"github.com/yyewolf/goth/gothic"
 )
 
 func Login(ctx *gin.Context) {
@@ -63,7 +63,7 @@ func Login(ctx *gin.Context) {
 	ctx.Redirect(http.StatusFound, redirectFront)
 }
 
-func GetUser(ctx *gin.Context) (user goth.User, err error) {
+func GetUser(ctx *gin.Context) (user *goth.User, err error) {
 	// try to get the user without re-authenticating
 	provider, err := goth.GetProvider("google")
 	if err != nil {
@@ -83,7 +83,7 @@ func GetUser(ctx *gin.Context) (user goth.User, err error) {
 		return
 	}
 
-	user, err = provider.FetchUser(sess)
+	u, err := provider.FetchUser(sess)
 	if err != nil {
 		params := ctx.Request.URL.Query()
 		if params.Encode() == "" && ctx.Request.Method == "POST" {
@@ -102,10 +102,10 @@ func GetUser(ctx *gin.Context) (user goth.User, err error) {
 			return
 		}
 
-		user, err = provider.FetchUser(sess)
+		u, err = provider.FetchUser(sess)
 		if err != nil {
 			return
 		}
 	}
-	return
+	return &u, nil
 }

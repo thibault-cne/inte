@@ -60,7 +60,7 @@ func ModerateStar(id int, user_id string) error {
 	return nil
 }
 
-func CountStarsType(user_id int, type_ int) (int, error) {
+func CountStarsType(user_id string, type_ int) (int, error) {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {

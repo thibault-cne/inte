@@ -1,6 +1,7 @@
 package get
 
 import (
+	"backend/models"
 	users_services "backend/services/users.services"
 	"net/http"
 	"os"
@@ -10,11 +11,10 @@ import (
 
 // Function to get the user profile picture from the database and send it to the frontend
 func Avatar(ctx *gin.Context) {
-	userIdInterface, _ := ctx.Get("is_logged_in")
-	userId := userIdInterface.(int)
+	user := ctx.MustGet("User").(*models.User)
 
 	// Get the file extension
-	filePath, err := users_services.GetProfilePicturePath(userId)
+	filePath, err := users_services.GetProfilePicturePath(user.ID)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

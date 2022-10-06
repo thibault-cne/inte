@@ -1,12 +1,12 @@
 package modify
 
 import (
+	"backend/models"
 	users_services "backend/services/users.services"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,8 +14,7 @@ import (
 // Function to get the user profile picture from the frontend
 // Save the picture in the server and then save the path in the database
 func Avatar(ctx *gin.Context) {
-	userIdInterface, _ := ctx.Get("user_id")
-	userId := userIdInterface.(int)
+	user := ctx.MustGet("User").(*models.User)
 
 	// Get the file from the frontend
 	file, err := ctx.FormFile("file")
@@ -48,7 +47,7 @@ func Avatar(ctx *gin.Context) {
 	}
 
 	// Create a new file
-	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + strconv.Itoa(userId) + fileExtension)
+	newFile, err := os.Create("static/images/profile_pictures/profile_picture_" + user.ID + fileExtension)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
@@ -69,7 +68,7 @@ func Avatar(ctx *gin.Context) {
 	}
 
 	// Modify the profile picture path in the database
-	err = users_services.ModifyProfilePicture(userId, fileExtension)
+	err = users_services.ModifyProfilePicture(user.ID, fileExtension)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

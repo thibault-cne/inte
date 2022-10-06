@@ -11,8 +11,8 @@ import (
 	users_services "backend/services/users.services"
 
 	"github.com/gin-gonic/gin"
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/gothic"
+	"github.com/yyewolf/goth"
+	"github.com/yyewolf/goth/gothic"
 	"golang.org/x/oauth2"
 	admin "google.golang.org/api/admin/directory/v1"
 	"google.golang.org/api/option"

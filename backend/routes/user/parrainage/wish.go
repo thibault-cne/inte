@@ -1,6 +1,7 @@
 package parrainage
 
 import (
+	"backend/models"
 	parrainage_services "backend/services/parrainage.services"
 	users_services "backend/services/users.services"
 	"net/http"
@@ -13,10 +14,9 @@ import (
 // `firstWish` `secondWish` `thirdWish` `fourthWish` `fifthWish`
 // Please notice that the fields correspond to the order of the wishes
 func SetUserWish(ctx *gin.Context) {
-	userIdInterface, _ := ctx.Get("user_id")
-	userId := userIdInterface.(int)
+	user := ctx.MustGet("User").(*models.User)
 
-	currentParr := parrainage_services.RetrieveCurrentParrainage(userId)
+	currentParr := parrainage_services.RetrieveCurrentParrainage(user.ID)
 
 	firstWish := ctx.PostForm("firstWish")
 	secondWish := ctx.PostForm("secondWish")

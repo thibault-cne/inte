@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/gothic"
-	"github.com/markbates/goth/providers/google"
+	"github.com/yyewolf/goth"
+	"github.com/yyewolf/goth/gothic"
+	"github.com/yyewolf/goth/providers/google"
 )
 
 func Status(ctx *gin.Context) {

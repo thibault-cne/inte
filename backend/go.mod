@@ -9,7 +9,6 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/gorilla/sessions v1.2.1
 	github.com/joho/godotenv v1.4.0
-	github.com/markbates/goth v1.73.0
 	github.com/yyewolf/goth v1.66.2-0.20220830232043-6e46aef069d4
 	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 	google.golang.org/api v0.32.0

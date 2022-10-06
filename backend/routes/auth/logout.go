@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/markbates/goth/gothic"
+	"github.com/yyewolf/goth/gothic"
 )
 
 func Logout(ctx *gin.Context) {

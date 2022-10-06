@@ -1,6 +1,7 @@
 package points
 
 import (
+	"backend/models"
 	users_services "backend/services/users.services"
 	"net/http"
 	"strconv"
@@ -9,14 +10,9 @@ import (
 )
 
 func Add(ctx *gin.Context) {
-	userIdInterface, _ := ctx.Get("user_id")
-	userId := userIdInterface.(int)
+	user := ctx.MustGet("User").(*models.User)
 
-	user_id, err := strconv.Atoi(ctx.PostForm("user_id"))
-
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
-	}
+	targetID := ctx.PostForm("user_id")
 
 	points, err := strconv.Atoi(ctx.PostForm("points"))
 
@@ -24,7 +20,7 @@ func Add(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid points"})
 	}
 
-	err = users_services.AddPoints(userId, user_id, points)
+	err = users_services.AddPoints(user.ID, targetID, points)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

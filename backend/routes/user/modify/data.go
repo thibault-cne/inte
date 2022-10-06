@@ -10,11 +10,7 @@ import (
 )
 
 func Data(ctx *gin.Context) {
-	userIdInterface, _ := ctx.Get("user_id")
-	userId := userIdInterface.(int)
-
-	user := &models.User{}
-	user.ID = userId
+	user := ctx.MustGet("User").(*models.User)
 
 	user.Personal_description = ctx.PostForm("description")
 	user.Snapchat_id = ctx.PostForm("snapchat")

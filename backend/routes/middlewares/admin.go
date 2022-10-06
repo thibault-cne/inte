@@ -1,21 +1,17 @@
 package middlewares
 
 import (
+	"backend/models"
 	"net/http"
-
-	users_services "backend/services/users.services"
 
 	"github.com/gin-gonic/gin"
 )
 
 func IsAdmin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		userIdInterface, _ := ctx.Get("user_id")
-		userId := userIdInterface.(int)
+		user := ctx.MustGet("User").(*models.User)
 
-		userIsAdmin, _ := users_services.CheckAdmin(userId)
-
-		if !userIsAdmin {
+		if user.User_type != "admin" {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You are not administrator."})
 		}
 	}

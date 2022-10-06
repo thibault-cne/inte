@@ -8,9 +8,8 @@ import (
 
 func Logged() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		loggedInInterface, _ := ctx.Get("is_logged_in")
-		loggedIn := loggedInInterface.(bool)
-		if !loggedIn {
+		logged := ctx.MustGet("Logged").(bool)
+		if !logged {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid token."})
 		}
 	}
