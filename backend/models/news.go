@@ -1,4 +1,4 @@
-package newsinteservices
+package models
 
 import "gorm.io/gorm"
 

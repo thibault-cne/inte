@@ -1,34 +1,26 @@
 package parrainageservices
 
 import (
+	"backend/db"
 	"backend/models"
 	usersservices "backend/services/users.services"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 // Function to retrieve all unadopted users to display them during the parrainge process
 func RetrieveUnadoptedUsers() []string {
-	var adoptions []Adoption
-	var users []models.User
+	var adoptions []*models.Adoption
+	var users []*models.User
 
 	unadoptedUsers := make([]string, 0)
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	usersResult := db.Where("current_year = ?", 1).Find(&users)
+	usersResult := db.DB.Where("current_year = ?", 1).Find(&users)
 
 	if usersResult.Error != nil {
 		panic(usersResult.Error)
 	}
 
 	for _, user := range users {
-		adoptions := db.Where("step_son_id = ?", user.ID).Find(&adoptions)
+		adoptions := db.DB.Where("step_son_id = ?", user.ID).Find(&adoptions)
 
 		if adoptions.Error != nil {
 			panic(adoptions.Error)
@@ -42,18 +34,11 @@ func RetrieveUnadoptedUsers() []string {
 	return unadoptedUsers
 }
 
-func RetrievePendingWishes() []PendingParrainage {
-	pendingWishes := make([]PendingParrainage, 0)
+func RetrievePendingWishes() []*models.PendingParrainage {
+	var pendingWishes []*models.PendingParrainage
+	var parrainages []*models.Parrainage
 
-	var parrainages []Parrainage
-
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := db.Find(&parrainages)
+	result := db.DB.Find(&parrainages)
 
 	if result.Error != nil {
 		panic(result.Error)
@@ -89,8 +74,17 @@ func RetrievePendingWishes() []PendingParrainage {
 			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
 		}
 
-		pendingWishes = append(pendingWishes, *pendingWish)
+		pendingWishes = append(pendingWishes, pendingWish)
 	}
 
 	return pendingWishes
+}
+
+func GrantWishByNames(godFatherName string, stepSonName string) {
+	godFather := usersservices.GetUserByName(godFatherName)
+	stepSon := usersservices.GetUserByName(stepSonName)
+
+	parr := RetrieveCurrentParrainage(godFather.ID)
+
+	parr.GrantWhish(stepSon.ID)
 }

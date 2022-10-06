@@ -1,20 +1,12 @@
 package calendarservices
 
 import (
+	"backend/db"
 	"backend/models"
 	"strconv"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func ModifyCalendar(calendar *models.Calendar, date string, day string, title string, content string) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
 	if date != "" {
 		calendar.Date = date
 	}
@@ -37,5 +29,5 @@ func ModifyCalendar(calendar *models.Calendar, date string, day string, title st
 		calendar.Content = content
 	}
 
-	db.Save(calendar)
+	db.DB.Save(calendar)
 }

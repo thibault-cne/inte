@@ -1,15 +1,23 @@
-package planningservices
+package models
 
 import (
+	"backend/db"
 	"io"
 	"mime/multipart"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
+
+type Planning struct {
+	gorm.Model
+	ID         int    `json:"id"`
+	Picture    string `json:"picture"`
+	Spawn_time string `json:"spawn_time"`
+	End_time   string `json:"end_time"`
+}
 
 func (planning *Planning) ModifyPlanningDates(beginingDate string, endDate string) error {
 	if beginingDate != "" {
@@ -20,13 +28,7 @@ func (planning *Planning) ModifyPlanningDates(beginingDate string, endDate strin
 		planning.End_time = endDate
 	}
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return err
-	}
-
-	db.Save(planning)
+	db.DB.Save(planning)
 	return nil
 }
 
@@ -63,13 +65,6 @@ func (planning *Planning) ModifyPlanningPicture(file *multipart.FileHeader) erro
 		return err
 	}
 
-	// Save the planning in the database
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return err
-	}
-
-	db.Save(planning)
+	db.DB.Save(planning)
 	return nil
 }

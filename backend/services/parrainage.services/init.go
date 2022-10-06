@@ -1,6 +1,8 @@
 package parrainageservices
 
-var Process = &ParrainageProcess{
+import "backend/models"
+
+var Process = &models.ParrainageProcess{
 	IsProcessOpen: false,
 	CurrentRound:  1,
 	IsRoundOpen:   true,

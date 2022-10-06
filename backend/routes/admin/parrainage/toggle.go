@@ -1,13 +1,13 @@
 package parrainage
 
 import (
-	parrainageservices "backend/services/parrainage.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Toggle(parrainageProcess *parrainageservices.ParrainageProcess) gin.HandlerFunc {
+func Toggle(parrainageProcess *models.ParrainageProcess) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		parrainageProcess.IsProcessOpen = !parrainageProcess.IsProcessOpen
 

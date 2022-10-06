@@ -1,23 +1,17 @@
 package newsinteservices
 
 import (
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	"backend/db"
+	"backend/models"
 )
 
-func RetrieveAllNews() []NewsInte {
-	var news []NewsInte
+func RetrieveAllNews() []*models.NewsInte {
+	var news []*models.NewsInte
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := db.Find(&news)
+	result := db.DB.Find(&news)
 
 	if result.Error != nil {
-		panic(err)
+		panic(result.Error)
 	}
 
 	return news

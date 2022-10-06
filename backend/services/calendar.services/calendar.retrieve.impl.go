@@ -1,23 +1,14 @@
 package calendarservices
 
 import (
+	"backend/db"
 	"backend/models"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func GetAllCalendars(day int) ([]models.Calendar, error) {
-	// Get all calendars with the day <= the day parameter
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
 	var calendars []models.Calendar
 
-	if err := db.Where("day <= ?", day).Find(&calendars).Error; err != nil {
+	if err := db.DB.Where("day <= ?", day).Find(&calendars).Error; err != nil {
 		return nil, err
 	}
 
@@ -25,16 +16,9 @@ func GetAllCalendars(day int) ([]models.Calendar, error) {
 }
 
 func GetCalendarById(id int) (*models.Calendar, error) {
-	// Get all calendars with the day <= the day parameter
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
-	}
-
 	var calendars *models.Calendar
 
-	if err := db.Where("id = ?", id).Find(&calendars).Error; err != nil {
+	if err := db.DB.Where("id = ?", id).Find(&calendars).Error; err != nil {
 		return nil, err
 	}
 

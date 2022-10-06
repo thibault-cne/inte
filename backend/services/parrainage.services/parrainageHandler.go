@@ -1,28 +1,20 @@
 package parrainageservices
 
 import (
+	"backend/db"
 	"backend/models"
 	usersservices "backend/services/users.services"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func EndParrainageRound() {
-	var parrainages []Parrainage
-
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
+	var parrainages []*models.Parrainage
 
 	loopState := true
 
 	for loopState {
 		loopState = false
 
-		result := db.Find(&parrainages)
+		result := db.DB.Find(&parrainages)
 
 		if result.Error != nil {
 			panic(result.Error)
@@ -46,110 +38,25 @@ func EndParrainageRound() {
 
 }
 
-func (parr *Parrainage) CalculateWishes(roundNumber int) {
-	var matchedWishes []Parrainage
-
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	switch roundNumber {
-	case 1:
-		matchedResult := db.Where("is_granted = ?", false).
-			Where("first_wish = ?", parr.FirstWish).
-			Or("second_wish = ?", parr.FirstWish).
-			Or("third_wish = ?", parr.FirstWish).
-			Or("fourth_wish = ?", parr.FirstWish).
-			Or("fifth_wish = ?", parr.FirstWish).
-			Find(&matchedWishes)
-
-		if matchedResult.RowsAffected == 1 {
-			parr.grantWhish(parr.FirstWish)
-		}
-	case 2:
-		matchedResult := db.Where("is_granted = ?", false).
-			Where("first_wish = ?", parr.SecondWish).
-			Or("second_wish = ?", parr.SecondWish).
-			Or("third_wish = ?", parr.SecondWish).
-			Or("fourth_wish = ?", parr.SecondWish).
-			Or("fifth_wish = ?", parr.SecondWish).
-			Find(&matchedWishes)
-
-		if matchedResult.RowsAffected == 1 {
-			parr.grantWhish(parr.SecondWish)
-		}
-	case 3:
-		matchedResult := db.Where("is_granted = ?", false).
-			Where("first_wish = ?", parr.ThirdWish).
-			Or("second_wish = ?", parr.ThirdWish).
-			Or("third_wish = ?", parr.ThirdWish).
-			Or("fourth_wish = ?", parr.ThirdWish).
-			Or("fifth_wish = ?", parr.ThirdWish).
-			Find(&matchedWishes)
-
-		if matchedResult.RowsAffected == 1 {
-			parr.grantWhish(parr.ThirdWish)
-		}
-	case 4:
-		matchedResult := db.Where("is_granted = ?", false).
-			Where("first_wish = ?", parr.FourthWish).
-			Or("second_wish = ?", parr.FourthWish).
-			Or("third_wish = ?", parr.FourthWish).
-			Or("fourth_wish = ?", parr.FourthWish).
-			Or("fifth_wish = ?", parr.FourthWish).
-			Find(&matchedWishes)
-
-		if matchedResult.RowsAffected == 1 {
-			parr.grantWhish(parr.FourthWish)
-		}
-	case 5:
-		matchedResult := db.Where("is_granted = ?", false).
-			Where("first_wish = ?", parr.FifthWish).
-			Or("second_wish = ?", parr.FifthWish).
-			Or("third_wish = ?", parr.FifthWish).
-			Or("fourth_wish = ?", parr.FifthWish).
-			Or("fifth_wish = ?", parr.FifthWish).
-			Find(&matchedWishes)
-
-		if matchedResult.RowsAffected == 1 {
-			parr.grantWhish(parr.FifthWish)
-		}
-	}
-}
-
 func CleanAllParrainage() {
-	var parrainages []Parrainage
+	var parrainages []*models.Parrainage
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := db.Find(&parrainages)
+	result := db.DB.Find(&parrainages)
 
 	if result.Error != nil {
 		panic(result.Error)
 	}
 
 	for _, parr := range parrainages {
-		parr.cleanParrainageRound()
+		parr.CleanParrainageRound()
 	}
 }
 
 func EndParrainageProcess() {
-	var adoptions []Adoption
-	users := make([]*models.User, 0)
+	var adoptions []*models.Adoption
+	var users []*models.User
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := db.Find(&adoptions)
+	result := db.DB.Find(&adoptions)
 
 	if result.Error != nil {
 		panic(result.Error)
@@ -165,12 +72,12 @@ func EndParrainageProcess() {
 		user.God_father_id = adoption.GodFatherId
 		users = append(users, user)
 	}
-	db.Save(&users)
+	db.DB.Save(&users)
 
 	// Drop table to flush them
-	db.Migrator().DropTable(&Parrainage{})
-	db.Migrator().DropTable(&Adoption{})
+	db.DB.Migrator().DropTable(&models.Parrainage{})
+	db.DB.Migrator().DropTable(&models.Adoption{})
 
-	db.AutoMigrate(&Parrainage{})
-	db.AutoMigrate(&Adoption{})
+	db.DB.AutoMigrate(&models.Parrainage{})
+	db.DB.AutoMigrate(&models.Adoption{})
 }

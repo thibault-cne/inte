@@ -2,20 +2,19 @@ package parrainageservices
 
 import (
 	"backend/models"
-	usersservices "backend/services/users.services"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func RetrieveCurrentParrainage(userId string) *Parrainage {
+func RetrieveCurrentParrainage(userId string) *models.Parrainage {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
 		panic(err)
 	}
 
-	var parrainage Parrainage
+	var parrainage models.Parrainage
 
 	result := db.Where("god_father_id = ?", userId).Find(&parrainage)
 
@@ -29,86 +28,4 @@ func RetrieveCurrentParrainage(userId string) *Parrainage {
 	db.Where("godFatherId = ?", userId).First(parrainage)
 
 	return &parrainage
-}
-
-func (parrainage *Parrainage) AddParrainage() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	db.Create(parrainage)
-}
-
-func (parrainage *Parrainage) AddWhish(whishUserName string, wishOrder int) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	var user models.User
-
-	db.Where("name = ?", whishUserName).First(&user)
-
-	switch wishOrder {
-	case 1:
-		parrainage.FirstWish = user.ID
-	case 2:
-		parrainage.SecondWish = user.ID
-	case 3:
-		parrainage.ThirdWish = user.ID
-	case 4:
-		parrainage.FourthWish = user.ID
-	case 5:
-		parrainage.FifthWish = user.ID
-	}
-
-	db.Save(parrainage)
-}
-
-func (parrainage *Parrainage) grantWhish(wishUserId string) {
-	if wishUserId == "" || parrainage.IsGranted {
-		return
-	}
-
-	parrainage.IsGranted = true
-
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	newAdoption := Adoption{GodFatherId: parrainage.GodFatherId, StepSonId: wishUserId}
-
-	db.Save(&newAdoption)
-	db.Save(&parrainage)
-}
-
-func GrantWishByNames(godFatherName string, stepSonName string) {
-	godFather := usersservices.GetUserByName(godFatherName)
-	stepSon := usersservices.GetUserByName(stepSonName)
-
-	parr := RetrieveCurrentParrainage(godFather.ID)
-
-	parr.grantWhish(stepSon.ID)
-}
-
-func (parrainage *Parrainage) cleanParrainageRound() {
-	parrainage.FirstWish = ""
-	parrainage.SecondWish = ""
-	parrainage.ThirdWish = ""
-	parrainage.FourthWish = ""
-	parrainage.FifthWish = ""
-	parrainage.IsGranted = false
-
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	db.Save(parrainage)
 }

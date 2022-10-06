@@ -1,4 +1,4 @@
-package db
+package main
 
 import (
 	"backend/models"
@@ -9,7 +9,7 @@ import (
 	usersservices "backend/services/users.services"
 )
 
-func populateTestDatabase() {
+func PopulateDefault() {
 	// Add new 1 year users
 	usersservices.AddUser(&models.User{
 		Email:          "user1A.one@telecomnancy.net",

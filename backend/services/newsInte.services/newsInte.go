@@ -1,34 +1,22 @@
 package newsinteservices
 
 import (
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	"backend/db"
+	"backend/models"
 )
 
-func NewNewsInte(content string) *NewsInte {
-	return &NewsInte{Content: content}
+func NewNewsInte(content string) *models.NewsInte {
+	return &models.NewsInte{Content: content}
 }
 
-func AddNewsInte(news *NewsInte) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	db.Create(news)
+func AddNewsInte(news *models.NewsInte) {
+	db.DB.Create(news)
 }
 
 func EditNews(id int, newContent string) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	var news *models.NewsInte
 
-	if err != nil {
-		panic(err)
-	}
-
-	var news NewsInte
-
-	result := db.Where("id = ?", id).Find(&news)
+	result := db.DB.Where("id = ?", id).Find(&news)
 
 	if result.RowsAffected == 0 {
 		return
@@ -36,15 +24,9 @@ func EditNews(id int, newContent string) {
 
 	news.Content = newContent
 
-	db.Save(news)
+	db.DB.Save(news)
 }
 
 func DeleteNews(id int) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		panic(err)
-	}
-
-	db.Delete(&NewsInte{}, id)
+	db.DB.Delete(&models.NewsInte{}, id)
 }

@@ -11,7 +11,7 @@ func Notifs(ctx *gin.Context) {
 	userIdInterface, _ := ctx.Get("user_id")
 	userId := userIdInterface.(int)
 
-	users, err := notifications_services.RetriveAllUserNotification(userId)
+	users, err := notifications_services.RetrieveAllUserNotification(userId)
 
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

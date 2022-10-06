@@ -1,14 +1,12 @@
 package notificationservices
 
 import (
+	"backend/db"
 	"backend/models"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
-func NewNotification(user_id string, type_ string, message string) models.Notifications {
-	return models.Notifications{
+func NewNotification(user_id string, type_ string, message string) *models.Notifications {
+	return &models.Notifications{
 		User_id: user_id,
 		Type:    type_,
 		Message: message,
@@ -16,14 +14,7 @@ func NewNotification(user_id string, type_ string, message string) models.Notifi
 	}
 }
 
-func AddNewNotification(notification models.Notifications) error {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return err
-	}
-
-	db.Create(&notification)
-
+func AddNewNotification(notification *models.Notifications) error {
+	db.DB.Create(&notification)
 	return nil
 }

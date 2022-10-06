@@ -1,40 +1,26 @@
 package notificationservices
 
 import (
+	"backend/db"
 	"backend/models"
-
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func ReadNotification(id int) error {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	var notification *models.Notifications
 
-	if err != nil {
-		return err
-	}
-
-	var notification models.Notifications
-
-	db.First(&notification, id)
+	db.DB.First(&notification, id)
 
 	notification.Read = true
 
-	db.Save(&notification)
+	db.DB.Save(&notification)
 
 	return nil
 }
 
-func RetriveAllUserNotification(user_id int) ([]models.Notifications, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+func RetrieveAllUserNotification(user_id int) ([]*models.Notifications, error) {
+	var notifications []*models.Notifications
 
-	if err != nil {
-		return nil, err
-	}
-
-	var notifications []models.Notifications
-
-	db.Where("user_id = ? AND read = false", user_id).Find(&notifications)
+	db.DB.Where("user_id = ? AND read = false", user_id).Find(&notifications)
 
 	return notifications, nil
 }
