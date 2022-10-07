@@ -1,7 +1,7 @@
 package news
 
 import (
-	newsinteservices "backend/services/newsInte.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +9,7 @@ import (
 
 // /api/news
 func All(ctx *gin.Context) {
-	news := newsinteservices.RetrieveAllNews()
+	news := models.RetrieveAllNews()
 
 	ctx.JSON(http.StatusOK, news)
 }

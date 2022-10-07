@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	db "backend/db"
-	users_services "backend/services/users.services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/yyewolf/goth"
@@ -94,7 +93,7 @@ func Callback(ctx *gin.Context) {
 	}
 	// Saves to database
 
-	temp, err := users_services.GetUser(user.UserID)
+	temp, err := models.GetUser(user.UserID)
 
 	u := &models.User{
 		ID:             user.UserID,

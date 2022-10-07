@@ -1,7 +1,7 @@
 package auth
 
 import (
-	users_services "backend/services/users.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -50,7 +50,7 @@ func Status(ctx *gin.Context) {
 			return
 		}
 
-		u, err := users_services.GetUser(user.UserID)
+		u, err := models.GetUser(user.UserID)
 		if err != nil {
 			ctx.AbortWithStatusJSON(http.StatusOK, gin.H{"logged": false})
 			return
@@ -66,7 +66,7 @@ func Status(ctx *gin.Context) {
 		gothic.StoreInSession(provider.Name(), sess.Marshal(), ctx.Request, ctx.Writer)
 	}
 
-	u, err := users_services.GetUser(user.UserID)
+	u, err := models.GetUser(user.UserID)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusOK, gin.H{"logged": false})
 		return

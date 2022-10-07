@@ -1,13 +1,12 @@
 package planning
 
 import (
+	"backend/models"
 	"io"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
-
-	planning_services "backend/services/planning.services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -70,7 +69,7 @@ func Add(ctx *gin.Context) {
 	}
 
 	// Add the planning to the database
-	err = planning_services.AddPlaning(planning_services.NewPlaning(pictureName, beginingDate, endDate))
+	err = models.AddPlaning(models.NewPlaning(pictureName, beginingDate, endDate))
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error while adding the planning"})

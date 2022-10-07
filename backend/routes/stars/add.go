@@ -2,7 +2,6 @@ package stars
 
 import (
 	"backend/models"
-	stars_services "backend/services/stars.services"
 	"net/http"
 	"strconv"
 
@@ -26,7 +25,7 @@ func Add(ctx *gin.Context) {
 
 	message := ctx.PostForm("message")
 
-	err = stars_services.AddStars(stars_services.NewStars(user.ID, targetId, star_type, message))
+	err = models.AddStars(models.NewStars(user.ID, targetId, star_type, message))
 
 	if err != nil {
 		if err.Error() == "message size" {

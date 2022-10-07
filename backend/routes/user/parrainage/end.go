@@ -2,7 +2,6 @@ package parrainage
 
 import (
 	"backend/models"
-	parrainage_services "backend/services/parrainage.services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +11,6 @@ func EndCurrentRound(parrProcess *models.ParrainageProcess) gin.HandlerFunc {
 		parrProcess.IsRoundOpen = false
 		parrProcess.CurrentRound += 1
 
-		parrainage_services.EndParrainageRound()
+		models.EndParrainageRound()
 	}
 }

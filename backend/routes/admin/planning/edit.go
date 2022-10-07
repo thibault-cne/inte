@@ -1,7 +1,7 @@
 package planning
 
 import (
-	planningservices "backend/services/planning.services"
+	"backend/models"
 	"net/http"
 	"path/filepath"
 
@@ -17,7 +17,7 @@ func Edit(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "You should bind an id to modify the planning"})
 	}
 
-	planning := planningservices.RetrievePlanningById(id)
+	planning := models.RetrievePlanningById(id)
 
 	if planning == nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Wrong id"})

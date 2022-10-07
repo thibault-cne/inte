@@ -2,7 +2,6 @@ package get
 
 import (
 	"backend/models"
-	users_services "backend/services/users.services"
 	"net/http"
 	"os"
 
@@ -14,7 +13,7 @@ func Avatar(ctx *gin.Context) {
 	user := ctx.MustGet("User").(*models.User)
 
 	// Get the file extension
-	filePath, err := users_services.GetProfilePicturePath(user.ID)
+	filePath, err := models.GetProfilePicturePath(user.ID)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

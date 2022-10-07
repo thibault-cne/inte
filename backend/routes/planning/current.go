@@ -1,7 +1,7 @@
 package planning
 
 import (
-	planning_services "backend/services/planning.services"
+	"backend/models"
 	"net/http"
 	"os"
 
@@ -9,7 +9,7 @@ import (
 )
 
 func Current(ctx *gin.Context) {
-	currentPlanning, err := planning_services.RetrieveLastPlanning()
+	currentPlanning, err := models.RetrieveLastPlanning()
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

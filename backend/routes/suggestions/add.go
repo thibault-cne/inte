@@ -1,7 +1,7 @@
 package suggestions
 
 import (
-	suggestion_services "backend/services/suggestion.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,7 +14,7 @@ func Add(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	description := ctx.PostForm("description")
 
-	suggestion_services.AddSuggestions(suggestion_services.NewSuggestions(title, description, userId))
+	models.NewSuggestions(title, description, userId).Create()
 
 	ctx.JSON(http.StatusOK, gin.H{"message": "Suggestion added"})
 }

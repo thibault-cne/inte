@@ -2,7 +2,6 @@ package modify
 
 import (
 	"backend/models"
-	users_services "backend/services/users.services"
 	"io"
 	"net/http"
 	"os"
@@ -68,7 +67,7 @@ func Avatar(ctx *gin.Context) {
 	}
 
 	// Modify the profile picture path in the database
-	err = users_services.ModifyProfilePicture(user.ID, fileExtension)
+	err = models.ModifyProfilePicture(user.ID, fileExtension)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

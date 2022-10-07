@@ -2,8 +2,6 @@ package parrainage
 
 import (
 	"backend/models"
-	parrainage_services "backend/services/parrainage.services"
-	users_services "backend/services/users.services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +14,7 @@ import (
 func SetUserWish(ctx *gin.Context) {
 	user := ctx.MustGet("User").(*models.User)
 
-	currentParr := parrainage_services.RetrieveCurrentParrainage(user.ID)
+	currentParr := models.RetrieveCurrentParrainage(user.ID)
 
 	firstWish := ctx.PostForm("firstWish")
 	secondWish := ctx.PostForm("secondWish")
@@ -24,23 +22,23 @@ func SetUserWish(ctx *gin.Context) {
 	fourthWish := ctx.PostForm("fourthWish")
 	fifthWish := ctx.PostForm("fifthWish")
 
-	if firstWish != "" && users_services.CheckUserByName(firstWish) {
+	if firstWish != "" && models.CheckUserByName(firstWish) {
 		currentParr.AddWhish(firstWish, 1)
 	}
 
-	if secondWish != "" && users_services.CheckUserByName(secondWish) {
+	if secondWish != "" && models.CheckUserByName(secondWish) {
 		currentParr.AddWhish(secondWish, 2)
 	}
 
-	if thirdWish != "" && users_services.CheckUserByName(thirdWish) {
+	if thirdWish != "" && models.CheckUserByName(thirdWish) {
 		currentParr.AddWhish(thirdWish, 3)
 	}
 
-	if fourthWish != "" && users_services.CheckUserByName(fourthWish) {
+	if fourthWish != "" && models.CheckUserByName(fourthWish) {
 		currentParr.AddWhish(fourthWish, 4)
 	}
 
-	if fifthWish != "" && users_services.CheckUserByName(fifthWish) {
+	if fifthWish != "" && models.CheckUserByName(fifthWish) {
 		currentParr.AddWhish(fifthWish, 5)
 	}
 

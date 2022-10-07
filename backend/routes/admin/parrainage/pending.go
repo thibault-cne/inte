@@ -1,12 +1,12 @@
 package parrainage
 
 import (
-	parrainageservices "backend/services/parrainage.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func PendingWishes(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{"status": "success", "pendingWishes": parrainageservices.RetrievePendingWishes()})
+	ctx.JSON(http.StatusOK, gin.H{"status": "success", "pendingWishes": models.RetrievePendingWishes()})
 }

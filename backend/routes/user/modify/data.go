@@ -4,8 +4,6 @@ import (
 	"backend/models"
 	"net/http"
 
-	users_services "backend/services/users.services"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,7 +18,7 @@ func Data(ctx *gin.Context) {
 	user.Hometown = ctx.PostForm("hometown")
 	user.Studies = ctx.PostForm("studies")
 
-	err := users_services.ModifyProfileData(user)
+	err := models.ModifyProfileData(user)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

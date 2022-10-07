@@ -1,8 +1,7 @@
 package parrainage
 
 import (
-	parrainageservices "backend/services/parrainage.services"
-	usersservices "backend/services/users.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,11 +14,11 @@ func GrantWish(ctx *gin.Context) {
 	godFatherName := ctx.PostForm("godFatherName")
 	stepSonName := ctx.PostForm("stepSonName")
 
-	if !usersservices.CheckUserByName(godFatherName) && !usersservices.CheckUserByName(stepSonName) {
+	if !models.CheckUserByName(godFatherName) && !models.CheckUserByName(stepSonName) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong users name"})
 	}
 
-	parrainageservices.GrantWishByNames(godFatherName, stepSonName)
+	models.GrantWishByNames(godFatherName, stepSonName)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

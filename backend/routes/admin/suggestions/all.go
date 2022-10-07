@@ -1,14 +1,14 @@
 package suggestions
 
 import (
-	suggestion_services "backend/services/suggestion.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func All(ctx *gin.Context) {
-	suggestions, err := suggestion_services.RetrieveAllSuggestions()
+	suggestions, err := models.RetrieveAllSuggestions()
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

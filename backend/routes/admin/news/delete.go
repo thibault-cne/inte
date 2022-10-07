@@ -1,7 +1,7 @@
 package news
 
 import (
-	newsinteservices "backend/services/newsInte.services"
+	"backend/models"
 	"net/http"
 	"strconv"
 
@@ -17,6 +17,6 @@ func Delete(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong id. Id must be an integer."})
 	}
 
-	newsinteservices.DeleteNews(intId)
+	models.DeleteNews(intId)
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

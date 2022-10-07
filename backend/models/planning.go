@@ -6,7 +6,9 @@ import (
 	"mime/multipart"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -67,4 +69,40 @@ func (planning *Planning) ModifyPlanningPicture(file *multipart.FileHeader) erro
 
 	db.DB.Save(planning)
 	return nil
+}
+
+func NewPlaning(picture string, spawn_time string, end_time string) *Planning {
+	return &Planning{
+		Picture:    picture,
+		Spawn_time: spawn_time,
+		End_time:   end_time,
+	}
+}
+
+func AddPlaning(planing *Planning) error {
+	db.DB.Create(&planing)
+	return nil
+}
+
+func RetrieveLastPlanning() (*Planning, error) {
+	today := time.Now().Format("2006-01-02")
+
+	var planning *Planning
+
+	db.DB.Where("Spawn_time <= ? AND End_time >= ?", today, today).Last(&planning)
+
+	return planning, nil
+}
+
+func RetrievePlanningById(planningId string) *Planning {
+	var planning *Planning
+
+	id, err := strconv.Atoi(planningId)
+
+	if err != nil {
+		return nil
+	}
+
+	db.DB.First(planning, id)
+	return planning
 }

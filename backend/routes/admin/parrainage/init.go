@@ -1,14 +1,14 @@
 package parrainage
 
 import (
+	"backend/models"
 	"backend/routes/middlewares"
-	parrainage_services "backend/services/parrainage.services"
 
 	"github.com/gin-gonic/gin"
 )
 
 func AdminParrainageRoutes(path *gin.RouterGroup) {
-	parrainageProcess := parrainage_services.Process
+	parrainageProcess := models.Process
 
 	subpath := path.Group("/parrainage")
 	subpath.GET("/toggle", Toggle(parrainageProcess))

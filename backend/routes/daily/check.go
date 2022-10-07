@@ -1,7 +1,7 @@
 package daily
 
 import (
-	daily_game_services "backend/services/daily_game.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +11,7 @@ func Check(ctx *gin.Context) {
 	userIdInterface, _ := ctx.Get("user_id")
 	userId := userIdInterface.(int)
 
-	status, err := daily_game_services.CheckDailyGame(userId)
+	status, err := models.CheckDailyGame(userId)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

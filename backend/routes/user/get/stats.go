@@ -2,7 +2,6 @@ package get
 
 import (
 	"backend/models"
-	stars_services "backend/services/stars.services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,17 +10,17 @@ import (
 func Stats(ctx *gin.Context) {
 	user := ctx.MustGet("User").(*models.User)
 
-	gold, err := stars_services.CountStarsType(user.ID, 0)
+	gold, err := models.CountStarsType(user.ID, 0)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
-	silver, err := stars_services.CountStarsType(user.ID, 1)
+	silver, err := models.CountStarsType(user.ID, 1)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
-	bronze, err := stars_services.CountStarsType(user.ID, 2)
+	bronze, err := models.CountStarsType(user.ID, 2)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}

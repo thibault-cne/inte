@@ -2,7 +2,6 @@ package points
 
 import (
 	"backend/models"
-	users_services "backend/services/users.services"
 	"net/http"
 	"strconv"
 
@@ -20,7 +19,7 @@ func Add(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid points"})
 	}
 
-	err = users_services.AddPoints(user.ID, targetID, points)
+	err = models.AddPoints(user.ID, targetID, points)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

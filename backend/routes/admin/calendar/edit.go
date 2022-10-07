@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	calendar_services "backend/services/calendar.services"
+	"backend/models"
 	"net/http"
 	"strconv"
 
@@ -16,7 +16,7 @@ func Edit(ctx *gin.Context) {
 		return
 	}
 
-	calendar, err := calendar_services.GetCalendarById(id)
+	calendar, err := models.GetCalendarById(id)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Incorrect id"})
@@ -27,6 +27,6 @@ func Edit(ctx *gin.Context) {
 	title := ctx.PostForm("title")
 	content := ctx.PostForm("content")
 
-	calendar_services.ModifyCalendar(calendar, date, day, title, content)
+	models.ModifyCalendar(calendar, date, day, title, content)
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

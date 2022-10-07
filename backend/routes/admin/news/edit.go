@@ -1,10 +1,9 @@
 package news
 
 import (
+	"backend/models"
 	"net/http"
 	"strconv"
-
-	newsinte_services "backend/services/newsInte.services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +18,7 @@ func Edit(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong id. Id must be an integer."})
 	}
 
-	newsinte_services.EditNews(intId, newsContent)
+	models.EditNews(intId, newsContent)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

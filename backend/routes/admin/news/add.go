@@ -1,7 +1,7 @@
 package news
 
 import (
-	newsinteservices "backend/services/newsInte.services"
+	"backend/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,6 +10,6 @@ import (
 func Add(ctx *gin.Context) {
 	content := ctx.PostForm("content")
 
-	newsinteservices.AddNewsInte(newsinteservices.NewNewsInte(content))
+	models.NewNewsInte(content).Create()
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

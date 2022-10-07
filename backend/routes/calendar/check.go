@@ -1,7 +1,7 @@
 package calendar
 
 import (
-	calendar_services "backend/services/calendar.services"
+	"backend/models"
 	"net/http"
 	"strconv"
 
@@ -17,7 +17,7 @@ func Check(ctx *gin.Context) {
 		return
 	}
 
-	calendars, err := calendar_services.GetAllCalendars(day)
+	calendars, err := models.GetAllCalendars(day)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
