@@ -10,7 +10,7 @@ func Logged() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		logged := ctx.MustGet("Logged").(bool)
 		if !logged {
-			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid token."})
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You're not logged in"})
 		}
 	}
 }
