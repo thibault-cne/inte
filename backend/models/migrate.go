@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func init() {
+func Migrate() {
 	POPULATE_TEST_DATABASE := os.Getenv("POPULATE_TEST_DATABASE")
 
 	if POPULATE_TEST_DATABASE == "true" {
