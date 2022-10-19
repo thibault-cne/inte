@@ -10,4 +10,4 @@ gen
 # VSCode project files
 .vscode
 
-backend/client_secret.json
+backend/client.json

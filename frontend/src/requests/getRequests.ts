@@ -1,7 +1,8 @@
+import { AxiosResponse } from "axios";
 import { getAPI } from "./axios";
 import { createHeader } from "./createHeader";
 
-function getRequest(url: string, headerType: string, params = {}): Promise<Object> {
+function getRequest(url: string, headerType: string, params = {}): Promise<AxiosResponse> {
     let header = createHeader(headerType);
     return new Promise((resolve, reject) => {
       getAPI
