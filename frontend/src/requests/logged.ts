@@ -1,12 +1,12 @@
-import { getAPI } from "./axios";
+import { LoggedIn } from "@/models/LoggedIn";
 import { getRequest } from "./getRequests";
 
-async function isLogged(): Object {
+async function isLogged(): Promise<LoggedIn> {
     let resp = await getRequest("/api/auth/status", "");
-    return resp.data;
+    return <LoggedIn>resp.data;
 }
 
-export { getRequest };
+export { isLogged };
 
 
   

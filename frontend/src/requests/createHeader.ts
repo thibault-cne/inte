@@ -1,4 +1,4 @@
-type Header = Record<string, string>
+import { Header } from "@/models/Header"
 
 function createHeader(headerType: string): Header {
     let header: Header;
@@ -19,4 +19,4 @@ function createHeader(headerType: string): Header {
     return header
 }
 
-export { createHeader, Header }
+export { createHeader }
