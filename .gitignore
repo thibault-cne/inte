@@ -11,3 +11,5 @@ gen
 .vscode
 
 backend/client_secret.json
+
+backend/secret.json

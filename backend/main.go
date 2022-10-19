@@ -5,6 +5,8 @@ import (
 	"backend/models"
 	"backend/server"
 	"os"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {

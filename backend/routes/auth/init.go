@@ -13,6 +13,8 @@ import (
 	"github.com/yyewolf/goth/providers/google"
 	og "golang.org/x/oauth2/google"
 	"google.golang.org/api/people/v1"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 var (

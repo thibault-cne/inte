@@ -1,7 +1,6 @@
 package server
 
 import (
-	"backend/config"
 	"backend/routes"
 	"net/http"
 	"os"
@@ -13,7 +12,7 @@ import (
 
 func InitServer() {
 	// Init environment variables
-	config.InitEnv()
+	// config.InitEnv()
 
 	APP_DOMAIN := os.Getenv("APP_DOMAIN")
 	APP_PORT := os.Getenv("APP_PORT")
