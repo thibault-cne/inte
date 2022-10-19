@@ -2,7 +2,7 @@ package news
 
 import "github.com/gin-gonic/gin"
 
-func NewsRoutes(path *gin.RouterGroup) {
+func AdminNewsRoutes(path *gin.RouterGroup) {
 	subpath := path.Group("/newsInte")
 
 	subpath.POST("/new", Add)

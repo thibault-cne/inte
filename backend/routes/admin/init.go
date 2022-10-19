@@ -2,8 +2,12 @@ package admin
 
 import (
 	"backend/routes/admin/calendar"
+	"backend/routes/admin/logs"
+	"backend/routes/admin/news"
+	"backend/routes/admin/parrainage"
 	"backend/routes/admin/planning"
 	"backend/routes/admin/stars"
+	"backend/routes/admin/suggestions"
 	"backend/routes/middlewares"
 
 	"github.com/gin-gonic/gin"
@@ -14,5 +18,9 @@ func AdminRoutes(path *gin.RouterGroup) {
 
 	calendar.AdminCalendarRoutes(subpath)
 	planning.AdminPlanningRoutes(subpath)
-	stars.AdminStarsRoutes(path)
+	stars.AdminStarsRoutes(subpath)
+	logs.AdminLogsRoutes(subpath)
+	news.AdminNewsRoutes(subpath)
+	parrainage.AdminParrainageRoutes(subpath)
+	suggestions.AdminSuggestionsRoutes(subpath)
 }
