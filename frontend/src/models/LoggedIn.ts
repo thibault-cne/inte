@@ -1,8 +1,8 @@
-import { User } from "./User"
+import { User } from "./User";
 
-interface LoggedIn {
-    IsLogged: boolean;
-    User: User;
-}
+type LoggedIn = {
+  logged: boolean;
+  user: User;
+};
 
-export { LoggedIn }
+export { LoggedIn };

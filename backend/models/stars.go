@@ -9,7 +9,6 @@ import (
 
 type Stars struct {
 	gorm.Model
-	ID                        int    `json:"id"`
 	Giver_id                  string `json:"giver_id"`
 	Receiver_id               string `json:"receiver_id"`
 	Type                      int    `json:"type"`

@@ -7,6 +7,7 @@ import (
 func PopulateDefault() {
 	// Add new 1 year users
 	models.AddUser(&models.User{
+		ID: "1",
 		Email:          "user1A.one@telecomnancy.net",
 		Name:           "User 1A One",
 		Current_year:   1,
@@ -15,6 +16,7 @@ func PopulateDefault() {
 		User_type:      "user",
 	})
 	models.AddUser(&models.User{
+		ID: "2",
 		Email:          "user1A.two@telecomnancy.net",
 		Name:           "User 1A Two",
 		Current_year:   1,
@@ -23,6 +25,7 @@ func PopulateDefault() {
 		User_type:      "user",
 	})
 	models.AddUser(&models.User{
+		ID: "3",
 		Email:          "user1A.three@telecomnancy.net",
 		Name:           "User 1A Three",
 		Current_year:   1,
@@ -31,6 +34,7 @@ func PopulateDefault() {
 		User_type:      "user",
 	})
 	models.AddUser(&models.User{
+		ID: "4",
 		Email:          "user1A.four@telecomnancy.net",
 		Name:           "User 1A Four",
 		Current_year:   1,
@@ -41,6 +45,7 @@ func PopulateDefault() {
 
 	// Add new 2 years users
 	models.AddUser(&models.User{
+		ID: "5",
 		Email:          "user2A.one@telecomnancy.net",
 		Name:           "User 2A One",
 		Current_year:   2,
@@ -49,6 +54,7 @@ func PopulateDefault() {
 		User_type:      "user",
 	})
 	models.AddUser(&models.User{
+		ID: "6",
 		Email:          "user2A.two@telecomnancy.net",
 		Name:           "User 2A two",
 		Current_year:   2,
@@ -59,6 +65,7 @@ func PopulateDefault() {
 
 	// Add new 3 years users
 	models.AddUser(&models.User{
+		ID: "7",
 		Email:          "user3A.one@telecomnancy.net",
 		Name:           "User 3A One",
 		Current_year:   3,
@@ -67,6 +74,7 @@ func PopulateDefault() {
 		User_type:      "user",
 	})
 	models.AddUser(&models.User{
+		ID: "8",
 		Email:          "user3A.two@telecomnancy.net",
 		Name:           "User 3A Two",
 		Current_year:   3,
@@ -77,6 +85,7 @@ func PopulateDefault() {
 
 	// Add 3 admin users
 	models.AddUser(&models.User{
+		ID: "9",
 		Email:          "admin2A.one@telecomnancy.net",
 		Name:           "Admin 2A One",
 		Current_year:   2,
@@ -85,6 +94,7 @@ func PopulateDefault() {
 		User_type:      "admin",
 	})
 	models.AddUser(&models.User{
+		ID: "10",
 		Email:          "admin2A.two@telecomnancy.net",
 		Name:           "Admin 2A Two",
 		Current_year:   2,
@@ -93,6 +103,7 @@ func PopulateDefault() {
 		User_type:      "admin",
 	})
 	models.AddUser(&models.User{
+		ID: "11",
 		Email:          "admin3A.one@telecomnancy.net",
 		Name:           "Admin 3A One",
 		Current_year:   3,

@@ -35,7 +35,7 @@ type ProfileDataResponse struct {
 
 type StarsResponse struct {
 	Created_at        int64  `json:"created_at"`
-	Id                int    `json:"id"`
+	Id                uint    `json:"id"`
 	Giver_name        string `json:"giver_name"`
 	Receiver_name     string `json:"receiver_name"`
 	Type              int    `json:"type"`

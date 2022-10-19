@@ -2,7 +2,7 @@
   <v-app>
     <NavBar />
     <v-main>
-      <router-view />
+      <router-view :status="status" />
     </v-main>
     <FooterBar />
   </v-app>
@@ -12,12 +12,22 @@
 import { defineComponent } from "vue";
 import NavBar from "./components/NavBar.vue";
 import FooterBar from "./components/FooterBar.vue";
+import { LoggedIn } from "@/models/LoggedIn";
+import { isLogged } from "@/requests/logged";
 
 export default defineComponent({
   name: "App",
+  created() {
+    isLogged().then((r: LoggedIn) => {
+      this.status = r;
+    });
+  },
   data() {
     return {
-      //
+      status: {
+        logged: false,
+        user: {},
+      } as LoggedIn,
     };
   },
   components: { NavBar, FooterBar },
