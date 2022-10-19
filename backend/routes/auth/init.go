@@ -61,7 +61,7 @@ func init() {
 
 	gothic.Store = store
 
-	googleProvider = google.New(s.ClientID, s.ClientSecret, fmt.Sprintf("%sapi/login/callback", callbackURL), scopes...)
+	googleProvider = google.New(s.ClientID, s.ClientSecret, fmt.Sprintf("%sapi/auth/callback", callbackURL), scopes...)
 	googleProvider.SetHostedDomain("telecomnancy.net")
 	googleProvider.SetPrompt("consent")
 	googleProvider.SetAccessType("offline")

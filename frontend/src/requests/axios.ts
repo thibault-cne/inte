@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let base_backend_url = `${process.env.VUE_APP_BACKEND_URI}/api`;
+const base_backend_url = `${process.env.VUE_APP_BACKEND_URI}/api`;
 
 axios.defaults.withCredentials = true;
 const getAPI = axios.create({
@@ -10,4 +10,4 @@ const getAPI = axios.create({
   },
 });
 
-export { getAPI };
+export { getAPI, base_backend_url };

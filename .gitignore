@@ -11,5 +11,8 @@ gen
 .vscode
 
 backend/client.json
-
 backend/secret.json
+
+# Ignore env files
+*.env
+*.env.development

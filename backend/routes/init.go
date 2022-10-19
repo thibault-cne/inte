@@ -2,6 +2,7 @@ package routes
 
 import (
 	"backend/routes/admin"
+	"backend/routes/auth"
 	"backend/routes/calendar"
 	"backend/routes/daily"
 	"backend/routes/news"
@@ -15,6 +16,7 @@ import (
 
 func Register(path *gin.RouterGroup) {
 	admin.AdminRoutes(path)
+	auth.AuthRoutes(path)
 	user.UserRoutes(path)
 	calendar.CalendarRoutes(path)
 	planning.PlanningRoutes(path)

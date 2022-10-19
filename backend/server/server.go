@@ -27,7 +27,7 @@ func InitServer() {
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	}))
-	basepath := router.Group("/api/v1")
+	basepath := router.Group("/api")
 
 	// Add all controllers
 	routes.Register(basepath)
