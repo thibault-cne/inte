@@ -1,11 +1,11 @@
 type Stars = {
-  Created_at: number;
-  Id: number;
-  Giver_name: string;
-  Receiver_name: string;
-  Type: number;
-  Message: string;
-  Moderation_status: boolean;
+  created_at: number;
+  id: number;
+  giver_name: string;
+  receiver_name: string;
+  type: number;
+  message: string;
+  moderation_status: boolean;
 };
 
 export { Stars };

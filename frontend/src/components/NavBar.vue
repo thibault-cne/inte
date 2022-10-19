@@ -8,7 +8,9 @@
     <v-app-bar-title>Site de tah l'inté</v-app-bar-title>
 
     <template v-slot:append>
-      <v-btn icon="mdi-dots-vertical"></v-btn>
+      <!-- <v-btn icon="mdi-dots-vertical"></v-btn> -->
+      <v-btn :href="logginUrl">Login</v-btn>
+      <v-btn @click="checkStatus()">Test login</v-btn>
     </template>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" bottom temporary color="#424549">
@@ -20,8 +22,13 @@
   </v-navigation-drawer>
 </template>
 <script lang="ts">
+import { LoggedIn } from "@/models/LoggedIn";
+import { isLogged } from "@/requests/logged";
+import { base_backend_url } from "@/requests/axios";
+
 export default {
   data: () => ({
+    logginUrl: base_backend_url + "/auth/login",
     drawer: false,
     group: null,
     items: [
@@ -30,11 +37,18 @@ export default {
         path: "/",
       },
       {
-        title: "About",
-        path: "/about",
+        title: "Debug Stars",
+        path: "/debug-stars",
       },
     ],
   }),
+  methods: {
+    checkStatus() {
+      isLogged().then((r: LoggedIn) => {
+        console.log(r);
+      });
+    },
+  },
 };
 </script>
 <style lang="scss">

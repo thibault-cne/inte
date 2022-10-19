@@ -3,12 +3,24 @@ package stars
 import (
 	"backend/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	AmountPerPage = 5
+)
+
 func Get(ctx *gin.Context) {
-	stars, err := models.GetAllStars()
+	p := ctx.Param("page")
+	page, err := strconv.Atoi(p)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid page number"})
+		return
+	}
+
+	stars, err := models.GetStarsPage(page*AmountPerPage, AmountPerPage)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

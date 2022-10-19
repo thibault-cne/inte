@@ -98,6 +98,14 @@ func GetAllStars() ([]*Stars, error) {
 	return stars, nil
 }
 
+func GetStarsPage(offset int, amount int) ([]*Stars, error) {
+	var stars []*Stars
+
+	e := db.DB.Where("moderation_status = true").Offset(offset).Limit(amount).Find(&stars)
+
+	return stars, e.Error
+}
+
 // Get all stars of a user
 func GetStars(user_id string) ([]*Stars, error) {
 	var stars []*Stars

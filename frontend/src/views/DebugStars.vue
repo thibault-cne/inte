@@ -1,0 +1,32 @@
+<template>
+  <v-container>
+    <h1 class="text-center">Debug les étoiles</h1>
+    <v-container>
+      <v-row>
+        <v-col md="4" sm="12">
+          <!--  -->
+        </v-col>
+        <v-col md="4" sm="12">
+          <i-stars :status="status" height="550px"></i-stars>
+        </v-col>
+        <v-col md="4" sm="12">
+          <!--  -->
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-container>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import IStars from "@/components/Stars.vue";
+import { LoggedIn } from "@/models/LoggedIn";
+
+export default defineComponent({
+  name: "DebugStars",
+  props: {
+    status: { type: Object as () => LoggedIn, required: true },
+  },
+  components: { IStars },
+});
+</script>
