@@ -1,7 +1,7 @@
 import { getAPI } from "./axios";
 import { createHeader } from "./createHeader";
 
-function getRequest(url: string, headerType: string, params = {}): Promise<unknown> {
+function getRequest(url: string, headerType: string, params = {}): Promise<Object> {
     let header = createHeader(headerType);
     return new Promise((resolve, reject) => {
       getAPI

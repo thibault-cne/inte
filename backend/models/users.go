@@ -10,7 +10,6 @@ import (
 )
 
 type User struct {
-	gorm.Model
 	ID                   string `json:"id"`
 	Name                 string `json:"name"`
 	Email                string `json:"email"`
@@ -29,6 +28,9 @@ type User struct {
 	Last_login           string `json:"last_login"`
 	User_type            string `json:"user_type"`
 	Color                string `json:"color"`
+	CreatedAt            time.Time
+	UpdatedAt            time.Time
+	DeletedAt            gorm.DeletedAt `gorm:"index"`
 }
 
 func RetrieveAllLogs() []*Notifications {
