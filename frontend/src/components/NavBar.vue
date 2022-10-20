@@ -42,6 +42,10 @@ export default {
         title: "Debug Stars",
         path: "/debug-stars",
       },
+      {
+        title: "Debug Profile",
+        path: "/debug-profile",
+      },
     ],
   }),
   methods: {},

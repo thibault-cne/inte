@@ -9,7 +9,7 @@
         <v-icon>mdi-github</v-icon>
       </v-btn>
 
-      <strong>Made with ❤️ by BigBaz54, Thib and Yewolf</strong>
+      <strong>Made with ❤️ by BigBaz54, Thibz and Yewolf</strong>
     </v-col>
   </v-footer>
 </template>

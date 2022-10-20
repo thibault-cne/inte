@@ -1,22 +1,22 @@
 type User = {
-    ID: string
-	Name: string
-	Email: string
-	Current_year: number
-	Promotion_year: number
-	Points: number
-	God_father_id: number
-	Facebook_id: string
-	Google_id: string
-	Instagram_id: string
-	Snapchat_id: string
-	Hometown: string
-	Studies: string
-	Personal_description: string
-	Profile_picture: string
-	Last_login: string
-	User_type: string
-	Color: string
-}
+  id: string;
+  name: string;
+  email: string;
+  current_year: number;
+  promotion_year: number;
+  points: number;
+  god_father_id: number;
+  facebook_id: string;
+  google_id: string;
+  instagram_id: string;
+  snapchat_id: string;
+  hometown: string;
+  studies: string;
+  personal_description: string;
+  profile_picture: string;
+  last_login: string;
+  user_type: string;
+  color: string;
+};
 
-export { User }
+export { User };
