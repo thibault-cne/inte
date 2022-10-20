@@ -3,13 +3,13 @@
     <h1 class="text-center">Debug les étoiles</h1>
     <v-container>
       <v-row>
-        <v-col md="3" sm="12">
+        <v-col md="2" lg="3" sm="12">
           <!--  -->
         </v-col>
-        <v-col md="6" sm="12">
+        <v-col md="8" lg="6" sm="12">
           <i-stars :status="status" height="550px"></i-stars>
         </v-col>
-        <v-col md="3" sm="12">
+        <v-col md="2" lg="3" sm="12">
           <!--  -->
         </v-col>
       </v-row>
