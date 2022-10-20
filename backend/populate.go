@@ -14,6 +14,7 @@ func PopulateDefault() {
 		Promotion_year: 2024,
 		Points:         0,
 		User_type:      "user",
+		Personal_description: "This is a personal description !",
 	})
 	models.AddUser(&models.User{
 		ID: "2",
