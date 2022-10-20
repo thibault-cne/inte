@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar />
+    <NavBar :status="status" />
     <v-main>
       <router-view :status="status" />
     </v-main>

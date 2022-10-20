@@ -9,8 +9,8 @@
 
     <template v-slot:append>
       <!-- <v-btn icon="mdi-dots-vertical"></v-btn> -->
-      <v-btn :href="logginUrl">Login</v-btn>
-      <v-btn @click="checkStatus()">Test login</v-btn>
+      <v-btn v-if="!status.logged" :href="logginUrl">Login</v-btn>
+      <v-btn v-else :href="disconnectUrl">Disconnect</v-btn>
     </template>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" bottom temporary color="#424549">
@@ -23,14 +23,16 @@
 </template>
 <script lang="ts">
 import { LoggedIn } from "@/models/LoggedIn";
-import { isLogged } from "@/requests/logged";
 import { base_backend_url } from "@/requests/axios";
 
 export default {
+  props: {
+    status: { type: Object as () => LoggedIn, required: true },
+  },
   data: () => ({
     logginUrl: base_backend_url + "/auth/login",
+    disconnectUrl: base_backend_url + "/auth/logout",
     drawer: false,
-    group: null,
     items: [
       {
         title: "Home",
@@ -42,13 +44,7 @@ export default {
       },
     ],
   }),
-  methods: {
-    checkStatus() {
-      isLogged().then((r: LoggedIn) => {
-        console.log(r);
-      });
-    },
-  },
+  methods: {},
 };
 </script>
 <style lang="scss">
