@@ -4,7 +4,7 @@
       <h1 class="text-center">Les étoiles</h1>
     </v-card-title>
     <v-card-text>
-      <v-timeline align="start">
+      <v-timeline align="start" :side="tlSide">
         <v-timeline-item
           v-for="(star, i) in stars"
           :key="i"
@@ -37,6 +37,7 @@ import { LoggedIn } from "@/models/LoggedIn";
 import { getRequest } from "@/requests/getRequests";
 import { Stars } from "@/models/Stars";
 import { defineComponent } from "vue";
+import { useDisplay } from "vuetify";
 
 export default defineComponent({
   name: "i-stars",
@@ -79,6 +80,15 @@ export default defineComponent({
           this.stars.push(star);
         }
       });
+    },
+  },
+  computed: {
+    tlSide() {
+      let { xs } = useDisplay();
+      if (xs.value) {
+        return "end";
+      }
+      return "";
     },
   },
 });
