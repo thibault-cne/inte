@@ -22,7 +22,7 @@ export default defineComponent({
       charIndex: 0,
     };
   },
-  created() {
+  mounted() {
     setTimeout(this.typeText, 200);
   },
   methods: {
@@ -54,8 +54,6 @@ export default defineComponent({
 <style scoped lang="scss">
 @use "@/assets/styles/scss/standars/keyframes";
 .container {
-  width: 100%;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +65,7 @@ export default defineComponent({
     display: inline-block;
     margin-left: 3px;
     width: 4px;
-    background-color: #fff;
+    background-color: black;
     animation: cursorBlink 1s infinite;
   }
 

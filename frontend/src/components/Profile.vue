@@ -1,23 +1,24 @@
 <template>
   <v-card>
-    <v-card-title
-      >Profil de {{ status.user.personal_description }}</v-card-title
-    >
-
-    <i-typeText :message="status.user.personal_description"></i-typeText>
+    <v-card-title>Profil de {{ status.user.name }}</v-card-title>
+    <v-row align="center">
+      <v-col md="3"><v-card>1</v-card></v-col>
+      <v-col md="5"><i-profileCenter :status="status"></i-profileCenter></v-col>
+      <v-col md="4"><v-card>3</v-card></v-col>
+    </v-row>
   </v-card>
 </template>
 <script lang="ts">
 import { LoggedIn } from "@/models/LoggedIn";
 import { defineComponent } from "vue";
-import ITypeText from "./TypeText.vue";
+import IProfileCenter from "./ProfileSubComp/ProfileCenter.vue";
 
 export default defineComponent({
   name: "i-profile",
   props: {
     status: { type: Object as () => LoggedIn, required: true },
   },
-  components: { ITypeText },
+  components: { IProfileCenter },
 });
 </script>
 <style lang=""></style>
