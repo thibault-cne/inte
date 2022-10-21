@@ -88,7 +88,7 @@ export default defineComponent({
       if (xs.value) {
         return "end";
       }
-      return "";
+      return undefined;
     },
   },
 });
