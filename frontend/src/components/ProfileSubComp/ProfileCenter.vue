@@ -5,26 +5,63 @@
       <h5>Year : {{ status.user.current_year }}A</h5>
       <h5>Promotion {{ status.user.promotion_year }}</h5>
     </span>
-    <span>
-      <i-profile-input class="mt-2" :status="status"></i-profile-input>
-    </span>
+    <v-container class="container">
+      <i-profileInfo
+        :text="status.user.hometown"
+        icon="mdi-map-marker"
+        tooltip="Location"
+      ></i-profileInfo>
+      <i-profileInfo
+        :text="status.user.studies"
+        icon="mdi-school"
+        tooltip="Studies"
+      ></i-profileInfo>
+    </v-container>
+    <v-divider></v-divider>
+    <v-container class="pa-6">
+      <v-row justify="space-around">
+        <i-profileSocials
+          v-if="status.user.facebook_id"
+          icon="mdi-facebook"
+          color="blue"
+        ></i-profileSocials>
+        <i-profileSocials
+          v-if="status.user.snapchat_id"
+          icon="mdi-snapchat"
+          color="yellow"
+        ></i-profileSocials>
+        <i-profileSocials
+          v-if="status.user.google_id"
+          icon="mdi-google"
+          color="red"
+        ></i-profileSocials>
+        <i-profileSocials
+          v-if="status.user.instagram_id"
+          icon="mdi-instagram"
+          color="pink"
+        ></i-profileSocials>
+      </v-row>
+    </v-container>
   </v-container>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import { LoggedIn } from "@/models/LoggedIn";
-import IProfileInput from "./ProfileInput.vue";
+import IProfileInfo from "./ProfileInfo.vue";
+import IProfileSocials from "./ProfileSocials.vue";
 
 export default defineComponent({
   name: "i-profileCenter",
   props: {
     status: { type: Object as () => LoggedIn, required: true },
   },
-  components: { IProfileInput },
+  components: { IProfileInfo, IProfileSocials },
 });
 </script>
 <style scoped lang="scss">
-.mt-2 {
+.container {
+  display: flex;
+  flex-direction: column;
   margin-top: 2vh;
 }
 </style>

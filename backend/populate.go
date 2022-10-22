@@ -15,6 +15,12 @@ func PopulateDefault() {
 		Points:         0,
 		User_type:      "user",
 		Personal_description: "This is a personal description !",
+		Studies: "Prepa MP*",
+		Hometown: "Paris",
+		Facebook_id: "User_One",
+		Snapchat_id: "UserOne",
+		Google_id: "user.one",
+		Instagram_id: "userTahOne",
 	})
 	models.AddUser(&models.User{
 		ID: "2",
