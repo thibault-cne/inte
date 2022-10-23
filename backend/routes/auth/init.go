@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gofrs/uuid"
 	"github.com/gorilla/sessions"
 	"github.com/yyewolf/goth"
 	"github.com/yyewolf/goth/gothic"
@@ -22,6 +21,7 @@ var (
 	googleFile     = os.Getenv("G_CLIENT")
 	callbackURL    = os.Getenv("G_REDIRECT_URI")
 	redirectFront  = os.Getenv("REDIRECT_FRONT")
+	cookieKey      = os.Getenv("COOKIE_KEY")
 )
 
 var scopes = []string{
@@ -47,15 +47,9 @@ func init() {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
 
-	// Génération d'un UUID pour la clé du cookie
-	token, err := uuid.NewV4()
-	if err != nil {
-		panic("impossible de générer une clé pour les cookies")
-	}
-	key := token.Bytes()
 	maxAge := 86400 * 30 // 30 days cookie
 
-	store := sessions.NewCookieStore(key)
+	store := sessions.NewCookieStore([]byte(cookieKey))
 	store.MaxAge(maxAge)
 	store.Options.Path = "/"
 
