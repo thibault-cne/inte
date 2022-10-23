@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -206,17 +205,13 @@ func (u *User) Create() (string, error) {
 }
 
 func GetUser(id string) (*User, error) {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
-	if err != nil {
-		return nil, err
+	user := &User{
+		ID: id,
 	}
 
-	var user User
+	db.DB.Find(&user)
 
-	db.First(&user, id)
-
-	return &user, nil
+	return user, nil
 }
 
 func GetUserByEmail(email string) (*User, error) {
