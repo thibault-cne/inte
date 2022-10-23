@@ -1,8 +1,5 @@
 <template>
   <v-card class="scrollable" :onscroll="checkFetch">
-    <v-card-title>
-      <h1 class="text-center">Les étoiles</h1>
-    </v-card-title>
     <v-card-text>
       <v-timeline align="start" :side="tlSide">
         <v-timeline-item
@@ -47,7 +44,8 @@ export default defineComponent({
   data() {
     return {
       stars: [] as Stars[],
-      page: 0,
+      page: -1,
+      lock: false,
     };
   },
   mounted() {
@@ -66,20 +64,35 @@ export default defineComponent({
     },
     checkFetch() {
       if (this.scrollPercentage() > 90) {
-        this.page += 1;
         this.fetchStars();
+      }
+      if (this.scrollPercentage() == 100) {
+        setTimeout(() => {
+          this.fetchStars();
+        }, 500);
       }
     },
     fetchStars() {
-      getRequest("/stars/" + this.page, "").then((r) => {
-        console.log("Getting stars from page", this.page);
-        if (r.data.length == 0) {
-          this.page--;
-        }
-        for (const star of r.data) {
-          this.stars.push(star);
-        }
-      });
+      if (this.lock) return;
+      this.lock = true;
+      getRequest("/stars/" + (this.page + 1), "")
+        .then((r) => {
+          if (r.status == 200) {
+            console.debug("Getting stars from page:", this.page + 1);
+            this.page++;
+            for (const star of r.data) {
+              this.stars.push(star);
+            }
+          } else {
+            console.debug("No more stars to fetch");
+          }
+        })
+        .finally(() => {
+          // timeout lock to prevent spamming
+          setTimeout(() => {
+            this.lock = false;
+          }, 1000);
+        });
     },
   },
   computed: {

@@ -94,7 +94,7 @@ func Callback(ctx *gin.Context) {
 	}
 	// Saves to database
 
-	temp, err := models.GetUser(user.UserID)
+	temp, _ := models.GetUser(user.UserID)
 
 	u := &models.User{
 		ID:             user.UserID,

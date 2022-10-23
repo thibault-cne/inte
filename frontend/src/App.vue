@@ -20,7 +20,7 @@ export default defineComponent({
   created() {
     isLogged().then((r: LoggedIn) => {
       this.status = r;
-      console.log("User status:", r);
+      console.debug("User status:", r);
     });
   },
   data() {

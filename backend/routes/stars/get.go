@@ -26,5 +26,10 @@ func Get(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
+	if len(stars) == 0 {
+		ctx.JSON(http.StatusNoContent, gin.H{"error": "no stars found"})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, models.NewStarsResponse(stars))
 }
