@@ -69,10 +69,11 @@ export default defineComponent({
     methods: {
         triggerAlert() {
             if (this.alert) {
-                (this.$refs.alertComponent as any).$el.classList.value = (this.$refs.alertComponent as any).$el.classList.value.replace("popin", "popout");
+                let e = (this.$refs.alertComponent as any)
+                e.$el.classList.value = e.$el.classList.value.replace("popin", "popout");
                 setTimeout(() => {
                     this.alert = false;
-                    (this.$refs.alertComponent as any).$el.classList.value = (this.$refs.alertComponent as any).$el.classList.value.replace("popout", "popin");
+                    e.$el.classList.value = e.$el.classList.value.replace("popout", "popin");
                 }, 500);
             } else {
                 this.alert = true;
