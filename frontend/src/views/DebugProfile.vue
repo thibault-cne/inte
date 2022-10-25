@@ -2,7 +2,10 @@
   <v-container>
     <h1 class="text-center">Debug le profile</h1>
     <h1 class="text-center">
-      <i-typeText :message="status.user.personal_description"></i-typeText>
+      <i-typeText
+        v-if="status.user.personal_description"
+        :message="status.user.personal_description"
+      ></i-typeText>
     </h1>
     <v-container>
       <v-row>

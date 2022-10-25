@@ -71,5 +71,9 @@ func Status(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusOK, gin.H{"logged": false})
 		return
 	}
+
+	// Get user stars
+	u.GetStars()
+
 	ctx.JSON(http.StatusOK, gin.H{"user": u, "logged": true})
 }

@@ -27,9 +27,7 @@ type LoginApiResponse struct {
 }
 
 type ProfileDataResponse struct {
-	Username    string   `json:"username"`
-	Points      int      `json:"points"`
-	Color       string   `json:"color"`
+	User    *User   `json:"user"`
 	UsersStars  []*Stars `json:"users_stars"`
 }
 
@@ -50,21 +48,6 @@ type AllUsersResponse struct {
 type AllUserWithPointsResponse struct {
 	Name   string `json:"name"`
 	Points int    `json:"points"`
-}
-
-func NewProfileDataResponse(user *User) *ProfileDataResponse {
-	stars, err := GetStars(user.ID)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return &ProfileDataResponse{
-		Username:    user.Name,
-		Points:      user.Points,
-		Color:       user.Color,
-		UsersStars: stars,
-	}
 }
 
 func NewStarsResponse(stars []*Stars) []*StarsResponse {

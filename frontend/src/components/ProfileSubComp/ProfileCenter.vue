@@ -7,11 +7,13 @@
     </span>
     <v-container class="container">
       <i-profileInfo
+        v-if="status.user.hometown"
         :text="status.user.hometown"
         icon="mdi-map-marker"
         tooltip="Location"
       ></i-profileInfo>
       <i-profileInfo
+        v-if="status.user.studies"
         :text="status.user.studies"
         icon="mdi-school"
         tooltip="Studies"
