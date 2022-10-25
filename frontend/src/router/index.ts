@@ -12,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
       title: "Home",
     },
     component: HomeView,
+    beforeEnter: checkAuth,
   },
   {
     path: "/login",
