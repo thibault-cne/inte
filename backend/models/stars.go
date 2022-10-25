@@ -107,10 +107,10 @@ func GetStarsPage(offset int, amount int) ([]*Stars, error) {
 }
 
 // Get all stars of a user
-func GetStars(user_id string) ([]*Stars, error) {
-	var stars []*Stars
+func (u *User) GetStars() {
+	e := db.DB.Where("receiver_id = ? AND moderation_status = true", u.ID).Find(&u.Stars)
 
-	e := db.DB.Where("receiver_id = ?, moderation_status = true", user_id).Find(&stars)
-
-	return stars, e.Error
+	if e.Error != nil {
+		panic(e.Error)
+	}
 }
