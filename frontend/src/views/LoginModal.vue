@@ -22,7 +22,16 @@
                                 <!-- 
                                     Beautiful button
                                 -->
-                                <v-btn color="primary" class="white--text" block large :href="loginURL"> Se connecter avec Google </v-btn>
+                                <v-btn color="primary" class="white--text" block :href="loginURL">
+                                    <v-row>
+                                        <v-col cols="2">
+                                            <v-icon>mdi-google</v-icon>
+                                        </v-col>
+                                        <v-col cols="10">
+                                            <span>Se connecter avec Google</span>
+                                        </v-col>
+                                    </v-row>
+                                </v-btn>
                                 <!--  -->
                             </v-col>
                         </v-row>
