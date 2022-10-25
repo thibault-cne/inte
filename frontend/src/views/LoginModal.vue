@@ -22,7 +22,16 @@
                                 <!-- 
                                     Beautiful button
                                 -->
-                                <v-btn color="primary" class="white--text" block large :href="loginURL"> Se connecter avec Google </v-btn>
+                                <v-btn color="primary" class="white--text" block :href="loginURL">
+                                    <v-row>
+                                        <v-col cols="2">
+                                            <v-icon>mdi-google</v-icon>
+                                        </v-col>
+                                        <v-col cols="10">
+                                            <span>Se connecter avec Google</span>
+                                        </v-col>
+                                    </v-row>
+                                </v-btn>
                                 <!--  -->
                             </v-col>
                         </v-row>
@@ -69,7 +78,7 @@ export default defineComponent({
     methods: {
         triggerAlert() {
             if (this.alert) {
-                let e = (this.$refs.alertComponent as any)
+                let e = (this.$refs.alertComponent as HTMLFormElement)
                 e.$el.classList.value = e.$el.classList.value.replace("popin", "popout");
                 setTimeout(() => {
                     this.alert = false;
