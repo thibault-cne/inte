@@ -40,6 +40,7 @@ export default defineComponent({
   name: "i-stars",
   props: {
     status: { type: Object as () => LoggedIn, required: true },
+    preload: Boolean,
   },
   data() {
     return {
@@ -49,7 +50,12 @@ export default defineComponent({
     };
   },
   mounted() {
-    this.fetchStars();
+    if (this.preload) {
+      this.stars = this.status.user.stars;
+      this.lock = true;
+    } else {
+      this.fetchStars();
+    }
   },
   methods: {
     scrollPercentage() {

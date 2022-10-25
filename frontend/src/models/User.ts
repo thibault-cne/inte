@@ -1,3 +1,5 @@
+import { Stars } from "./Stars";
+
 type User = {
   id: string;
   name: string;
@@ -17,6 +19,7 @@ type User = {
   last_login: string;
   user_type: string;
   color: string;
+  stars: Stars[];
 };
 
 export { User };
