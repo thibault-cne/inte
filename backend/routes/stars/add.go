@@ -25,7 +25,9 @@ func Add(ctx *gin.Context) {
 
 	message := ctx.PostForm("message")
 
-	err = models.AddStars(models.NewStars(user.ID, targetId, star_type, message))
+	s := models.NewStars(user.ID, targetId, star_type, message)
+
+	err = s.AddStars()
 
 	if err != nil {
 		if err.Error() == "message size" {

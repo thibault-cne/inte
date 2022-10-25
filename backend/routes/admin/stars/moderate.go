@@ -18,7 +18,9 @@ func Moderate(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid star_id"})
 	}
 
-	err = models.ModerateStar(star_id, user.ID)
+	s := models.GetStar(uint(star_id))
+
+	err = user.ModerateStar(s)
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

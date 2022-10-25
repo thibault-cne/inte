@@ -91,7 +91,7 @@ func PopulateDefault() {
 	})
 
 	// Add 3 admin users
-	models.AddUser(&models.User{
+	u1 := &models.User{
 		ID: "9",
 		Email:          "admin2A.one@telecomnancy.net",
 		Name:           "Admin 2A One",
@@ -99,8 +99,10 @@ func PopulateDefault() {
 		PromotionYear: 2023,
 		Points:         0,
 		UserType:      "admin",
-	})
-	models.AddUser(&models.User{
+	}
+	models.AddUser(u1)
+
+	u2 := &models.User{
 		ID: "10",
 		Email:          "admin2A.two@telecomnancy.net",
 		Name:           "Admin 2A Two",
@@ -108,7 +110,9 @@ func PopulateDefault() {
 		PromotionYear: 2023,
 		Points:         0,
 		UserType:      "admin",
-	})
+	}
+	models.AddUser(u2)
+
 	models.AddUser(&models.User{
 		ID: "11",
 		Email:          "admin3A.one@telecomnancy.net",
@@ -133,49 +137,93 @@ func PopulateDefault() {
 	star11 := models.NewStars("7", "5", 0, "Test star 11 not validate")
 	star12 := models.NewStars("7", "6", 1, "Test star 12 not validate")
 
-	models.AddStars(star1)
-	models.AddStars(star2)
-	models.AddStars(star3)
-	models.AddStars(star4)
-	models.AddStars(star5)
-	models.AddStars(star6)
-	models.AddStars(star7)
-	models.AddStars(star8)
-	models.AddStars(star9)
-	models.AddStars(star10)
-	models.AddStars(star11)
-	models.AddStars(star12)
+	// Stars for Thibault
+	star13 := models.NewStars("5", "111065978852750383627", 0, "Test star 13 bronze")
+	star14 := models.NewStars("5", "111065978852750383627", 1, "Test star 14 silver")
+	star15 := models.NewStars("6", "111065978852750383627", 2, "Test star 15 gold")
+	star16 := models.NewStars("5", "111065978852750383627", 0, "Test star 16 bronze")
+
+	// Stars for Tristan
+	star17 := models.NewStars("5", "112890394147922856462", 0, "Test star 17 bronze")
+	star18 := models.NewStars("5", "112890394147922856462", 1, "Test star 18 silver")
+	star19 := models.NewStars("6", "112890394147922856462", 2, "Test star 19 gold")
+	star20 := models.NewStars("5", "112890394147922856462", 0, "Test star 20 bronze")
+
+	star1.AddStars()
+	star2.AddStars()
+	star3.AddStars()
+	star4.AddStars()
+	star5.AddStars()
+	star6.AddStars()
+	star7.AddStars()
+	star8.AddStars()
+	star9.AddStars()
+	star10.AddStars()
+	star11.AddStars()
+	star12.AddStars()
+	star13.AddStars()
+	star14.AddStars()
+	star15.AddStars()
+	star16.AddStars()
+	star17.AddStars()
+	star18.AddStars()
+	star19.AddStars()
+	star20.AddStars()
 
 	// Moderate the stars
-	models.ModerateStar(1, "9")
-	models.ModerateStar(1, "10")
+	u1.ModerateStar(star1)
+	u2.ModerateStar(star1)
 
-	models.ModerateStar(2, "9")
-	models.ModerateStar(2, "10")
+	u1.ModerateStar(star2)
+	u2.ModerateStar(star2)
 
-	models.ModerateStar(3, "9")
-	models.ModerateStar(3, "10")
+	u1.ModerateStar(star3)
+	u2.ModerateStar(star3)
 
-	models.ModerateStar(4, "9")
-	models.ModerateStar(4, "10")
+	u1.ModerateStar(star4)
+	u2.ModerateStar(star4)
 
-	models.ModerateStar(5, "9")
-	models.ModerateStar(5, "10")
+	u1.ModerateStar(star5)
+	u2.ModerateStar(star5)
 
-	models.ModerateStar(6, "9")
-	models.ModerateStar(6, "10")
+	u1.ModerateStar(star6)
+	u2.ModerateStar(star6)
 
-	models.ModerateStar(7, "9")
-	models.ModerateStar(7, "10")
+	u1.ModerateStar(star7)
+	u2.ModerateStar(star7)
 
-	models.ModerateStar(8, "9")
-	models.ModerateStar(8, "10")
+	u1.ModerateStar(star8)
+	u2.ModerateStar(star8)
 
-	models.ModerateStar(9, "9")
-	models.ModerateStar(9, "10")
+	u1.ModerateStar(star9)
+	u2.ModerateStar(star9)
 
-	models.ModerateStar(10, "9")
-	models.ModerateStar(10, "10")
+	u1.ModerateStar(star10)
+	u2.ModerateStar(star10)
+
+	u1.ModerateStar(star13)
+	u2.ModerateStar(star13)
+
+	u1.ModerateStar(star14)
+	u2.ModerateStar(star14)
+
+	u1.ModerateStar(star15)
+	u2.ModerateStar(star15)
+
+	u1.ModerateStar(star16)
+	u2.ModerateStar(star16)
+
+	u1.ModerateStar(star17)
+	u2.ModerateStar(star17)
+
+	u1.ModerateStar(star18)
+	u2.ModerateStar(star18)
+
+	u1.ModerateStar(star19)
+	u2.ModerateStar(star19)
+
+	u1.ModerateStar(star20)
+	u2.ModerateStar(star20)
 
 	// Add suggestion
 	models.NewSuggestions("Test suggestion 1", "This is a test one", 1).Create()

@@ -27,7 +27,7 @@ func NewStars(giver_id string, receiver_id string, type_ int, message string) *S
 	}
 }
 
-func AddStars(star *Stars) error {
+func (star *Stars) AddStars() error {
 	if len(star.Message) > 100 || len(star.Message) == 0 {
 		return errors.New("message size")
 	}
@@ -38,16 +38,12 @@ func AddStars(star *Stars) error {
 }
 
 // Function to moderate a star
-func ModerateStar(id int, user_id string) error {
-	var star Stars
-
-	db.DB.First(&star, id)
-
+func (u *User) ModerateStar(star *Stars) error {
 	if star.ModerationStatus {
 		return nil
 	}
 
-	if star.ModerationPendingStatus != "" && star.ModerationPendingStatus != user_id {
+	if star.ModerationPendingStatus != "" && star.ModerationPendingStatus != u.ID {
 		star.ModerationStatus = true
 
 		giver, err := GetUser(star.GiverId)
@@ -74,12 +70,20 @@ func ModerateStar(id int, user_id string) error {
 		AddNewNotification(notification)
 		AddPoints(star.GiverId, star.ReceiverId, points)
 	} else {
-		star.ModerationPendingStatus = user_id
+		star.ModerationPendingStatus = u.ID
 	}
 
 	db.DB.Save(&star)
 
 	return nil
+}
+
+func GetStar(star_id uint) *Stars {
+	var star *Stars
+
+	db.DB.Where("ID = ?", star_id).Find(star)
+
+	return star
 }
 
 func CountStarsType(user_id string, type_ int) (int, error) {
