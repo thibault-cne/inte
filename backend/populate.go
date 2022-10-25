@@ -10,44 +10,44 @@ func PopulateDefault() {
 		ID: "1",
 		Email:          "user1A.one@telecomnancy.net",
 		Name:           "User 1A One",
-		Current_year:   1,
-		Promotion_year: 2024,
+		CurrentYear:   1,
+		PromotionYear: 2024,
 		Points:         0,
-		User_type:      "user",
-		Personal_description: "This is a personal description !",
+		UserType:      "user",
+		PersonalDescription: "This is a personal description !",
 		Studies: "Prepa MP*",
 		Hometown: "Paris",
-		Facebook_id: "User_One",
-		Snapchat_id: "UserOne",
-		Google_id: "user.one",
-		Instagram_id: "userTahOne",
+		FacebookId: "User_One",
+		SnapchatId: "UserOne",
+		GoogleId: "user.one",
+		InstagramId: "userTahOne",
 	})
 	models.AddUser(&models.User{
 		ID: "2",
 		Email:          "user1A.two@telecomnancy.net",
 		Name:           "User 1A Two",
-		Current_year:   1,
-		Promotion_year: 2024,
+		CurrentYear:   1,
+		PromotionYear: 2024,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 	models.AddUser(&models.User{
 		ID: "3",
 		Email:          "user1A.three@telecomnancy.net",
 		Name:           "User 1A Three",
-		Current_year:   1,
-		Promotion_year: 2024,
+		CurrentYear:   1,
+		PromotionYear: 2024,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 	models.AddUser(&models.User{
 		ID: "4",
 		Email:          "user1A.four@telecomnancy.net",
 		Name:           "User 1A Four",
-		Current_year:   1,
-		Promotion_year: 2024,
+		CurrentYear:   1,
+		PromotionYear: 2024,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 
 	// Add new 2 years users
@@ -55,19 +55,19 @@ func PopulateDefault() {
 		ID: "5",
 		Email:          "user2A.one@telecomnancy.net",
 		Name:           "User 2A One",
-		Current_year:   2,
-		Promotion_year: 2023,
+		CurrentYear:   2,
+		PromotionYear: 2023,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 	models.AddUser(&models.User{
 		ID: "6",
 		Email:          "user2A.two@telecomnancy.net",
 		Name:           "User 2A two",
-		Current_year:   2,
-		Promotion_year: 2023,
+		CurrentYear:   2,
+		PromotionYear: 2023,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 
 	// Add new 3 years users
@@ -75,19 +75,19 @@ func PopulateDefault() {
 		ID: "7",
 		Email:          "user3A.one@telecomnancy.net",
 		Name:           "User 3A One",
-		Current_year:   3,
-		Promotion_year: 2022,
+		CurrentYear:   3,
+		PromotionYear: 2022,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 	models.AddUser(&models.User{
 		ID: "8",
 		Email:          "user3A.two@telecomnancy.net",
 		Name:           "User 3A Two",
-		Current_year:   3,
-		Promotion_year: 2022,
+		CurrentYear:   3,
+		PromotionYear: 2022,
 		Points:         0,
-		User_type:      "user",
+		UserType:      "user",
 	})
 
 	// Add 3 admin users
@@ -95,28 +95,28 @@ func PopulateDefault() {
 		ID: "9",
 		Email:          "admin2A.one@telecomnancy.net",
 		Name:           "Admin 2A One",
-		Current_year:   2,
-		Promotion_year: 2023,
+		CurrentYear:   2,
+		PromotionYear: 2023,
 		Points:         0,
-		User_type:      "admin",
+		UserType:      "admin",
 	})
 	models.AddUser(&models.User{
 		ID: "10",
 		Email:          "admin2A.two@telecomnancy.net",
 		Name:           "Admin 2A Two",
-		Current_year:   2,
-		Promotion_year: 2023,
+		CurrentYear:   2,
+		PromotionYear: 2023,
 		Points:         0,
-		User_type:      "admin",
+		UserType:      "admin",
 	})
 	models.AddUser(&models.User{
 		ID: "11",
 		Email:          "admin3A.one@telecomnancy.net",
 		Name:           "Admin 3A One",
-		Current_year:   3,
-		Promotion_year: 2022,
+		CurrentYear:   3,
+		PromotionYear: 2022,
 		Points:         0,
-		User_type:      "admin",
+		UserType:      "admin",
 	})
 
 	// Add stars to the database

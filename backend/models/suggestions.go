@@ -8,13 +8,13 @@ import (
 
 type Suggestion struct {
 	gorm.Model
-	Giver_id int    `json:"giver_id"`
+	GiverId int    `json:"giver_id"`
 	Title    string `json:"title"`
 	Content  string `json:"content"`
 }
 
 func NewSuggestions(title string, description string, user_id int) *Suggestion {
-	return &Suggestion{Title: title, Content: description, Giver_id: user_id}
+	return &Suggestion{Title: title, Content: description, GiverId: user_id}
 }
 
 func (s *Suggestion) Create() (uint, error) {

@@ -11,7 +11,7 @@ func IsAdmin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := ctx.MustGet("User").(*models.User)
 
-		if user.User_type != "admin" {
+		if user.UserType != "admin" {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You are not administrator."})
 		}
 	}

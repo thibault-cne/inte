@@ -12,20 +12,20 @@ type User struct {
 	ID                   string `json:"id"`
 	Name                 string `json:"name"`
 	Email                string `json:"email"`
-	Current_year         int    `json:"current_year"`
-	Promotion_year       int    `json:"promotion_year"`
+	CurrentYear         int    `json:"current_year"`
+	PromotionYear       int    `json:"promotion_year"`
 	Points               int    `json:"points"`
-	God_father_id        string `json:"god_father_id"`
-	Facebook_id          string `json:"facebook_id"`
-	Google_id            string `json:"google_id"`
-	Instagram_id         string `json:"instagram_id"`
-	Snapchat_id          string `json:"snapchat_id"`
+	GodFatherId        string `json:"god_father_id"`
+	FacebookId          string `json:"facebook_id"`
+	GoogleId            string `json:"google_id"`
+	InstagramId         string `json:"instagram_id"`
+	SnapchatId          string `json:"snapchat_id"`
 	Hometown             string `json:"hometown"`
 	Studies              string `json:"studies"`
-	Personal_description string `json:"personal_description"`
-	Profile_picture      string `json:"profile_picture"`
-	Last_login           string `json:"last_login"`
-	User_type            string `json:"user_type"`
+	PersonalDescription string `json:"personal_description"`
+	ProfilePicture      string `json:"profile_picture"`
+	LastLogin           string `json:"last_login"`
+	UserType            string `json:"user_type"`
 	Color                string `json:"color"`
 	CreatedAt            time.Time
 	UpdatedAt            time.Time
@@ -78,24 +78,24 @@ func ModifyProfileData(temp_user *User) error {
 		return err
 	}
 
-	if temp_user.Personal_description != "" {
-		db.DB.Model(&user).Update("personal_description", temp_user.Personal_description)
+	if temp_user.PersonalDescription != "" {
+		db.DB.Model(&user).Update("personal_description", temp_user.PersonalDescription)
 	}
 
-	if temp_user.Facebook_id != "" {
-		db.DB.Model(&user).Update("facebook_id", temp_user.Facebook_id)
+	if temp_user.FacebookId != "" {
+		db.DB.Model(&user).Update("facebook_id", temp_user.FacebookId)
 	}
 
-	if temp_user.Snapchat_id != "" {
-		db.DB.Model(&user).Update("snapchat_id", temp_user.Snapchat_id)
+	if temp_user.SnapchatId != "" {
+		db.DB.Model(&user).Update("snapchat_id", temp_user.SnapchatId)
 	}
 
-	if temp_user.Instagram_id != "" {
-		db.DB.Model(&user).Update("instagram_id", temp_user.Instagram_id)
+	if temp_user.InstagramId != "" {
+		db.DB.Model(&user).Update("instagram_id", temp_user.InstagramId)
 	}
 
-	if temp_user.Google_id != "" {
-		db.DB.Model(&user).Update("google_id", temp_user.Google_id)
+	if temp_user.GoogleId != "" {
+		db.DB.Model(&user).Update("google_id", temp_user.GoogleId)
 	}
 
 	if temp_user.Hometown != "" {
@@ -116,7 +116,7 @@ func ModifyProfilePicture(user_id string, picture_extension string) error {
 		return err
 	}
 
-	user.Profile_picture = "profile_picture_" + user_id + picture_extension
+	user.ProfilePicture = "profile_picture_" + user_id + picture_extension
 
 	db.DB.Save(&user)
 
@@ -130,7 +130,7 @@ func GetProfilePicturePath(user_id string) (string, error) {
 		return "", err
 	}
 
-	return user.Profile_picture, nil
+	return user.ProfilePicture, nil
 }
 
 func CheckAdmin(user_id int) (bool, error) {
@@ -140,7 +140,7 @@ func CheckAdmin(user_id int) (bool, error) {
 		return false, err
 	}
 
-	if user.User_type == "admin" {
+	if user.UserType == "admin" {
 		return true, nil
 	} else {
 		return false, nil
@@ -170,7 +170,7 @@ func RetrieveAllUsersData() []map[string]interface{} {
 	for _, user := range users {
 		usersData = append(usersData, map[string]interface{}{
 			"userName": user.Name,
-			"year":     user.Current_year,
+			"year":     user.CurrentYear,
 			"color":    user.Color,
 		})
 	}
@@ -189,7 +189,7 @@ func NewUser(email string, name string) *User {
 		year = t.Year() + 3
 	}
 
-	return &User{Name: name, Email: email, Current_year: 1, Promotion_year: year, Points: 0, User_type: "user"}
+	return &User{Name: name, Email: email, CurrentYear: 1, PromotionYear: year, Points: 0, UserType: "user"}
 }
 
 func AddUser(u *User) (string, error) {

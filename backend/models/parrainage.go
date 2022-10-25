@@ -340,7 +340,7 @@ func EndParrainageProcess() {
 			continue
 		}
 
-		user.God_father_id = adoption.GodFatherId
+		user.GodFatherId = adoption.GodFatherId
 		users = append(users, user)
 	}
 	db.DB.Save(&users)

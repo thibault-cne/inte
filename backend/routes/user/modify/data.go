@@ -10,11 +10,11 @@ import (
 func Data(ctx *gin.Context) {
 	user := ctx.MustGet("User").(*models.User)
 
-	user.Personal_description = ctx.PostForm("description")
-	user.Snapchat_id = ctx.PostForm("snapchat")
-	user.Instagram_id = ctx.PostForm("instagram")
-	user.Facebook_id = ctx.PostForm("facebook")
-	user.Google_id = ctx.PostForm("google")
+	user.PersonalDescription = ctx.PostForm("description")
+	user.SnapchatId = ctx.PostForm("snapchat")
+	user.InstagramId = ctx.PostForm("instagram")
+	user.FacebookId = ctx.PostForm("facebook")
+	user.GoogleId = ctx.PostForm("google")
 	user.Hometown = ctx.PostForm("hometown")
 	user.Studies = ctx.PostForm("studies")
 

@@ -12,7 +12,7 @@ func NotFirstYear() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := ctx.MustGet("User").(*models.User)
 
-		if user.Current_year == 1 {
+		if user.CurrentYear == 1 {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "You are not allowed to access parrainage process."})
 		}
 	}

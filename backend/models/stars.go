@@ -9,21 +9,21 @@ import (
 
 type Stars struct {
 	gorm.Model
-	Giver_id                  string `json:"giver_id"`
-	Receiver_id               string `json:"receiver_id"`
+	GiverId                  string `json:"giver_id"`
+	ReceiverId               string `json:"receiver_id"`
 	Type                      int    `json:"type"`
 	Message                   string `json:"message"`
-	Moderation_pending_status string `json:"moderation_pending_status"`
-	Moderation_status         bool   `json:"moderation_status"`
+	ModerationPendingStatus string `json:"moderation_pending_status"`
+	ModerationStatus         bool   `json:"moderation_status"`
 }
 
 func NewStars(giver_id string, receiver_id string, type_ int, message string) *Stars {
 	return &Stars{
-		Giver_id:          giver_id,
-		Receiver_id:       receiver_id,
+		GiverId:          giver_id,
+		ReceiverId:       receiver_id,
 		Type:              type_,
 		Message:           message,
-		Moderation_status: false,
+		ModerationStatus: false,
 	}
 }
 
@@ -43,14 +43,14 @@ func ModerateStar(id int, user_id string) error {
 
 	db.DB.First(&star, id)
 
-	if star.Moderation_status {
+	if star.ModerationStatus {
 		return nil
 	}
 
-	if star.Moderation_pending_status != "" && star.Moderation_pending_status != user_id {
-		star.Moderation_status = true
+	if star.ModerationPendingStatus != "" && star.ModerationPendingStatus != user_id {
+		star.ModerationStatus = true
 
-		giver, err := GetUser(star.Giver_id)
+		giver, err := GetUser(star.GiverId)
 
 		if err != nil {
 			return err
@@ -70,11 +70,11 @@ func ModerateStar(id int, user_id string) error {
 			points = 7
 		}
 
-		notification := NewNotification(star.Receiver_id, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
+		notification := NewNotification(star.ReceiverId, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
 		AddNewNotification(notification)
-		AddPoints(star.Giver_id, star.Receiver_id, points)
+		AddPoints(star.GiverId, star.ReceiverId, points)
 	} else {
-		star.Moderation_pending_status = user_id
+		star.ModerationPendingStatus = user_id
 	}
 
 	db.DB.Save(&star)

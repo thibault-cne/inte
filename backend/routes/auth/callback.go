@@ -100,8 +100,8 @@ func Callback(ctx *gin.Context) {
 		ID:             user.UserID,
 		Email:          user.Email,
 		Name:           fmt.Sprintf("%s %s", user.FirstName, user.LastName),
-		Promotion_year: edc.Promo,
-		User_type:      temp.User_type,
+		PromotionYear: edc.Promo,
+		UserType:      temp.UserType,
 	}
 
 	db.DB.Save(u)

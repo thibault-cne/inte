@@ -11,7 +11,7 @@ import (
 func Add(ctx *gin.Context) {
 	user := ctx.MustGet("User").(*models.User)
 
-	if user.Current_year == 1 {
+	if user.CurrentYear == 1 {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "User must be in year 2 to add stars"})
 	}
 

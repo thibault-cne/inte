@@ -17,17 +17,17 @@ type Planning struct {
 	gorm.Model
 	ID         int    `json:"id"`
 	Picture    string `json:"picture"`
-	Spawn_time string `json:"spawn_time"`
-	End_time   string `json:"end_time"`
+	SpawnTime string `json:"spawn_time"`
+	EndTime   string `json:"end_time"`
 }
 
 func (planning *Planning) ModifyPlanningDates(beginingDate string, endDate string) error {
 	if beginingDate != "" {
-		planning.Spawn_time = beginingDate
+		planning.SpawnTime = beginingDate
 	}
 
 	if endDate != "" {
-		planning.End_time = endDate
+		planning.EndTime = endDate
 	}
 
 	db.DB.Save(planning)
@@ -46,7 +46,7 @@ func (planning *Planning) ModifyPlanningPicture(file *multipart.FileHeader) erro
 	}
 
 	// Create a new file
-	pictureName := "planning_pictures_" + strings.Replace(planning.Spawn_time, "/", "-", -1) + "-" + strings.Replace(planning.End_time, "/", "-", -1) + fileExtension
+	pictureName := "planning_pictures_" + strings.Replace(planning.SpawnTime, "/", "-", -1) + "-" + strings.Replace(planning.EndTime, "/", "-", -1) + fileExtension
 	newFile, err := os.Create("static/images/planning_pictures/" + pictureName)
 
 	if err != nil {
@@ -74,8 +74,8 @@ func (planning *Planning) ModifyPlanningPicture(file *multipart.FileHeader) erro
 func NewPlaning(picture string, spawn_time string, end_time string) *Planning {
 	return &Planning{
 		Picture:    picture,
-		Spawn_time: spawn_time,
-		End_time:   end_time,
+		SpawnTime: spawn_time,
+		EndTime:   end_time,
 	}
 }
 

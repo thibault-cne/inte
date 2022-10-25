@@ -19,20 +19,20 @@ func TestNewUser(t *testing.T) {
 		t.Error("Expected email to be 'test@test.com' but got ", user.Email)
 	}
 
-	if user.Current_year != 1 {
-		t.Error("Expected current year to be 1 but got ", user.Current_year)
+	if user.CurrentYear != 1 {
+		t.Error("Expected current year to be 1 but got ", user.CurrentYear)
 	}
 
-	if user.Promotion_year != 2024 {
-		t.Error("Expected promotion year to be 2024 but got ", user.Promotion_year)
+	if user.PromotionYear != 2024 {
+		t.Error("Expected promotion year to be 2024 but got ", user.PromotionYear)
 	}
 
 	if user.Points != 0 {
 		t.Error("Expected points to be 0 but got ", user.Points)
 	}
 
-	if user.User_type != "user" {
-		t.Error("Expected user type to be 'user' but got ", user.User_type)
+	if user.UserType != "user" {
+		t.Error("Expected user type to be 'user' but got ", user.UserType)
 	}
 
 }

@@ -11,13 +11,13 @@ import (
 type DailyGame struct {
 	gorm.Model
 	ID         int    `json:"id"`
-	User_id    int    `json:"user_id"`
+	UserId    int    `json:"user_id"`
 	Result     int    `json:"result"`
-	Created_at string `json:"created_at"`
+	CreatedAt string `json:"created_at"`
 }
 
 func NewDailyGame(user_id int, result int) *DailyGame {
-	return &DailyGame{User_id: user_id, Result: result, Created_at: time.Now().Format("2006-01-02")}
+	return &DailyGame{UserId: user_id, Result: result, CreatedAt: time.Now().Format("2006-01-02")}
 }
 
 func CheckDailyGame(user_id int) (bool, error) {

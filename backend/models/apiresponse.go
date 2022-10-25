@@ -22,25 +22,25 @@ type GoogleApiResponse struct {
 }
 
 type LoginApiResponse struct {
-	Access_token  string `json:"access_token"`
-	Refresh_token string `json:"refresh_token"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 type ProfileDataResponse struct {
 	Username    string   `json:"username"`
 	Points      int      `json:"points"`
 	Color       string   `json:"color"`
-	Users_stars []*Stars `json:"users_stars"`
+	UsersStars  []*Stars `json:"users_stars"`
 }
 
 type StarsResponse struct {
-	Created_at        int64  `json:"created_at"`
+	CreatedAt        int64  `json:"created_at"`
 	Id                uint    `json:"id"`
-	Giver_name        string `json:"giver_name"`
-	Receiver_name     string `json:"receiver_name"`
+	GiverName        string `json:"giver_name"`
+	ReceiverName     string `json:"receiver_name"`
 	Type              int    `json:"type"`
 	Message           string `json:"message"`
-	Moderation_status bool   `json:"moderation_status"`
+	ModerationStatus bool   `json:"moderation_status"`
 }
 
 type AllUsersResponse struct {
@@ -63,7 +63,7 @@ func NewProfileDataResponse(user *User) *ProfileDataResponse {
 		Username:    user.Name,
 		Points:      user.Points,
 		Color:       user.Color,
-		Users_stars: stars,
+		UsersStars: stars,
 	}
 }
 
@@ -71,17 +71,17 @@ func NewStarsResponse(stars []*Stars) []*StarsResponse {
 	out := make([]*StarsResponse, len(stars))
 
 	for i, star := range stars {
-		giver, _ := GetUser(star.Giver_id)
-		receiver, _ := GetUser(star.Receiver_id)
+		giver, _ := GetUser(star.GiverId)
+		receiver, _ := GetUser(star.ReceiverId)
 
 		out[i] = &StarsResponse{
-			Created_at:        star.CreatedAt.Unix(),
+			CreatedAt:        star.CreatedAt.Unix(),
 			Id:                star.ID,
-			Giver_name:        giver.Name,
-			Receiver_name:     receiver.Name,
+			GiverName:        giver.Name,
+			ReceiverName:     receiver.Name,
 			Type:              star.Type,
 			Message:           star.Message,
-			Moderation_status: star.Moderation_status,
+			ModerationStatus: star.ModerationStatus,
 		}
 	}
 
