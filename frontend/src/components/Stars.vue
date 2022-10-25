@@ -18,7 +18,7 @@
                 ['#CD7F32', '#C0C0C0', '#FFD700'][star.type]
               "
             >
-              {{ star.receiver_name }}
+              {{ star.receiver_name || status.user.name }}
             </v-card-title>
             <v-card-text class="white text--primary">
               <p>{{ star.message }}</p>
