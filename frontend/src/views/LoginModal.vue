@@ -69,7 +69,7 @@ export default defineComponent({
     methods: {
         triggerAlert() {
             if (this.alert) {
-                let e = (this.$refs.alertComponent as any)
+                let e = (this.$refs.alertComponent as HTMLFormElement)
                 e.$el.classList.value = e.$el.classList.value.replace("popin", "popout");
                 setTimeout(() => {
                     this.alert = false;

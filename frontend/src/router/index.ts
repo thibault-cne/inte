@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { isLogged } from "@/requests/logged";
 import HomeView from "../views/HomeView.vue";
+import { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -54,7 +55,7 @@ const router = createRouter({
   routes,
 });
 
-async function checkAuth(to: any, from: any, next: any) {
+async function checkAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   const status = await isLogged();
   if (!status.logged && to.name !== 'login') {
     // redirect the user to the login page
