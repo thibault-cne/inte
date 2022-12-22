@@ -44,7 +44,10 @@ func NewNotification(user_id string, type_ string, message string) *Notification
 	}
 }
 
-func AddNewNotification(notification *Notifications) error {
-	db.DB.Create(&notification)
+func (n *Notifications) Create() error {
+	if err := db.DB.Create(n).Error; err != nil {
+		return err
+	}
+
 	return nil
 }

@@ -39,7 +39,16 @@ func PlayDailyGame(user_id int) (int, error) {
 
 	// Add a row to the daily_game table with the user_id and today's date
 	daily_game := NewDailyGame(user_id, random_number)
-	db.DB.Create(&daily_game)
+	
+	err := daily_game.Create()
 
-	return random_number, nil
+	return random_number, err
+}
+
+func (d *DailyGame) Create() error {
+	if err := db.DB.Create(d).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

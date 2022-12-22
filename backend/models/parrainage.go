@@ -41,8 +41,12 @@ var Process = &ParrainageProcess{
 	IsRoundOpen:   true,
 }
 
-func (parrainage *Parrainage) AddParrainage() {
-	db.DB.Create(parrainage)
+func (p *Parrainage) Create() error {
+	if err := db.DB.Create(p).Error; err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (parrainage *Parrainage) AddWhish(whishUserName string, wishOrder int) {
@@ -157,14 +161,14 @@ func (parr *Parrainage) CalculateWishes(roundNumber int) {
 	}
 }
 
-func createParrainage(godFatherId string) *Parrainage {
+func NewParrainage(godFatherId string) *Parrainage {
 	return &Parrainage{
 		GodFatherId: godFatherId,
 		IsGranted:   false,
 	}
 }
 
-func createPendingParrainage(userName string) *PendingParrainage {
+func NewPendingParrainage(userName string) *PendingParrainage {
 	return &PendingParrainage{
 		GodFatherName:   userName,
 		UserWishesNames: make([]string, 0),
@@ -183,8 +187,8 @@ func RetrieveCurrentParrainage(userId string) *Parrainage {
 	result := db.Where("god_father_id = ?", userId).Find(&parrainage)
 
 	if result.RowsAffected == 0 {
-		newParrainage := createParrainage(userId)
-		newParrainage.AddParrainage()
+		newParrainage := NewParrainage(userId)
+		newParrainage.Create()
 
 		return newParrainage
 	}
@@ -235,7 +239,7 @@ func RetrievePendingWishes() []*PendingParrainage {
 	for _, parr := range parrainages {
 		user, _ := GetUser(parr.GodFatherId)
 
-		pendingWish := createPendingParrainage(user.Name)
+		pendingWish := NewPendingParrainage(user.Name)
 
 		if parr.FirstWish != "" {
 			user, _ = GetUser(parr.FirstWish)

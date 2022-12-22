@@ -27,12 +27,14 @@ func NewStars(giver_id string, receiver_id string, type_ int, message string) *S
 	}
 }
 
-func (star *Stars) AddStars() error {
-	if len(star.Message) > 100 || len(star.Message) == 0 {
+func (s *Stars) Create() error {
+	if len(s.Message) > 100 || len(s.Message) == 0 {
 		return errors.New("message size")
 	}
 
-	db.DB.Create(&star)
+	if err := db.DB.Create(s).Error; err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -67,7 +69,7 @@ func (u *User) ModerateStar(star *Stars) error {
 		}
 
 		notification := NewNotification(star.ReceiverId, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
-		AddNewNotification(notification)
+		notification.Create()
 		AddPoints(star.GiverId, star.ReceiverId, points)
 	} else {
 		star.ModerationPendingStatus = u.ID

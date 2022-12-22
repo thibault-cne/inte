@@ -64,7 +64,8 @@ func AddPoints(giver_id string, receiver_id string, points int) error {
 	}
 
 	message := fmt.Sprintf("%s vous à donné(e) %d points", giver.Name, points)
-	AddNewNotification(NewNotification(receiver_id, "points", message))
+	n := NewNotification(receiver_id, "points", message)
+	n.Create()
 
 	return nil
 }
@@ -193,16 +194,12 @@ func NewUser(email string, name string) *User {
 	return &User{Name: name, Email: email, CurrentYear: 1, PromotionYear: year, Points: 0, UserType: "user"}
 }
 
-func AddUser(u *User) (string, error) {
-	db.DB.Create(u)
+func (u *User) Create() error {
+	if err := db.DB.Create(u).Error; err != nil {
+		return err
+	}
 
-	return u.ID, nil
-}
-
-func (u *User) Create() (string, error) {
-	db.DB.Create(u)
-
-	return u.ID, nil
+	return nil
 }
 
 func GetUser(id string) (*User, error) {

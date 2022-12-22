@@ -18,7 +18,9 @@ func NewSuggestions(title string, description string, user_id int) *Suggestion {
 }
 
 func (s *Suggestion) Create() (uint, error) {
-	db.DB.Create(s)
+	if err := db.DB.Create(s).Error; err != nil {
+		return 0, err
+	}
 
 	return s.ID, nil
 }

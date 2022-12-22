@@ -16,8 +16,8 @@ type Calendar struct {
 	Content string `json:"content"`
 }
 
-func AddCalendar(calendar *Calendar) error {
-	if err := db.DB.Create(&calendar).Error; err != nil {
+func (calendar *Calendar) Create() error {
+	if err := db.DB.Create(calendar).Error; err != nil {
 		return err
 	}
 

@@ -6,7 +6,7 @@ import (
 
 func PopulateDefault() {
 	// Add new 1 year users
-	models.AddUser(&models.User{
+	user1A := &models.User{
 		ID: "1",
 		Email:          "user1A.one@telecomnancy.net",
 		Name:           "User 1A One",
@@ -21,8 +21,9 @@ func PopulateDefault() {
 		SnapchatId: "UserOne",
 		GoogleId: "user.one",
 		InstagramId: "userTahOne",
-	})
-	models.AddUser(&models.User{
+	}
+	user1A.Create()
+	user1A = &models.User{
 		ID: "2",
 		Email:          "user1A.two@telecomnancy.net",
 		Name:           "User 1A Two",
@@ -30,8 +31,9 @@ func PopulateDefault() {
 		PromotionYear: 2024,
 		Points:         0,
 		UserType:      "user",
-	})
-	models.AddUser(&models.User{
+	}
+	user1A.Create()
+	user1A = &models.User{
 		ID: "3",
 		Email:          "user1A.three@telecomnancy.net",
 		Name:           "User 1A Three",
@@ -39,8 +41,9 @@ func PopulateDefault() {
 		PromotionYear: 2024,
 		Points:         0,
 		UserType:      "user",
-	})
-	models.AddUser(&models.User{
+	}
+	user1A.Create()
+	user1A = &models.User{
 		ID: "4",
 		Email:          "user1A.four@telecomnancy.net",
 		Name:           "User 1A Four",
@@ -48,10 +51,11 @@ func PopulateDefault() {
 		PromotionYear: 2024,
 		Points:         0,
 		UserType:      "user",
-	})
+	}
+	user1A.Create()
 
 	// Add new 2 years users
-	models.AddUser(&models.User{
+	user2A := &models.User{
 		ID: "5",
 		Email:          "user2A.one@telecomnancy.net",
 		Name:           "User 2A One",
@@ -59,8 +63,9 @@ func PopulateDefault() {
 		PromotionYear: 2023,
 		Points:         0,
 		UserType:      "user",
-	})
-	models.AddUser(&models.User{
+	}
+	user2A.Create()
+	user2A = &models.User{
 		ID: "6",
 		Email:          "user2A.two@telecomnancy.net",
 		Name:           "User 2A two",
@@ -68,10 +73,11 @@ func PopulateDefault() {
 		PromotionYear: 2023,
 		Points:         0,
 		UserType:      "user",
-	})
+	}
+	user2A.Create()
 
 	// Add new 3 years users
-	models.AddUser(&models.User{
+	user3A := &models.User{
 		ID: "7",
 		Email:          "user3A.one@telecomnancy.net",
 		Name:           "User 3A One",
@@ -79,8 +85,9 @@ func PopulateDefault() {
 		PromotionYear: 2022,
 		Points:         0,
 		UserType:      "user",
-	})
-	models.AddUser(&models.User{
+	}
+	user3A.Create()
+	user3A = &models.User{
 		ID: "8",
 		Email:          "user3A.two@telecomnancy.net",
 		Name:           "User 3A Two",
@@ -88,7 +95,8 @@ func PopulateDefault() {
 		PromotionYear: 2022,
 		Points:         0,
 		UserType:      "user",
-	})
+	}
+	user3A.Create()
 
 	// Add 3 admin users
 	u1 := &models.User{
@@ -100,7 +108,7 @@ func PopulateDefault() {
 		Points:         0,
 		UserType:      "admin",
 	}
-	models.AddUser(u1)
+	u1.Create()
 
 	u2 := &models.User{
 		ID: "10",
@@ -111,9 +119,9 @@ func PopulateDefault() {
 		Points:         0,
 		UserType:      "admin",
 	}
-	models.AddUser(u2)
+	u2.Create()
 
-	models.AddUser(&models.User{
+	u3 := &models.User{
 		ID: "11",
 		Email:          "admin3A.one@telecomnancy.net",
 		Name:           "Admin 3A One",
@@ -121,7 +129,17 @@ func PopulateDefault() {
 		PromotionYear: 2022,
 		Points:         0,
 		UserType:      "admin",
-	})
+	}
+	u3.Create()
+
+	// Create Thibz account so that he already have a description
+	t := &models.User{
+		ID: "111065978852750383627",
+		PersonalDescription: "Zest parti zest parti les amis",
+		Hometown: "Paris",
+		Studies: "La chocolaterie de charlie",
+	}
+	t.Create()
 
 	// Add stars to the database
 	star1 := models.NewStars("5", "1", 0, "Test star 1 bronze")
@@ -149,26 +167,26 @@ func PopulateDefault() {
 	star19 := models.NewStars("6", "112890394147922856462", 2, "Test star 19 gold")
 	star20 := models.NewStars("5", "112890394147922856462", 0, "Test star 20 bronze")
 
-	star1.AddStars()
-	star2.AddStars()
-	star3.AddStars()
-	star4.AddStars()
-	star5.AddStars()
-	star6.AddStars()
-	star7.AddStars()
-	star8.AddStars()
-	star9.AddStars()
-	star10.AddStars()
-	star11.AddStars()
-	star12.AddStars()
-	star13.AddStars()
-	star14.AddStars()
-	star15.AddStars()
-	star16.AddStars()
-	star17.AddStars()
-	star18.AddStars()
-	star19.AddStars()
-	star20.AddStars()
+	star1.Create()
+	star2.Create()
+	star3.Create()
+	star4.Create()
+	star5.Create()
+	star6.Create()
+	star7.Create()
+	star8.Create()
+	star9.Create()
+	star10.Create()
+	star11.Create()
+	star12.Create()
+	star13.Create()
+	star14.Create()
+	star15.Create()
+	star16.Create()
+	star17.Create()
+	star18.Create()
+	star19.Create()
+	star20.Create()
 
 	// Moderate the stars
 	u1.ModerateStar(star1)
@@ -246,16 +264,16 @@ func PopulateDefault() {
 		"31/07/2022",
 		"05/08/2022")
 
-	models.AddPlaning(planning1)
-	models.AddPlaning(planning2)
-	models.AddPlaning(planning3)
+	planning1.Create()
+	planning2.Create()
+	planning3.Create()
 
 	// Add news
-	models.NewNewsInte("Il fait chaud hein !!")
-	models.NewNewsInte("BigBaz le trou du cul ;)")
-	models.NewNewsInte("L'empereur grec")
-	models.NewNewsInte("Merci Michèle pour les absences.")
-	models.NewNewsInte("Next projet.")
-	models.NewNewsInte("Instagrammeur cielllll")
+	models.NewNewsInte("Il fait chaud hein !!").Create()
+	models.NewNewsInte("BigBaz le trou du cul").Create()
+	models.NewNewsInte("L'empereur grec").Create()
+	models.NewNewsInte("Merci Michèle pour les absences.").Create()
+	models.NewNewsInte("Next projet.").Create()
+	models.NewNewsInte("Instagrammeur cielllll").Create()
 	models.NewNewsInte("Tah le projet de fou").Create()
 }

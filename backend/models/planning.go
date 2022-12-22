@@ -79,8 +79,11 @@ func NewPlaning(picture string, spawn_time string, end_time string) *Planning {
 	}
 }
 
-func AddPlaning(planing *Planning) error {
-	db.DB.Create(&planing)
+func (p *Planning) Create() error {
+	if err := db.DB.Create(p).Error; err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -69,11 +69,8 @@ func Add(ctx *gin.Context) {
 	}
 
 	// Add the planning to the database
-	err = models.AddPlaning(models.NewPlaning(pictureName, beginingDate, endDate))
-
-	if err != nil {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Error while adding the planning"})
-	}
+	p := models.NewPlaning(pictureName, beginingDate, endDate)
+	p.Create()
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

@@ -16,7 +16,7 @@ func AddDay(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Internal server error"})
 	}
 
-	err = models.AddCalendar(calendar)
+	err = calendar.Create()
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})

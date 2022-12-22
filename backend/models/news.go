@@ -11,8 +11,12 @@ type NewsInte struct {
 	Content string `json:"content"`
 }
 
-func (n *NewsInte) Create() {
-	db.DB.Create(n)
+func (n *NewsInte) Create() error {
+	if err := db.DB.Create(n).Error; err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func NewNewsInte(content string) *NewsInte {
