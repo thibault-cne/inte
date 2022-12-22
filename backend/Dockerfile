@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.18.2
 
 WORKDIR /backend
 
@@ -8,8 +8,8 @@ RUN go mod download
 
 COPY ./ ./
 
-RUN make build
+RUN go build -o /docker-gs-ping -v
 
 EXPOSE 5454
 
-CMD exec ./backend
+CMD ["/docker-gs-ping"]
