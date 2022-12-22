@@ -1,11 +1,11 @@
-NAME=go-backend-server
+NAME=backend
 VERSION=0.0.1
 
 .PHONY: build
 ## build: Compile the packages.
 build:
 	@echo "${SBLUE}Building ${IGREY}${NAME} ${VERSION}${S}${S} ⚙"
-	@go build -o $(NAME)
+	@go build .
 	@echo ""
 	@echo "${GREEN}Building Completed ${IGREY}${NAME} ${VERSION}${S}${S} 🎉"
 	@echo ""

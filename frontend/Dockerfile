@@ -1,5 +1,5 @@
 #Base image
-FROM node:lts-alpine
+FROM node:latest
 
 #Install serve package
 RUN npm install -g serve
