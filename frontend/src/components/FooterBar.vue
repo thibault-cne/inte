@@ -1,17 +1,11 @@
 <template>
-  <v-footer app fixed height="50px" class="footer">
-    <v-col class="text-center" cols="12">
-      <v-btn
-        href="https://github.com/thibault-cne/projet_nouveau_site_integration"
-        icon
-        variant="text"
-      >
-        <v-icon>mdi-github</v-icon>
-      </v-btn>
-
-      <strong>Made with ❤️ by BigBaz54, Thibz and Yewolf</strong>
-    </v-col>
-  </v-footer>
+  <footer class="p-4 shadow md:px-6 md:py-8 dark:bg-gray-900">
+    <a
+      href="https://github.com/thibault-cne/projet_nouveau_site_integration"
+      class="block text-sm text-gray-500 sm:text-center dark:text-gray-400 hover:underline"
+      >© Made with ❤️ by BigBaz54, Thibz and Yewolf
+    </a>
+  </footer>
 </template>
 <script lang="ts">
 export default {

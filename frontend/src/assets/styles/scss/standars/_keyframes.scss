@@ -1,13 +1,13 @@
 // Keyframes
 
 @keyframes cursorBlink {
-  49% {
-    background-color: #fff;
+  0%,
+  40% {
+    opacity: 1;
   }
-  50% {
-    background-color: transparent;
-  }
-  99% {
-    background-color: transparent;
+
+  60%,
+  100% {
+    opacity: 0;
   }
 }

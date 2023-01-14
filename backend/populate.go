@@ -135,6 +135,8 @@ func PopulateDefault() {
 	// Create Thibz account so that he already have a description
 	t := &models.User{
 		ID: "111065978852750383627",
+		CurrentYear: 2,
+		PromotionYear: 2024,
 		PersonalDescription: "Zest parti zest parti les amis",
 		Hometown: "Paris",
 		Studies: "La chocolaterie de charlie",

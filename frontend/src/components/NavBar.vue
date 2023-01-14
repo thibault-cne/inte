@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="navbar" density="compact" prominent>
+  <v-app-bar class="navbar" density="compact">
     <v-app-bar-nav-icon
       variant="text"
       @click.stop="drawer = !drawer"
@@ -13,7 +13,7 @@
       <v-btn v-else :href="disconnectUrl">Disconnect</v-btn>
     </template>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" bottom temporary color="#424549">
+  <v-navigation-drawer v-model="drawer" bottom temporary color="#1e293b">
     <v-list>
       <v-list-item v-for="item in items" :key="item.title" :to="item.path">
         <v-list-item class="nav-item">{{ item.title }}</v-list-item>

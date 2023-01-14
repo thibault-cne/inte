@@ -1,12 +1,11 @@
 <template>
   <div class="container">
-    <span class="typed-text">{{ typeValue }}</span>
+    <span class="typed-text font-mono text-gray-700">{{ typeValue }}</span>
     <span class="cursor" :class="{ typing: typeStatus }">&nbsp;</span>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-
 export default defineComponent({
   name: "i-typeText",
   props: {
@@ -57,7 +56,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-
   span.typed-text {
     color: #d2b94b;
   }
@@ -68,7 +66,6 @@ export default defineComponent({
     background-color: black;
     animation: cursorBlink 1s infinite;
   }
-
   span.cursor.typing {
     animation: none;
   }
