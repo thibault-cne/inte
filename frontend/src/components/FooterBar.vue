@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: "FooterBar",
+  name: "i-footer",
 };
 </script>
 <style scoped lang="scss">

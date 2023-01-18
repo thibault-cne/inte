@@ -98,9 +98,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { LoggedIn } from "@/models/LoggedIn";
-import ITypeText from "@/components/TypingEffect.vue";
+import ITypeText from "@/components/typingEffect.vue";
 import ICounter from "@/components/counter.vue";
-import IStars from "@/components/Stars.vue";
+import IStars from "@/components/stars.vue";
 
 export default defineComponent({
   name: "DebugProfile",

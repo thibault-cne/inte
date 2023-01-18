@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  name: "i-typeText",
+  name: "typeText",
   props: {
     message: { type: String, required: true },
   },

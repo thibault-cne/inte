@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import NavBar from "./components/NavBar.vue";
-import FooterBar from "./components/FooterBar.vue";
+import NavBar from "./components/navBar.vue";
+import FooterBar from "./components/footerBar.vue";
 import { LoggedIn } from "@/models/LoggedIn";
 import { isLogged } from "@/requests/logged";
 

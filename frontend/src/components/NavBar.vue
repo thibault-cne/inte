@@ -26,6 +26,7 @@ import { LoggedIn } from "@/models/LoggedIn";
 import { base_backend_url } from "@/requests/axios";
 
 export default {
+  name: "i-navbar",
   props: {
     status: { type: Object as () => LoggedIn, required: true },
   },
