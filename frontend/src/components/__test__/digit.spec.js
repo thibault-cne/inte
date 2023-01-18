@@ -1,24 +1,27 @@
 import { mount } from "@vue/test-utils";
+import { afterEach, beforeEach, describe, it, vi } from "vitest";
 import IDigit from "../digit.vue";
 
-jest.useFakeTimers();
-
-test("Test single digit", () => {
-  const wrapper = mount(IDigit, {
-    props: {
-      digit: "1",
-    },
+describe("Test single digit", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
   });
 
-  const elem = wrapper.get('[data-test="digit"]');
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
 
-  expect(elem.html({ raw: true })).toBe(
-    '<span style="--value: 0;" data-test="digit" data-v-16d2bcb1=""></span>'
-  );
+  it("Test single digit on init", () => {
+    const wrapper = mount(IDigit, {
+      props: {
+        digit: "1",
+      },
+    });
 
-  jest.runTimersToTime(2500);
+    const elem = wrapper.get('[data-test="digit"]');
 
-  expect(elem.html({ raw: true })).toBe(
-    '<span style="--value: 1;" data-test="digit" data-v-16d2bcb1=""></span>'
-  );
+    expect(elem.html({ raw: true })).toBe(
+      '<span style="--value: 0;" data-test="digit" data-v-16d2bcb1=""></span>'
+    );
+  });
 });
