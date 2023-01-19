@@ -2,27 +2,41 @@ package modify
 
 import (
 	"backend/models"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 )
 
 func Data(ctx *gin.Context) {
+	var dataUser models.User
 	user := ctx.MustGet("User").(*models.User)
 
-	user.PersonalDescription = ctx.PostForm("description")
-	user.SnapchatId = ctx.PostForm("snapchat")
-	user.InstagramId = ctx.PostForm("instagram")
-	user.FacebookId = ctx.PostForm("facebook")
-	user.GoogleId = ctx.PostForm("google")
-	user.Hometown = ctx.PostForm("hometown")
-	user.Studies = ctx.PostForm("studies")
+	err := ctx.MustBindWith(&dataUser, binding.JSON)
 
-	err := models.ModifyProfileData(user)
+	fmt.Println(dataUser)
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Cannot parse user"})
+	}
+
+	// Get non important fields inside the user
+	user.FacebookId = dataUser.FacebookId
+	user.InstagramId = dataUser.InstagramId
+	user.SnapchatId = dataUser.SnapchatId
+	user.GoogleId = dataUser.GoogleId
+	user.PersonalDescription = dataUser.PersonalDescription
+	user.Hometown = dataUser.Hometown
+	user.Studies = dataUser.Studies
+
+	err = user.Save()
 
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
+
+	fmt.Println(user)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

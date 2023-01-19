@@ -33,6 +33,10 @@ type User struct {
 	Stars []*Stars `json:"stars" gorm:"-"`
 }
 
+func (user *User) Save() error {
+	return db.DB.Save(user).Error
+}
+
 func RetrieveAllLogs() []*Notifications {
 	var logs []*Notifications
 
@@ -66,47 +70,6 @@ func AddPoints(giver_id string, receiver_id string, points int) error {
 	message := fmt.Sprintf("%s vous à donné(e) %d points", giver.Name, points)
 	n := NewNotification(receiver_id, "points", message)
 	n.Create()
-
-	return nil
-}
-
-func ModifyProfileData(temp_user *User) error {
-	// Modify the user in the database with the new data
-	// We don't want to modify the ID and the fields that are equals to "" (empty) in the temp_user
-
-	user, err := GetUser(temp_user.ID)
-
-	if err != nil {
-		return err
-	}
-
-	if temp_user.PersonalDescription != "" {
-		db.DB.Model(&user).Update("personal_description", temp_user.PersonalDescription)
-	}
-
-	if temp_user.FacebookId != "" {
-		db.DB.Model(&user).Update("facebook_id", temp_user.FacebookId)
-	}
-
-	if temp_user.SnapchatId != "" {
-		db.DB.Model(&user).Update("snapchat_id", temp_user.SnapchatId)
-	}
-
-	if temp_user.InstagramId != "" {
-		db.DB.Model(&user).Update("instagram_id", temp_user.InstagramId)
-	}
-
-	if temp_user.GoogleId != "" {
-		db.DB.Model(&user).Update("google_id", temp_user.GoogleId)
-	}
-
-	if temp_user.Hometown != "" {
-		db.DB.Model(&user).Update("hometown", temp_user.Hometown)
-	}
-
-	if temp_user.Studies != "" {
-		db.DB.Model(&user).Update("studies", temp_user.Studies)
-	}
 
 	return nil
 }
