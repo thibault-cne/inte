@@ -1,24 +1,30 @@
 <template>
   <v-container>
+    <i-editProfile
+      :status="status"
+      @edit="(u: User) => edit(u)"
+    ></i-editProfile>
     <div class="bg-gray-200 pt-4 card mt-4">
       <div class="grid justify-items-end">
         <div class="form-control w-32 p-4">
           <label class="cursor-pointer label">
-            <span class="label-text">Edit</span>
-            <input
-              type="checkbox"
-              class="toggle toggle-success"
-              v-model="edit"
-            />
+            <button
+              data-modal-target="authentication-modal"
+              data-modal-toggle="authentication-modal"
+              class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button"
+            >
+              Edit
+            </button>
           </label>
         </div>
       </div>
       <i-typeText
         class="p-6 mb-1 text-2xl md:text-4xl"
-        message="hi, I'm thibault-cne 👋"
+        :message="status.user.personal_description"
       ></i-typeText>
       <div class="container p-6 flex justify-around">
-        <div class="flex-col max-w-xs">
+        <div class="flex-col max-w-sm">
           <div class="flex-col">
             <div class="flex items-center">
               <div class="avatar online">
@@ -46,39 +52,18 @@
                 ></span>
               </div>
               <div class="flex-col">
-                <div class="flex items-center" v-if="!edit">
+                <div class="flex items-center">
                   <span class="icon pr-2">
                     <v-icon icon="mdi-home" color="primary"></v-icon>
                   </span>
                   {{ status.user.hometown }}
                 </div>
-                <input
-                  v-else
-                  type="text"
-                  placeholder="Ville d'origine"
-                  v-model="user.hometown"
-                  class="input input-bordered input-sm w-full max-w-xs text-white"
-                />
-                <div class="flex items-center" v-if="!edit">
+                <div class="flex items-center">
                   <span class="icon pr-2">
                     <v-icon icon="mdi-school" color="primary"></v-icon>
                   </span>
                   {{ status.user.studies }}
                 </div>
-                <input
-                  v-else
-                  type="text"
-                  placeholder="Etudes"
-                  v-model="user.studies"
-                  class="input input-bordered input-sm w-full max-w-xs text-white"
-                />
-                <input
-                  v-if="edit"
-                  type="text"
-                  placeholder="Description"
-                  v-model="user.personal_description"
-                  class="input input-bordered input-sm w-full max-w-xs text-white"
-                />
               </div>
             </div>
           </div>
@@ -101,6 +86,9 @@ import { LoggedIn } from "@/models/LoggedIn";
 import ITypeText from "@/components/typingEffect.vue";
 import ICounter from "@/components/counter.vue";
 import IStars from "@/components/stars.vue";
+import IEditProfile from "@/components/editProfile.vue";
+import { initModals } from "flowbite";
+import { User } from "@/models/User";
 
 export default defineComponent({
   name: "DebugProfile",
@@ -109,11 +97,18 @@ export default defineComponent({
   },
   data() {
     return {
-      edit: false,
       user: this.status.user,
     };
   },
-  components: { ITypeText, ICounter, IStars },
+  mounted() {
+    initModals();
+  },
+  methods: {
+    edit(u: User) {
+      this.$emit("edit", u);
+    },
+  },
+  components: { ITypeText, ICounter, IStars, IEditProfile },
 });
 </script>
 <style scoped lang="scss"></style>

@@ -2,7 +2,7 @@
   <v-app>
     <NavBar :status="status" />
     <v-main>
-      <router-view :status="status" />
+      <router-view :status="status" @edit="(u: User) => edit(u)" />
     </v-main>
     <FooterBar />
   </v-app>
@@ -14,6 +14,7 @@ import NavBar from "./components/navBar.vue";
 import FooterBar from "./components/footerBar.vue";
 import { LoggedIn } from "@/models/LoggedIn";
 import { isLogged } from "@/requests/logged";
+import { User } from "@/models/User";
 
 export default defineComponent({
   name: "App",
@@ -30,6 +31,11 @@ export default defineComponent({
         user: {},
       } as LoggedIn,
     };
+  },
+  methods: {
+    edit(u: User) {
+      this.status.user = u;
+    },
   },
   components: { NavBar, FooterBar },
 });

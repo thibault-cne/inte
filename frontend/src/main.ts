@@ -4,6 +4,7 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { loadFonts } from "./plugins/webfontloader";
 import "./assets/styles/scss/index.scss";
+import "flowbite";
 
 loadFonts();
 
