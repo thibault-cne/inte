@@ -132,17 +132,6 @@ func PopulateDefault() {
 	}
 	u3.Create()
 
-	// Create Thibz account so that he already have a description
-	t := &models.User{
-		ID: "111065978852750383627",
-		CurrentYear: 2,
-		PromotionYear: 2024,
-		PersonalDescription: "Zest parti zest parti les amis",
-		Hometown: "Paris",
-		Studies: "La chocolaterie de charlie",
-	}
-	t.Create()
-
 	// Add stars to the database
 	star1 := models.NewStars("5", "1", 0, "Test star 1 bronze")
 	star2 := models.NewStars("5", "2", 1, "Test star 2 silver")

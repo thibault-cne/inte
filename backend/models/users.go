@@ -9,7 +9,7 @@ import (
 )
 
 type User struct {
-	ID                   string `json:"id"`
+	ID                   string `json:"id" gorm:"primaryKey"`
 	Name                 string `json:"name"`
 	Email                string `json:"email"`
 	CurrentYear         int    `json:"current_year"`
@@ -34,6 +34,7 @@ type User struct {
 }
 
 func (user *User) Save() error {
+	fmt.Printf("%#v", user)
 	return db.DB.Save(user).Error
 }
 

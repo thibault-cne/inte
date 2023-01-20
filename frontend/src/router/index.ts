@@ -3,7 +3,6 @@ import { isLogged } from "@/requests/logged";
 import HomeView from "../views/HomeView.vue";
 import { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
-
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -49,6 +48,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/DebugProfile.vue"),
   },
+  {
+    path: "/debug-instagram",
+    name: "debug-instagram",
+    meta: {
+      title: "Debug Instagram",
+    },
+    beforeEnter: checkAuth,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/DebugInstagram.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -56,11 +68,15 @@ const router = createRouter({
   routes,
 });
 
-async function checkAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
+async function checkAuth(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+) {
   const status = await isLogged();
-  if (!status.logged && to.name !== 'login') {
+  if (!status.logged && to.name !== "login") {
     // redirect the user to the login page
-    next({ name: 'login' });
+    next({ name: "login" });
     return;
   }
   next();

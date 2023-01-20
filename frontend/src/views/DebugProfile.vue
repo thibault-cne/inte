@@ -23,8 +23,10 @@
         class="p-6 mb-1 text-2xl md:text-4xl"
         :message="status.user.personal_description"
       ></i-typeText>
-      <div class="container p-6 flex justify-around">
-        <div class="flex-col max-w-sm">
+      <div
+        class="container p-6 flex lg:flex-row flex-col justify-between justify-items-center"
+      >
+        <div class="flex-col lg:w-5/12 8/12 mb-5 lg:mb-0">
           <div class="flex-col">
             <div class="flex items-center">
               <div class="avatar online">
@@ -75,7 +77,9 @@
             <v-btn icon="mdi-snapchat" class="p-2 m-2" color="yellow"></v-btn>
           </div>
         </div>
-        <i-stars :status="status" :preload="true" class="md:h-96"></i-stars>
+        <div class="lg:w-6/12 w-12/12">
+          <i-stars :status="status" :preload="true"></i-stars>
+        </div>
       </div>
     </div>
   </v-container>

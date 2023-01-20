@@ -15,8 +15,6 @@ func Data(ctx *gin.Context) {
 
 	err := ctx.MustBindWith(&dataUser, binding.JSON)
 
-	fmt.Println(dataUser)
-
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Cannot parse user"})
 	}
@@ -36,7 +34,8 @@ func Data(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error"})
 	}
 
-	fmt.Println(user)
+	fmt.Println(user.Hometown)
+	fmt.Println(user.PersonalDescription)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

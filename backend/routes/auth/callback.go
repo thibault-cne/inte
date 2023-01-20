@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"net/http"
 
-	db "backend/db"
-
 	"github.com/gin-gonic/gin"
 	"github.com/yyewolf/goth"
 	"github.com/yyewolf/goth/gothic"
@@ -104,7 +102,11 @@ func Callback(ctx *gin.Context) {
 		UserType:      temp.UserType,
 	}
 
-	db.DB.Save(u)
+	err = u.Save()
+
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internal server error : cannot save user"})
+	}
 
 	ctx.Redirect(http.StatusFound, redirectFront)
 }

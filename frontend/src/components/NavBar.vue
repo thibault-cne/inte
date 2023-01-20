@@ -47,6 +47,10 @@ export default {
         title: "Debug Profile",
         path: "/debug-profile",
       },
+      {
+        title: "Debug Instagram",
+        path: "/debug-instagram",
+      },
     ],
   }),
   methods: {},
