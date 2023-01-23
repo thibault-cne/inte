@@ -9,7 +9,8 @@ func PopulateDefault() {
 	user1A := &models.User{
 		ID: "1",
 		Email:          "user1A.one@telecomnancy.net",
-		Name:           "User 1A One",
+		FirstName:           "User 1A",
+		LastName: "One",
 		CurrentYear:   1,
 		PromotionYear: 2024,
 		Points:         0,
@@ -26,7 +27,8 @@ func PopulateDefault() {
 	user1A = &models.User{
 		ID: "2",
 		Email:          "user1A.two@telecomnancy.net",
-		Name:           "User 1A Two",
+		FirstName:           "User 1A",
+		LastName: "Two",
 		CurrentYear:   1,
 		PromotionYear: 2024,
 		Points:         0,
@@ -36,7 +38,8 @@ func PopulateDefault() {
 	user1A = &models.User{
 		ID: "3",
 		Email:          "user1A.three@telecomnancy.net",
-		Name:           "User 1A Three",
+		FirstName:           "User 1A",
+		LastName: "Three",
 		CurrentYear:   1,
 		PromotionYear: 2024,
 		Points:         0,
@@ -46,7 +49,8 @@ func PopulateDefault() {
 	user1A = &models.User{
 		ID: "4",
 		Email:          "user1A.four@telecomnancy.net",
-		Name:           "User 1A Four",
+		FirstName:           "User 1A",
+		LastName: "Four",
 		CurrentYear:   1,
 		PromotionYear: 2024,
 		Points:         0,
@@ -58,7 +62,8 @@ func PopulateDefault() {
 	user2A := &models.User{
 		ID: "5",
 		Email:          "user2A.one@telecomnancy.net",
-		Name:           "User 2A One",
+		FirstName:           "User 2A",
+		LastName: "One",
 		CurrentYear:   2,
 		PromotionYear: 2023,
 		Points:         0,
@@ -68,7 +73,8 @@ func PopulateDefault() {
 	user2A = &models.User{
 		ID: "6",
 		Email:          "user2A.two@telecomnancy.net",
-		Name:           "User 2A two",
+		FirstName:           "User 2A",
+		LastName: "Two",
 		CurrentYear:   2,
 		PromotionYear: 2023,
 		Points:         0,
@@ -80,7 +86,8 @@ func PopulateDefault() {
 	user3A := &models.User{
 		ID: "7",
 		Email:          "user3A.one@telecomnancy.net",
-		Name:           "User 3A One",
+		FirstName:           "User 3A",
+		LastName: "One",
 		CurrentYear:   3,
 		PromotionYear: 2022,
 		Points:         0,
@@ -90,7 +97,8 @@ func PopulateDefault() {
 	user3A = &models.User{
 		ID: "8",
 		Email:          "user3A.two@telecomnancy.net",
-		Name:           "User 3A Two",
+		FirstName:           "User 3A",
+		LastName: "Two",
 		CurrentYear:   3,
 		PromotionYear: 2022,
 		Points:         0,
@@ -102,7 +110,8 @@ func PopulateDefault() {
 	u1 := &models.User{
 		ID: "9",
 		Email:          "admin2A.one@telecomnancy.net",
-		Name:           "Admin 2A One",
+		FirstName:           "Admin 2A",
+		LastName: "One",
 		CurrentYear:   2,
 		PromotionYear: 2023,
 		Points:         0,
@@ -113,7 +122,8 @@ func PopulateDefault() {
 	u2 := &models.User{
 		ID: "10",
 		Email:          "admin2A.two@telecomnancy.net",
-		Name:           "Admin 2A Two",
+		FirstName:           "Admin 2A",
+		LastName: "Two",
 		CurrentYear:   2,
 		PromotionYear: 2023,
 		Points:         0,
@@ -124,7 +134,8 @@ func PopulateDefault() {
 	u3 := &models.User{
 		ID: "11",
 		Email:          "admin3A.one@telecomnancy.net",
-		Name:           "Admin 3A One",
+		FirstName:           "Admin 3A",
+		LastName: "One",
 		CurrentYear:   3,
 		PromotionYear: 2022,
 		Points:         0,

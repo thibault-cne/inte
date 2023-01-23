@@ -3,6 +3,7 @@ package models
 import (
 	"backend/db"
 	"errors"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -68,7 +69,8 @@ func (u *User) ModerateStar(star *Stars) error {
 			points = 7
 		}
 
-		notification := NewNotification(star.ReceiverId, "star", "Vous avez reçus une étoile de "+message+" de la part de "+giver.Name)
+		msg := fmt.Sprintf("Vous avez reçus une étoile de %s de la part de %s %s.", message, giver.FirstName, giver.LastName)
+		notification := NewNotification(star.ReceiverId, "star", msg)
 		notification.Create()
 		AddPoints(star.GiverId, star.ReceiverId, points)
 	} else {

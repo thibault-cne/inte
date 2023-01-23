@@ -31,8 +31,8 @@ type ParrainageProcess struct {
 }
 
 type PendingParrainage struct {
-	GodFatherName   string   `json:"godFatherName"`
-	UserWishesNames []string `json:"userWishesNames"`
+	GodFather   *User   `json:"godFather"`
+	UserWishes []*User `json:"userWishes"`
 }
 
 var Process = &ParrainageProcess{
@@ -168,10 +168,10 @@ func NewParrainage(godFatherId string) *Parrainage {
 	}
 }
 
-func NewPendingParrainage(userName string) *PendingParrainage {
+func NewPendingParrainage(user *User) *PendingParrainage {
 	return &PendingParrainage{
-		GodFatherName:   userName,
-		UserWishesNames: make([]string, 0),
+		GodFather:   user,
+		UserWishes: make([]*User, 0),
 	}
 }
 
@@ -199,11 +199,11 @@ func RetrieveCurrentParrainage(userId string) *Parrainage {
 }
 
 // Function to retrieve all unadopted users to display them during the parrainge process
-func RetrieveUnadoptedUsers() []string {
+func RetrieveUnadoptedUsers() []*User {
 	var adoptions []*Adoption
 	var users []*User
 
-	unadoptedUsers := make([]string, 0)
+	unadoptedUsers := make([]*User, 0)
 
 	usersResult := db.DB.Where("current_year = ?", 1).Find(&users)
 
@@ -219,7 +219,7 @@ func RetrieveUnadoptedUsers() []string {
 		}
 
 		if adoptions.RowsAffected == 0 {
-			unadoptedUsers = append(unadoptedUsers, user.Name)
+			unadoptedUsers = append(unadoptedUsers, user)
 		}
 	}
 
@@ -239,31 +239,31 @@ func RetrievePendingWishes() []*PendingParrainage {
 	for _, parr := range parrainages {
 		user, _ := GetUser(parr.GodFatherId)
 
-		pendingWish := NewPendingParrainage(user.Name)
+		pendingWish := NewPendingParrainage(user)
 
 		if parr.FirstWish != "" {
 			user, _ = GetUser(parr.FirstWish)
-			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
+			pendingWish.UserWishes = append(pendingWish.UserWishes, user)
 		}
 
 		if parr.SecondWish != "" {
 			user, _ = GetUser(parr.SecondWish)
-			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
+			pendingWish.UserWishes = append(pendingWish.UserWishes, user)
 		}
 
 		if parr.ThirdWish != "" {
 			user, _ = GetUser(parr.ThirdWish)
-			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
+			pendingWish.UserWishes = append(pendingWish.UserWishes, user)
 		}
 
 		if parr.FourthWish != "" {
 			user, _ = GetUser(parr.FourthWish)
-			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
+			pendingWish.UserWishes = append(pendingWish.UserWishes, user)
 		}
 
 		if parr.FifthWish != "" {
 			user, _ = GetUser(parr.FifthWish)
-			pendingWish.UserWishesNames = append(pendingWish.UserWishesNames, user.Name)
+			pendingWish.UserWishes = append(pendingWish.UserWishes, user)
 		}
 
 		pendingWishes = append(pendingWishes, pendingWish)
@@ -272,9 +272,9 @@ func RetrievePendingWishes() []*PendingParrainage {
 	return pendingWishes
 }
 
-func GrantWishByNames(godFatherName string, stepSonName string) {
-	godFather := GetUserByName(godFatherName)
-	stepSon := GetUserByName(stepSonName)
+func GrantWish(godFatherID string, stepSonID string) {
+	godFather, _ := GetUser(godFatherID)
+	stepSon, _ := GetUser(stepSonID)
 
 	parr := RetrieveCurrentParrainage(godFather.ID)
 

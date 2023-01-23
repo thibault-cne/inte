@@ -92,14 +92,19 @@ func Callback(ctx *gin.Context) {
 	}
 	// Saves to database
 
-	temp, _ := models.GetUser(user.UserID)
+	temp, err := models.GetUser(user.UserID)
 
 	u := &models.User{
 		ID:             user.UserID,
 		Email:          user.Email,
-		Name:           fmt.Sprintf("%s %s", user.FirstName, user.LastName),
+		FirstName:      user.FirstName,
+		LastName: user.LastName,
 		PromotionYear: edc.Promo,
-		UserType:      temp.UserType,
+		UserType: "user",
+	}
+
+	if err == nil {
+		u.UserType = temp.UserType
 	}
 
 	err = u.Save()

@@ -15,5 +15,5 @@ func AllWithPoints(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, models.NewAllUsersWithPointsResponse(users))
+	ctx.JSON(http.StatusOK, users)
 }

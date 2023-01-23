@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type GoogleApiResponse struct {
 	Iss            string `json:"iss"`
 	Nbf            string `json:"nbf"`
@@ -60,36 +62,11 @@ func NewStarsResponse(stars []*Stars) []*StarsResponse {
 		out[i] = &StarsResponse{
 			CreatedAt:        star.CreatedAt.Unix(),
 			Id:                star.ID,
-			GiverName:        giver.Name,
-			ReceiverName:     receiver.Name,
+			GiverName:        fmt.Sprintf("%s %s", giver.FirstName, giver.LastName),
+			ReceiverName:     fmt.Sprintf("%s %s", receiver.FirstName, receiver.LastName),
 			Type:              star.Type,
 			Message:           star.Message,
 			ModerationStatus: star.ModerationStatus,
-		}
-	}
-
-	return out
-}
-
-func NewAllUsersResponse(users []*User) []*AllUsersResponse {
-	out := make([]*AllUsersResponse, len(users))
-
-	for i, user := range users {
-		out[i] = &AllUsersResponse{
-			Name: user.Name,
-		}
-	}
-
-	return out
-}
-
-func NewAllUsersWithPointsResponse(users []*User) []*AllUserWithPointsResponse {
-	out := make([]*AllUserWithPointsResponse, len(users))
-
-	for i, user := range users {
-		out[i] = &AllUserWithPointsResponse{
-			Name:   user.Name,
-			Points: user.Points,
 		}
 	}
 

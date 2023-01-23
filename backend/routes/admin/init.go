@@ -8,6 +8,7 @@ import (
 	"backend/routes/admin/planning"
 	"backend/routes/admin/stars"
 	"backend/routes/admin/suggestions"
+	"backend/routes/admin/user"
 	"backend/routes/middlewares"
 
 	"github.com/gin-gonic/gin"
@@ -23,4 +24,5 @@ func AdminRoutes(path *gin.RouterGroup) {
 	news.AdminNewsRoutes(subpath)
 	parrainage.AdminParrainageRoutes(subpath)
 	suggestions.AdminSuggestionsRoutes(subpath)
+	user.AdminUserRoutes(subpath)
 }

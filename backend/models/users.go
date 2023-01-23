@@ -10,7 +10,8 @@ import (
 
 type User struct {
 	ID                   string `json:"id" gorm:"primaryKey"`
-	Name                 string `json:"name"`
+	FirstName                 string `json:"first_name"`
+	LastName			string 	`json:"last_name"`
 	Email                string `json:"email"`
 	CurrentYear         int    `json:"current_year"`
 	PromotionYear       int    `json:"promotion_year"`
@@ -68,7 +69,7 @@ func AddPoints(giver_id string, receiver_id string, points int) error {
 		return err
 	}
 
-	message := fmt.Sprintf("%s vous à donné(e) %d points", giver.Name, points)
+	message := fmt.Sprintf("%s %s vous à donné(e) %d points", giver.FirstName, giver.LastName, points)
 	n := NewNotification(receiver_id, "points", message)
 	n.Create()
 
@@ -113,38 +114,15 @@ func CheckAdmin(user_id int) (bool, error) {
 	}
 }
 
-func CheckUserByName(userName string) bool {
+func CheckUserByID(id string) bool {
 	var user *User
 
-	result := db.DB.Where("name = ?", userName).Find(&user)
+	result := db.DB.Where("id = ?", id).Find(&user)
 
 	return result.RowsAffected == 1
 }
 
-func RetrieveAllUsersData() []map[string]interface{} {
-	var (
-		usersData []map[string]interface{}
-		users     []*User
-	)
-
-	users, err := GetAllUsers()
-
-	if err != nil {
-		panic(err)
-	}
-
-	for _, user := range users {
-		usersData = append(usersData, map[string]interface{}{
-			"userName": user.Name,
-			"year":     user.CurrentYear,
-			"color":    user.Color,
-		})
-	}
-
-	return usersData
-}
-
-func NewUser(email string, name string) *User {
+func NewUser(email string, firstName string, lastName string) *User {
 	t := time.Now()
 
 	year := 0
@@ -155,7 +133,7 @@ func NewUser(email string, name string) *User {
 		year = t.Year() + 3
 	}
 
-	return &User{Name: name, Email: email, CurrentYear: 1, PromotionYear: year, Points: 0, UserType: "user"}
+	return &User{FirstName: firstName, LastName: lastName, Email: email, CurrentYear: 1, PromotionYear: year, Points: 0, UserType: "user"}
 }
 
 func (u *User) Create() error {
@@ -171,9 +149,9 @@ func GetUser(id string) (*User, error) {
 		ID: id,
 	}
 
-	db.DB.Find(&user)
+	err := db.DB.Find(&user).Error
 
-	return user, nil
+	return user, err
 }
 
 func GetUserByEmail(email string) (*User, error) {
@@ -186,10 +164,10 @@ func GetUserByEmail(email string) (*User, error) {
 	return &user, nil
 }
 
-func GetUserByName(name string) *User {
+func GetUserByLastName(lastName string) *User {
 	var user User
 
-	if err := db.DB.Where("name = ?", name).First(&user).Error; err != nil {
+	if err := db.DB.Where("lastName = ?", lastName).First(&user).Error; err != nil {
 		panic(err)
 	}
 

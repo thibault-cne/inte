@@ -22,23 +22,23 @@ func SetUserWish(ctx *gin.Context) {
 	fourthWish := ctx.PostForm("fourthWish")
 	fifthWish := ctx.PostForm("fifthWish")
 
-	if firstWish != "" && models.CheckUserByName(firstWish) {
+	if firstWish != "" && models.CheckUserByID(firstWish) {
 		currentParr.AddWhish(firstWish, 1)
 	}
 
-	if secondWish != "" && models.CheckUserByName(secondWish) {
+	if secondWish != "" && models.CheckUserByID(secondWish) {
 		currentParr.AddWhish(secondWish, 2)
 	}
 
-	if thirdWish != "" && models.CheckUserByName(thirdWish) {
+	if thirdWish != "" && models.CheckUserByID(thirdWish) {
 		currentParr.AddWhish(thirdWish, 3)
 	}
 
-	if fourthWish != "" && models.CheckUserByName(fourthWish) {
+	if fourthWish != "" && models.CheckUserByID(fourthWish) {
 		currentParr.AddWhish(fourthWish, 4)
 	}
 
-	if fifthWish != "" && models.CheckUserByName(fifthWish) {
+	if fifthWish != "" && models.CheckUserByID(fifthWish) {
 		currentParr.AddWhish(fifthWish, 5)
 	}
 

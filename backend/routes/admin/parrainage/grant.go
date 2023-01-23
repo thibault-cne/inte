@@ -11,14 +11,14 @@ import (
 // Use a POST request with the following fields :
 // `godFatherName` and `stepSonName`
 func GrantWish(ctx *gin.Context) {
-	godFatherName := ctx.PostForm("godFatherName")
-	stepSonName := ctx.PostForm("stepSonName")
+	godFatherID := ctx.PostForm("godFatherID")
+	stepSonID := ctx.PostForm("stepSonID")
 
-	if !models.CheckUserByName(godFatherName) && !models.CheckUserByName(stepSonName) {
+	if !models.CheckUserByID(godFatherID) && !models.CheckUserByID(stepSonID) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Wrong users name"})
 	}
 
-	models.GrantWishByNames(godFatherName, stepSonName)
+	models.GrantWish(godFatherID, stepSonID)
 
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }

@@ -9,10 +9,10 @@ import (
 )
 
 func TestNewUser(t *testing.T) {
-	user := models.NewUser("test@test.com", "test")
+	user := models.NewUser("test@test.com", "test", "one")
 
-	if user.Name != "test" {
-		t.Error("Expected name to be 'test' but got ", user.Name)
+	if user.FirstName != "test" {
+		t.Error("Expected name to be 'test' but got ", user.FirstName)
 	}
 
 	if user.Email != "test@test.com" {
@@ -38,7 +38,7 @@ func TestNewUser(t *testing.T) {
 }
 
 func TestAddUser(t *testing.T) {
-	user := models.NewUser("test@test.com", "test")
+	user := models.NewUser("test@test.com", "test", "one")
 
 	db, err := gorm.Open(sqlite.Open("test_database.db"), &gorm.Config{})
 
@@ -65,8 +65,8 @@ func TestAddUser(t *testing.T) {
 		t.Error("Expected user id to be ", user_id, " but got ", user.ID)
 	}
 
-	if user.Name != "test" {
-		t.Error("Expected name to be 'test' but got ", user.Name)
+	if user.FirstName != "test" {
+		t.Error("Expected name to be 'test' but got ", user.FirstName)
 	}
 
 	if user.Email != "test@test.com" {

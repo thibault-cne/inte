@@ -1,4 +1,4 @@
-package modify
+package user
 
 import (
 	"backend/models"
@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 )
 
-func Data(ctx *gin.Context) {
+func modify(ctx *gin.Context) {
 	var dataUser models.User
 	user := ctx.MustGet("User").(*models.User)
 
@@ -18,14 +18,12 @@ func Data(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Cannot parse user"})
 	}
 
-	// Get non important fields inside the user
-	user.FacebookId = dataUser.FacebookId
-	user.InstagramId = dataUser.InstagramId
-	user.SnapchatId = dataUser.SnapchatId
-	user.GoogleId = dataUser.GoogleId
-	user.PersonalDescription = dataUser.PersonalDescription
-	user.Hometown = dataUser.Hometown
-	user.Studies = dataUser.Studies
+	// Get authorized field
+	user.FirstName = dataUser.FirstName
+	user.LastName = dataUser.LastName
+	user.Email = dataUser.Email
+	user.Points = dataUser.Points
+	user.UserType = dataUser.UserType
 
 	err = user.Save()
 
