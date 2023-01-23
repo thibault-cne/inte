@@ -15,9 +15,34 @@
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" bottom temporary color="#1e293b">
     <v-list>
-      <v-list-item v-for="item in items" :key="item.title" :to="item.path">
-        <v-list-item class="nav-item">{{ item.title }}</v-list-item>
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        :to="item.path"
+        class="nav-item"
+        :title="item.title"
+      >
       </v-list-item>
+      <v-list-group
+        v-for="item in subgroups"
+        :value="item.title"
+        :key="item.title"
+      >
+        <template v-slot:activator="{ props }">
+          <v-list-item
+            class="nav-item"
+            v-bind="props"
+            :title="item.title"
+          ></v-list-item>
+        </template>
+        <v-list-item
+          class="nav-item"
+          v-for="subitem in item.subroutes"
+          :key="subitem.title"
+          :to="subitem.path"
+          :title="subitem.title"
+        ></v-list-item>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -38,18 +63,35 @@ export default {
       {
         title: "Home",
         path: "/",
+        group: false,
       },
       {
         title: "Debug Stars",
         path: "/debug-stars",
+        group: false,
       },
       {
         title: "Debug Profile",
         path: "/debug-profile",
+        group: false,
       },
       {
-        title: "Debug Instagram",
-        path: "/debug-instagram",
+        title: "Debug Calendar",
+        path: "/debug-calendar",
+        group: false,
+      },
+    ],
+    subgroups: [
+      {
+        title: "Debug Admin Page",
+        path: "/debug-admin",
+        group: true,
+        subroutes: [
+          {
+            title: "Users managment",
+            path: "/debug-user-management",
+          },
+        ],
       },
     ],
   }),

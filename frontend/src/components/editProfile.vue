@@ -114,7 +114,7 @@ export default defineComponent({
   },
   methods: {
     saveEdit() {
-      postRequest(this.user, "user/modify/data", "json");
+      postRequest(this.user, "/user/modify/data", "json");
       this.$emit("edit", this.user);
     },
   },

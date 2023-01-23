@@ -49,17 +49,45 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "about" */ "../views/DebugProfile.vue"),
   },
   {
-    path: "/debug-instagram",
-    name: "debug-instagram",
+    path: "/debug-calendar",
+    name: "debug-calendar",
     meta: {
-      title: "Debug Instagram",
+      title: "Debug calendar",
     },
     beforeEnter: checkAuth,
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/DebugInstagram.vue"),
+      import(/* webpackChunkName: "about" */ "../views/DebugCalendar.vue"),
+  },
+  {
+    path: "/debug-admin",
+    name: "debug-admin-page",
+    meta: {
+      title: "Debug admin page",
+    },
+    beforeEnter: checkAuth,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/DebugAdminPage.vue"),
+  },
+  {
+    path: "/debug-user-management",
+    name: "debug-user-management",
+    meta: {
+      title: "Debug user management",
+    },
+    beforeEnter: checkAuth,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ "../views/DebugUserManagement.vue"
+      ),
   },
 ];
 

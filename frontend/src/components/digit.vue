@@ -15,7 +15,7 @@ export default defineComponent({
   },
   data() {
     return {
-      d: "0",
+      d: "",
     };
   },
   mounted() {

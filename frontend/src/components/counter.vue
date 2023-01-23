@@ -22,6 +22,7 @@ export default defineComponent({
   },
   methods: {
     split(num: number) {
+      console.log(splitIntoDigits(num));
       return splitIntoDigits(num);
     },
   },

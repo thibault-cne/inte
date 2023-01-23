@@ -2,7 +2,8 @@ import { Stars } from "./Stars";
 
 type User = {
   id: string;
-  name: string;
+  last_name: string;
+  first_name: string;
   email: string;
   current_year: number;
   promotion_year: number;
@@ -22,4 +23,8 @@ type User = {
   stars: Stars[];
 };
 
-export { User };
+function getName(user: User): string {
+  return user.first_name + " " + user.last_name;
+}
+
+export { User, getName };

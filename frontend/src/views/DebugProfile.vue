@@ -36,7 +36,7 @@
               </div>
               <div class="p-4">
                 <div class="text-lg font-medium">
-                  {{ status.user.name }}
+                  {{ getName() }}
                 </div>
                 <div class="text-sm font-medium">
                   Année : {{ status.user.current_year }}A
@@ -49,9 +49,9 @@
             <div class="flex p-4">
               <div class="flex items-baseline pr-4">
                 Nombre de points :
-                <span class="flex pl-1"
-                  ><i-counter :num="100"></i-counter
-                ></span>
+                <span class="flex pl-1">
+                  <i-counter :num="user.points" />
+                </span>
               </div>
               <div class="flex-col">
                 <div class="flex items-center">
@@ -92,7 +92,7 @@ import ICounter from "@/components/counter.vue";
 import IStars from "@/components/stars.vue";
 import IEditProfile from "@/components/editProfile.vue";
 import { initModals } from "flowbite";
-import { User } from "@/models/User";
+import { User, getName } from "@/models/User";
 
 export default defineComponent({
   name: "DebugProfile",
@@ -110,6 +110,9 @@ export default defineComponent({
   methods: {
     edit(u: User) {
       this.$emit("edit", u);
+    },
+    getName() {
+      return getName(this.user);
     },
   },
   components: { ITypeText, ICounter, IStars, IEditProfile },
