@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import IStars from "@/components/stars.vue";
+import IStars from "@/components/Stars.vue";
 import { LoggedIn } from "@/models/LoggedIn";
 
 export default defineComponent({

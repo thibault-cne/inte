@@ -87,9 +87,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { LoggedIn } from "@/models/LoggedIn";
-import ITypeText from "@/components/typingEffect.vue";
+import ITypeText from "@/components/TypingEffect.vue";
 import ICounter from "@/components/counter.vue";
-import IStars from "@/components/stars.vue";
+import IStars from "@/components/Stars.vue";
 import IEditProfile from "@/components/editProfile.vue";
 import { initModals } from "flowbite";
 import { User, getName } from "@/models/User";
