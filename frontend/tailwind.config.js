@@ -1,11 +1,29 @@
+// @ts-check
+import { join } from 'path';
+
+// 1. Import the Skeleton plugin
+import { skeleton } from '@skeletonlabs/tw-plugin';
+import daisyui from 'daisyui';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./src/**/*.{vue,js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("daisyui"), require("flowbite/plugin")],
+export default {
+	// 2. Opt for dark mode to be handled via the class method
+	darkMode: 'class',
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		// 3. Append the path to the Skeleton package
+		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
+	],
+	theme: {
+		extend: {}
+	},
+	plugins: [
+		skeleton({
+			themes: {
+				// Register each theme within this array:
+				preset: [{ name: 'skeleton', enhancements: true }]
+			}
+		}),
+		daisyui
+	]
 };
