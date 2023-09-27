@@ -1,0 +1,2386 @@
+---
+openapi: 3.0.3
+info:
+  title: OpenAPI - Site de l'inte
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit/
+  version: 1.0.0
+tags:
+  - name: auth
+    description: Related to user's authentication
+  - name: users
+    description: Related to user's accounts
+  - name: stars
+    description: Related to user's stars
+  - name: calendar
+    description: Related to the calendar informations
+  - name: points
+    description: Related to user's points
+  - name: teams
+    description: Related to freshman's teams
+  - name: daily
+    description: Related to the daily game
+  - name: mentoring
+    description: Related to the mentoring processus
+  - name: news
+    description: Related to the news (displayed at the top of the home page)
+  - name: suggestions
+    description: Related to the suggestions system
+  - name: instagram
+    description: Related to the instagram account of the integration team
+
+paths:
+  /auth/login:
+    description: Connect user with google OAUTH
+    get:
+      summary: ""
+      description: Connect user to Google
+      operationId: connect
+      parameters:
+        - name: r
+          in: query
+          description: Redirect to this url after connecting
+          required: false
+          schema:
+            type: string
+      responses:
+        "301":
+          description: "Redirect to the google oauth page"
+          headers:
+            Location:
+              description: "Redirect to the google oauth page"
+              schema:
+                type: string
+        "400":
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      tags:
+        - auth
+  /auth/callback:
+    description: Callback for Google OAuth
+    get:
+      summary: ""
+      description: Callback for Google OAuth
+      operationId: callback
+      parameters:
+        - name: code
+          in: query
+          description: Google OAuth code
+          required: true
+          schema:
+            type: string
+        - name: state
+          in: query
+          description: Google OAuth state
+          required: true
+          schema:
+            type: string
+      responses:
+        "301":
+          description: "Redirect to the correct endpoint"
+          headers:
+            Location:
+              description: "Redirect to the correct endpoint"
+              schema:
+                type: string
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      tags:
+        - auth
+  /auth/logout:
+    description: Logout
+    get:
+      summary: ""
+      description: Logout
+      operationId: logout
+      responses:
+        "204":
+          description: Successfully logged out
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - auth
+  /user/me:
+    get:
+      summary: ""
+      description: Get the basic current user's information
+      operationId: getUserMe
+      responses:
+        "200":
+          description: Successfully got user's info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  user:
+                    $ref: "#/components/schemas/User"
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - users
+    patch:
+      summary: ""
+      description: Update the current user informations
+      operationId: patchUserMe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchUserMe"
+      responses:
+        "200":
+          description: Successfully updated the user info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  user:
+                    $ref: "#/components/schemas/User"
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - users
+  /user:
+    description: Get all users informations
+    get:
+      summary: ""
+      description: Get all users informations
+      operationId: getUsers
+      parameters:
+        - name: page
+          in: query
+          description: page to get
+          schema:
+            type: integer
+            format: uint64
+            default: 0
+        - name: limit
+          in: query
+          description: number of users to get
+          schema:
+            type: integer
+            format: uint64
+            default: 10
+        - name: search
+          in: query
+          description: search string
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Returns users info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  page:
+                    type: integer
+                    format: uint64
+                  limit:
+                    type: integer
+                    format: uint64
+                  max_page:
+                    type: integer
+                    format: uint64
+                required:
+                  - users
+                  - page
+                  - limit
+                  - max_page
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - users
+
+  /user/{user_id}:
+    get:
+      summary: ""
+      description: Get the basic user's information
+      operationId: getUserById
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            $ref: "#/components/schemas/GoogleId"
+      responses:
+        "200":
+          description: Successfully got user's info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  user:
+                    $ref: "#/components/schemas/User"
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - users
+
+    patch:
+      summary: ""
+      description: Update the user's informations
+      operationId: patchUserById
+      parameters:
+        - name: user_id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            $ref: "#/components/schemas/GoogleId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchUserById"
+      responses:
+        "200":
+          description: Successfully updated the user info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  user:
+                    $ref: "#/components/schemas/User"
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - users
+
+  /star:
+    patch:
+      summary: ""
+      description: Edit the content of a star
+      operationId: editStar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchStar"
+      responses:
+        "204":
+          description: Successfully updated the star
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - stars
+
+    get:
+      summary: ""
+      description: "Get all stars information"
+      operationId: getStars
+      parameters:
+        - name: page
+          in: query
+          description: page to get
+          schema:
+            type: integer
+            format: uint64
+            default: 0
+        - name: limit
+          in: query
+          description: number of users to get
+          schema:
+            type: integer
+            format: uint64
+            default: 10
+        - name: from
+          in: query
+          description: search stars from a specific user
+          schema:
+            type: string
+        - name: to
+          in: query
+          description: search stars to a specific user
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Returns stars info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  stars:
+                    $ref: "#/components/schemas/StarList"
+                  page:
+                    type: integer
+                    format: uint64
+                  limit:
+                    type: integer
+                    format: uint64
+                  max_page:
+                    type: integer
+                    format: uint64
+                required:
+                  - stars
+                  - page
+                  - limit
+                  - max_page
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - stars
+
+    post:
+      summary: ""
+      description: Add a new star to a user
+      operationId: postUserStarsById
+      parameters:
+        - name: user_id
+          in: query
+          description: ID of the user
+          required: true
+          schema:
+            $ref: "#/components/schemas/GoogleId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostStar"
+      responses:
+        "204":
+          description: Successfully added a star
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "User not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - stars
+
+    delete:
+      summary: ""
+      description: Delete a star
+      operationId: deleteStarById
+      parameters:
+        - name: star_id
+          in: query
+          description: ID of the star
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Successfully deleted star
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Star not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "409":
+          description: "Star as already been deleted"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - stars
+
+  /star/{star_id}/upvote:
+    patch:
+      summary: ""
+      description: Upvote a star if the upvote system is up
+      operationId: patchStarUpvote
+      parameters:
+        - name: star_id
+          in: path
+          required: true
+          description: List of stars ids to delete
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "200":
+          description: Successfully toggled the upvote of the star
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  upvoted:
+                    type: boolean
+                    example: false
+                required:
+                  - upvoted
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Star not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - stars
+
+  /star/{star_id}/validate:
+    post:
+      summary: ""
+      description: Validate a star if the upvote system is down
+      operationId: postStarValidation
+      parameters:
+        - name: star_id
+          in: path
+          required: true
+          description: List of stars ids to delete
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Successfully validated the star
+        "401":
+          description: "Not connected"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Star not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - stars
+
+  /calendar:
+    get:
+      summary: ""
+      description: Get the calendar
+      operationId: getCalendar
+      parameters:
+        - name: start_day
+          in: query
+          required: false
+          description: The first day to get. If not mentionned starts on day 1
+          schema:
+            type: integer
+            example: 1
+            default: 1
+        - name: end_day
+          in: query
+          required: false
+          description: The last day to get. If not mentionned get all days from the first one
+          schema:
+            type: integer
+            example: 20
+      responses:
+        "200":
+          description: Returns calendar's info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  calendar:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/CalendarDay"
+                  max_day:
+                    type: integer
+                    description: The numbers of days in the calendar
+                  calendar_len:
+                    type: integer
+                    description: The len of the array returned
+                required:
+                  - calendar
+                  - max_day
+                  - calendar_len
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - calendar
+
+    delete:
+      summary: ""
+      description: Delete all the days from the calendar
+      operationId: deleteCalendar
+      responses:
+        "204":
+          description: Calendar as successfully been reset
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - calendar
+
+    post:
+      summary: ""
+      description: Add a new day at the end of the calendar
+      operationId: appendCalendarDay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCalendarDay"
+      responses:
+        "204":
+          description: Day successfully added to the calendar
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - calendar
+
+  /calendar/{day}:
+    get:
+      summary: ""
+      description: Get a specific day of the calendar
+      operationId: getCalendarDay
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: The day to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Returns day's info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  day:
+                    $ref: "#/components/schemas/CalendarDay"
+                  max_day:
+                    type: integer
+                    description: The numbers of days in the calendar
+                required:
+                  - day
+                  - max_day
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Day not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - calendar
+
+    post:
+      summary: ""
+      description: Add a new day in the calendar
+      operationId: postCalendarDay
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: The day to delete
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCalendarDay"
+      responses:
+        "204":
+          description: Day successfully added to the calendar
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - calendar
+
+    delete:
+      summary: ""
+      description: Delete a specific day of the calendar
+      operationId: deleteCalendarDay
+      parameters:
+        - name: day
+          in: path
+          required: true
+          description: The day to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "204":
+          description: Day successfully deleted from the calendar
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - calendar
+
+  /points:
+    get:
+      summary: ""
+      description: Get the list of points transactions
+      operationId: getPointsTransactions
+      parameters:
+        - name: page
+          in: query
+          description: page to get
+          schema:
+            type: integer
+            format: uint64
+            default: 0
+        - name: limit
+          in: query
+          description: number of users to get
+          schema:
+            type: integer
+            format: uint64
+            default: 10
+      responses:
+        "200":
+          description: Return points transactions info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  transactions:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PointsTransaction"
+                  page:
+                    type: integer
+                    format: uint64
+                  limit:
+                    type: integer
+                    format: uint64
+                  max_page:
+                    type: integer
+                    format: uint64
+                required:
+                  - transactions
+                  - page
+                  - limit
+                  - max_page
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - points
+
+    delete:
+      summary: ""
+      description: Delete a points transaction
+      operationId: deletePoints
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Points successfully deleted
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Transaction not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - points
+
+    post:
+      summary: ""
+      description: Add points to a user
+      operationId: addPoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostPoints"
+
+      responses:
+        "204":
+          description: Points successfully added
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - points
+
+  /team:
+    get:
+      summary: ""
+      description: Get all teams
+      operationId: getTeam
+      responses:
+        "200":
+          description: Teams info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  teams:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Team"
+                required:
+                  - teams
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - teams
+
+    post:
+      summary: ""
+      description: Create a new team
+      operationId: postTeam
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTeam"
+      responses:
+        "204":
+          description: Team successfully created
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - teams
+
+  /team/{id}:
+    post:
+      summary: ""
+      description: Add a list of users to the team
+      operationId: addUserTeam
+      parameters:
+        - name: id
+          in: path
+          description: The id of the team
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/GoogleId"
+      responses:
+        "204":
+          description: Users successfully add to the team
+        "400":
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Team not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "409":
+          description: "A user is already in a team"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - teams
+
+    get:
+      summary: ""
+      description: Get a specific team
+      operationId: getTeamById
+      parameters:
+        - name: id
+          in: path
+          description: The id of the team
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "200":
+          description: Team's information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  team:
+                    $ref: "#/components/schemas/Team"
+                required:
+                  - team
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Team not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - teams
+
+    delete:
+      summary: ""
+      description: Delete a team
+      operationId: deleteTeam
+      parameters:
+        - name: id
+          in: path
+          description: The id of the team
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Team as been deleted
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "Team not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "409":
+          description: "Team as already been deleted"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - teams
+
+  /daily:
+    get:
+      summary: ""
+      description: Check if current user as already played daily game
+      operationId: checkDaily
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  status:
+                    type: boolean
+                    example: false
+                required:
+                  - status
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - daily
+    post:
+      summary: ""
+      description: Play the daily game
+      operationId: playDaily
+      responses:
+        "200":
+          description: You played the game successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  points:
+                    type: integer
+                    format: uint64
+                    example: 3
+                required:
+                  - points
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - daily
+
+  /mentoring:
+    patch:
+      summary: ""
+      description: Toggle on and off the mentoring selection process
+      operationId: toggleMentoringProcess
+      responses:
+        "204":
+          description: Process as been toggled
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - mentoring
+
+    get:
+      summary: ""
+      description: Check if the mentoring selection process is on
+      operationId: getMentoringProcess
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  status:
+                    type: boolean
+                    example: false
+                required:
+                  - status
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - mentoring
+
+  /mentoring/wish:
+    get:
+      summary: ""
+      description: Get the current step whishlist of the current user
+      operationId: getWish
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  freshmans:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                required:
+                  - freshmans
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - mentoring
+
+    post:
+      summary: ""
+      description: Add a freshmans to the current step whishlist (awkward I know)
+      operationId: addWish
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddWish"
+      responses:
+        "204":
+          description: Wish taken into account
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - mentoring
+
+  /mentoring/step:
+    post:
+      summary: ""
+      description: Stop the selection for this round and start the associtation algorithm
+      operationId: startAssociation
+      responses:
+        "204":
+          description: Association is finished and fully performed
+        "202":
+          description: Association is finished and there is collisions
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "403":
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - mentoring
+
+  /mentoring/freshman:
+    get:
+      summary: ""
+      description: Retrieve the list of freshmans that don't have a mentor yet
+      operationId: getMentoringFreshmans
+      parameters:
+        - name: page
+          in: query
+          description: page to get
+          schema:
+            type: integer
+            format: uint64
+            default: 0
+        - name: limit
+          in: query
+          description: number of users to get
+          schema:
+            type: integer
+            format: uint64
+            default: 10
+        - name: search
+          in: query
+          description: search string
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Returns users info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  page:
+                    type: integer
+                    format: uint64
+                  limit:
+                    type: integer
+                    format: uint64
+                  max_page:
+                    type: integer
+                    format: uint64
+                required:
+                  - users
+                  - page
+                  - limit
+                  - max_page
+        "400":
+          description: "Bad parameters"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - auth: []
+      tags:
+        - mentoring
+
+  /news:
+    get:
+      summary: ""
+      description: Retrieve the news to display
+      operationId: getNews
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  news:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/News"
+                required:
+                  - news
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - news
+
+    delete:
+      summary: ""
+      description: Delete a news
+      operationId: deleteNews
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Successfully deleted the news
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: "News not found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - news
+
+    post:
+      summary: ""
+      description: Add a new news to the list
+      operationId: postNews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                news:
+                  $ref: "#/components/schemas/News"
+              required:
+                - news
+      responses:
+        "204":
+          description: News successfully added to the list
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - news
+
+  /suggestion:
+    delete:
+      summary: ""
+      description: Delete a suggestion
+      operationId: deleteSuggestion
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Successfully deleted the suggestion
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: Suggestion not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "409":
+          description: Suggestion already deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - suggestions
+
+    patch:
+      summary: ""
+      description: Toggle the suggestion reviewed flag
+      operationId: patchSuggestion
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        "204":
+          description: Successfully toggles the suggestion flag
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "404":
+          description: Suggestion not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - suggestions
+
+    post:
+      summary: ""
+      description: Submit a new suggestion
+      operationId: postSuggestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostSuggestion"
+      responses:
+        "204":
+          description: Successfully submitted the suggestion
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - suggestions
+
+    get:
+      summary: ""
+      description: Retrieve some suggestions
+      operationId: getSuggestions
+      parameters:
+        - name: page
+          in: query
+          description: page to get
+          schema:
+            type: integer
+            format: uint64
+            default: 0
+        - name: limit
+          in: query
+          description: number of suggestions to get
+          schema:
+            type: integer
+            format: uint64
+            default: 10
+      responses:
+        "200":
+          description: List of suggestions queried
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  suggestions:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Suggestion"
+                  max_page:
+                    type: integer
+                    format: uint64
+                  page:
+                    type: integer
+                    format: uint64
+                  limit:
+                    type: integer
+                    format: uint64
+                required:
+                  - suggestions
+                  - max_page
+                  - page
+                  - limit
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - admin_auth: []
+      tags:
+        - suggestions
+
+  /instagram:
+    patch:
+      summary: ""
+      description: Set a new instagram account
+      operationId: patchInstagram
+      parameters:
+        - name: instagram
+          in: query
+          required: true
+          schema:
+            type: string
+            example: criminalintetn
+            description: The name of the new account
+      responses:
+        "204":
+          description: Account successfully modified
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - inte_auth: []
+      tags:
+        - instagram
+
+    get:
+      summary: ""
+      description: Retrieve the current account of the integration team
+      operationId: getInstagram
+      responses:
+        "200":
+          description: Retrieve the account name
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    $ref: "#/components/schemas/Messages"
+                  instagram:
+                    type: string
+                    example: https://www.instagram.com/criminalintetn/embed/
+                required:
+                  - instagram
+        "401":
+          description: "Not authorized"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+        "500":
+          description: "Internal server error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HTTPError"
+      security:
+        - std_auth: []
+      tags:
+        - instagram
+
+components:
+  schemas:
+    GoogleId:
+      type: string
+    UUID:
+      type: string
+      format: uuid
+      example: 4be0643f-1d98-573b-97cd-ca98a65347dd
+    ErrorCodes:
+      type: string
+      enum:
+        - bad_request
+        - forbidden
+        - user_not_found
+        - internal_server_error
+        - not_authenticated
+      x-enum-varnames:
+        - ErrBadRequest
+        - ErrForbidden
+        - ErrUserNotFound
+        - ErrInternalServerError
+        - ErrNotAuthenticated
+    Messages:
+      type: string
+      enum:
+        - Bad request
+        - Not connected
+        - Missing fields %v
+        - User already exists
+        - User not found
+        - User is not allowed to use ressource
+        - User cannot use ressource at the time being
+        - Internal server error
+        - You are not authenticated
+      x-enum-varnames:
+        - MsgBadRequest
+        - MsgNotConnected
+        - MsgMissingFields
+        - MsgUserAlreadyExists
+        - MsgUserNotFound
+        - MsgUserNotAllowed
+        - MsgUserNotAvailable
+        - MsgInternalServerError
+        - MsgNotAuthenticated
+    HTTPError:
+      type: object
+      properties:
+        message:
+          $ref: "#/components/schemas/Messages"
+        error_code:
+          $ref: "#/components/schemas/ErrorCodes"
+      required:
+        - message
+        - error_code
+    UserRole:
+      type: string
+      description: Role of the user
+      example: student
+      enum:
+        - freshman
+        - student
+        - inte
+        - inte_admin
+        - admin
+      x-enum-varnames:
+        - UserFreshman
+        - UserStudent
+        - UserInte
+        - UserInteAdmin
+        - UserAdmin
+    PatchUserMe:
+      type: object
+      properties:
+        facebook:
+          type: string
+        spotify:
+          type: string
+        discord:
+          type: string
+        hometown:
+          type: string
+    PatchUserById:
+      type: object
+      properties:
+        facebook:
+          type: string
+        spotify:
+          type: string
+        discord:
+          type: string
+        hometown:
+          type: string
+        points:
+          type: integer
+          format: uint64
+    DeleteUserStarsById:
+      type: array
+      items:
+        type: integer
+        format: uint64
+    User:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        google_id:
+          $ref: "#/components/schemas/GoogleId"
+        mentor:
+          description: The id of the user mentor
+          $ref: "#/components/schemas/GoogleId"
+        google_picture:
+          type: string
+        email_address:
+          type: string
+        role:
+          $ref: "#/components/schemas/UserRole"
+        deleted_at:
+          type: integer
+          format: uint64
+        deleted_by:
+          type: string
+        points:
+          type: integer
+          format: uint64
+        team_points:
+          type: integer
+          format: uint64
+        facebook:
+          type: string
+        discord:
+          type: string
+        spotify:
+          type: string
+        hometown:
+          type: string
+        stars:
+          $ref: "#/components/schemas/StarList"
+      required:
+        - google_id
+        - first_name
+        - last_name
+        - email_address
+    StarTypes:
+      type: string
+      description: Types for the stars
+      example: gold
+      enum:
+        - bronze
+        - silver
+        - gold
+      x-enum-varnames:
+        - BronzeStar
+        - SilverStar
+        - GoldStar
+    Star:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        from:
+          type: string
+        to:
+          type: string
+        message:
+          type: string
+        type:
+          $ref: "#/components/schemas/StarTypes"
+        upvotes:
+          type: integer
+          format: uint64
+      required:
+        - id
+        - type
+        - from
+        - to
+        - message
+    PostStar:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        message:
+          type: string
+        type:
+          $ref: "#/components/schemas/StarTypes"
+      required:
+        - from
+        - to
+        - message
+    PatchStar:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        message:
+          type: string
+        type:
+          $ref: "#/components/schemas/StarTypes"
+      required:
+        - id
+    StarList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Star"
+    CalendarDayTypes:
+      type: string
+      description: Types of a calendar's day
+      example: link
+      enum:
+        - link
+        - picture
+        - video
+      x-enum-varnames:
+        - LinkDay
+        - PictureDay
+        - VideoDay
+    CalendarDay:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Have a good day
+        content:
+          type: string
+          example: Enjoy your beautifull day !
+        type:
+          $ref: "#/components/schemas/CalendarDayTypes"
+        link:
+          type: string
+          example: https://google.com
+        day:
+          type: integer
+          example: 1
+      required:
+        - title
+        - type
+        - link
+        - day
+    PostCalendarDay:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Have a good day
+        content:
+          type: string
+          example: Enjoy your beautifull day !
+        type:
+          $ref: "#/components/schemas/CalendarDayTypes"
+        link:
+          type: string
+          example: https://google.com
+      required:
+        - type
+        - link
+        - title
+    PostPoints:
+      type: object
+      properties:
+        to:
+          $ref: "#/components/schemas/GoogleId"
+        from:
+          $ref: "#/components/schemas/GoogleId"
+        points:
+          type: integer
+          format: uint64
+          example: 3
+      required:
+        - to
+        - from
+        - points
+    PointsTransaction:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        to:
+          $ref: "#/components/schemas/GoogleId"
+        from:
+          $ref: "#/components/schemas/GoogleId"
+        points:
+          type: integer
+          format: uint64
+          example: 3
+      required:
+        - id
+        - to
+        - from
+        - points
+    Team:
+      type: object
+      description: A team of freshmans
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        color:
+          type: string
+        name:
+          type: string
+        points:
+          type: integer
+          format: uint64
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/GoogleId"
+      required:
+        - id
+        - color
+        - name
+        - points
+        - members
+    CreateTeam:
+      type: object
+      properties:
+        color:
+          type: string
+        name:
+          type: string
+      required:
+        - color
+    AddWish:
+      type: object
+      properties:
+        by:
+          $ref: "#/components/schemas/GoogleId"
+        freshmans:
+          type: array
+          description: A list of 5 ids sorted by order of interest
+          items:
+            $ref: "#/components/schemas/GoogleId"
+      required:
+        - by
+        - freshmans
+    News:
+      type: string
+    Suggestion:
+      type: object
+      properties:
+        id:
+          $ref: "#/components/schemas/UUID"
+        by:
+          $ref: "#/components/schemas/GoogleId"
+        title:
+          type: string
+        content:
+          type: string
+        reviewed:
+          type: boolean
+          example: false
+      required:
+        - id
+        - by
+        - title
+        - content
+        - reviewed
+    PostSuggestion:
+      type: object
+      properties:
+        by:
+          $ref: "#/components/schemas/GoogleId"
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - by
+        - title
+        - content
+  securitySchemes:
+    std_auth:
+      type: apiKey
+      description: The auth used by freshmans
+      name: STD_SESS
+      in: cookie
+    auth:
+      type: apiKey
+      description: The auth used by students of year 2 and above
+      name: SESS
+      in: cookie
+    inte_auth:
+      type: apiKey
+      description: The auth used by inte admin members
+      name: INTE_SESS
+      in: cookie
+    admin_auth:
+      type: apiKey
+      name: ADMIN_SESS
+      in: cookie
